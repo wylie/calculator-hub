@@ -40,7 +40,7 @@ npm install
 npm run dev
 ```
 
-This will start the dev server at `http://localhost:5173`.
+This will start the dev server at `http://localhost:5173/`.
 
 ### Build
 
@@ -145,27 +145,21 @@ export default function AdSlot() {
 }
 ```
 
-## GitHub Pages Deployment
+## Deployment
 
-This project is configured to deploy to GitHub Pages at `https://yourusername.github.io/calculator-hub/`.
+This project is deployed to a custom domain at **simplecalculators.io**.
 
-### Configure
+### Configure Custom Domain
 
-1. Update [`vite.config.ts`](vite.config.ts) if needed:
-   ```typescript
-   export default defineConfig({
-     base: '/calculator-hub/',
-     ...
-   });
-   ```
-
-2. Update the repository name in the workflow file if necessary
+1. **vite.config.ts** is configured with `base: '/'` for root domain deployment
+2. **GitHub Pages** custom domain is set to `simplecalculators.io`
+3. **CloudFlare DNS** records point to GitHub Pages servers
 
 ### Deploy
 
 1. Push to GitHub
-2. Go to **Settings > Pages** and select "GitHub Actions" as the source
-3. The workflow will automatically build and deploy on push to main
+2. GitHub Actions automatically builds and deploys on push to main
+3. Site is live at **https://simplecalculators.io**
 
 See [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) for the deployment configuration.
 
