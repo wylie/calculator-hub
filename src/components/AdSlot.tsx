@@ -1,10 +1,28 @@
-export default function AdSlot() {
+import { useEffect } from 'react';
+
+interface AdSlotProps {
+  slotId?: string;
+}
+
+export default function AdSlot({ slotId = '1234567890' }: AdSlotProps) {
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.log('AdSense error:', e);
+    }
+  }, [slotId]);
+
   return (
-    <div className="rounded-lg border border-slate-300 bg-slate-100 p-6 text-center my-6">
-      <p className="text-sm font-medium text-slate-600">Ad Slot (AdSense)</p>
-      <p className="text-xs text-slate-500 mt-2">
-        Your AdSense code will be inserted here
-      </p>
+    <div className="my-6">
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-6736467803282205"
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
     </div>
   );
 }
