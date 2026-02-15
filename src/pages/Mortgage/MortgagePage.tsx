@@ -1,0 +1,196 @@
+import { useState } from 'react';
+import Card from '../../components/Card';
+import Input from '../../components/Input';
+import Select from '../../components/Select';
+import AdSlot from '../../components/AdSlot';
+import AffiliateBox from '../../components/AffiliateBox';
+import { calculateMortgage } from '../../utils/calculators';
+import { formatCurrency } from '../../utils/formatting';
+
+export default function MortgagePage() {
+  const [homePrice, setHomePrice] = useState('300000');
+  const [downPayment, setDownPayment] = useState('60000');
+  const [downPaymentIsDollar, setDownPaymentIsDollar] = useState(true);
+  const [loanTerm, setLoanTerm] = useState('30');
+  const [interestRate, setInterestRate] = useState('6.5');
+  const [propertyTax, setPropertyTax] = useState('3600');
+  const [homeInsurance, setHomeInsurance] = useState('1200');
+  const [pmi, setPmi] = useState('0');
+
+  const result = calculateMortgage({
+    homePrice: parseFloat(homePrice) || 0,
+    downPayment: parseFloat(downPayment) || 0,
+    downPaymentType: downPaymentIsDollar ? 'dollar' : 'percent',
+    loanTerm: parseFloat(loanTerm) || 0,
+    interestRate: parseFloat(interestRate) || 0,
+    propertyTax: parseFloat(propertyTax) || 0,
+    homeInsurance: parseFloat(homeInsurance) || 0,
+    pmi: parseFloat(pmi) || 0,
+  });
+
+  const handleReset = () => {
+    setHomePrice('300000');
+    setDownPayment('60000');
+    setDownPaymentIsDollar(true);
+    setLoanTerm('30');
+    setInterestRate('6.5');
+    setPropertyTax('3600');
+    setHomeInsurance('1200');
+    setPmi('0');
+  };
+
+  return (
+    <div>
+      <h2 className="text-3xl font-bold text-slate-900 mb-2">Mortgage Calculator</h2>
+      <p className="text-slate-600 mb-6">
+        Calculate your monthly mortgage payment and see the total interest paid over the life of the loan.
+      </p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <Card>
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">Loan Details</h3>
+
+            <Input
+              label="Home Price ($)"
+              value={homePrice}
+              onChange={setHomePrice}
+              type="number"
+              min="0"
+            />
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Down Payment
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={downPayment}
+                  onChange={(e) => setDownPayment(e.target.value)}
+                  min="0"
+                  className="flex-1 px-3 py-2 border border-slate-300 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  onClick={() => setDownPaymentIsDollar(!downPaymentIsDollar)}
+                  className="px-4 py-2 bg-slate-200 text-slate-700 rounded-md text-sm font-medium hover:bg-slate-300"
+                >
+                  {downPaymentIsDollar ? '$' : '%'}
+                </button>
+              </div>
+            </div>
+
+            <Select
+              label="Loan Term (years)"
+              value={loanTerm}
+              onChange={setLoanTerm}
+              options={[
+                { value: '15', label: '15 years' },
+                { value: '20', label: '20 years' },
+                { value: '30', label: '30 years' },
+              ]}
+            />
+
+            <Input
+              label="Interest Rate (APR %)"
+              value={interestRate}
+              onChange={setInterestRate}
+              type="number"
+              min="0"
+              step="0.1"
+            />
+
+            <h3 className="text-lg font-semibold text-slate-900 my-4">Optional Costs</h3>
+
+            <Input
+              label="Annual Property Tax ($)"
+              value={propertyTax}
+              onChange={setPropertyTax}
+              type="number"
+              min="0"
+            />
+
+            <Input
+              label="Annual Home Insurance ($)"
+              value={homeInsurance}
+              onChange={setHomeInsurance}
+              type="number"
+              min="0"
+            />
+
+            <Input
+              label="Monthly PMI ($)"
+              value={pmi}
+              onChange={setPmi}
+              type="number"
+              min="0"
+            />
+
+            <button
+              onClick={handleReset}
+              className="w-full mt-6 px-4 py-2 bg-slate-200 text-slate-700 rounded-md font-medium hover:bg-slate-300"
+            >
+              Reset
+            </button>
+          </Card>
+        </div>
+
+        <div>
+          <Card>
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">Results</h3>
+
+            <div className="space-y-3">
+              <div>
+                <p className="text-xs text-slate-600">Monthly P&I</p>
+                <p className="text-2xl font-bold text-blue-600">
+                  {formatCurrency(result.monthlyPI)}
+                </p>
+              </div>
+
+              <div className="border-t border-slate-200 pt-3">
+                <p className="text-xs text-slate-600">Monthly Total</p>
+                <p className="text-xl font-bold text-slate-900">
+                  {formatCurrency(result.monthlyTotal)}
+                </p>
+              </div>
+
+              <div className="border-t border-slate-200 pt-3">
+                <p className="text-xs text-slate-600">Loan Amount</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {formatCurrency(result.loanAmount)}
+                </p>
+              </div>
+
+              <div className="border-t border-slate-200 pt-3">
+                <p className="text-xs text-slate-600">Total Interest</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {formatCurrency(result.totalInterest)}
+                </p>
+              </div>
+
+              <div className="border-t border-slate-200 pt-3">
+                <p className="text-xs text-slate-600">First Month</p>
+                <p className="text-xs text-slate-700">
+                  Interest: {formatCurrency(result.firstMonthInterest)}
+                </p>
+                <p className="text-xs text-slate-700">
+                  Principal: {formatCurrency(result.firstMonthPrincipal)}
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          <AdSlot />
+        </div>
+      </div>
+
+      <AffiliateBox
+        title="Mortgage Rate Comparison"
+        description="Compare rates from multiple lenders to find the best deal for your situation."
+        buttonText="View Rates"
+        href="https://example.com/mortgage-rates"
+        iconName="compare_arrows"
+      />
+    </div>
+  );
+}
