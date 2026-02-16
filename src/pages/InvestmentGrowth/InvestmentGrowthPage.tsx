@@ -4,17 +4,21 @@ import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
 import { calculateInvestmentGrowth } from '../../utils/calculators'
 import { formatCurrency, formatPercentage } from '../../utils/formatting'
-import type { InvestmentGrowthInput } from '../../types'
 
 export default function InvestmentGrowthPage() {
-  const [input, setInput] = useState<InvestmentGrowthInput>({
+  const [input, setInput] = useState<{initialAmount: string | number; monthlyContribution: string | number; annualReturn: string | number; years: string | number}>({
     initialAmount: 10000,
     monthlyContribution: 500,
     annualReturn: 8,
     years: 20,
   })
 
-  const result = calculateInvestmentGrowth(input)
+  const result = calculateInvestmentGrowth({
+    initialAmount: Number(input.initialAmount) || 0,
+    monthlyContribution: Number(input.monthlyContribution) || 0,
+    annualReturn: Number(input.annualReturn) || 0,
+    years: Number(input.years) || 1,
+  })
 
   return (
     <div className="space-y-6">
@@ -32,7 +36,7 @@ export default function InvestmentGrowthPage() {
               label="Initial Investment ($)"
               type="number"
               value={input.initialAmount}
-              onChange={(value) => setInput({ ...input, initialAmount: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, initialAmount: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="1000"
             />
@@ -40,7 +44,7 @@ export default function InvestmentGrowthPage() {
               label="Monthly Contribution ($)"
               type="number"
               value={input.monthlyContribution}
-              onChange={(value) => setInput({ ...input, monthlyContribution: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, monthlyContribution: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="50"
             />
@@ -48,7 +52,7 @@ export default function InvestmentGrowthPage() {
               label="Expected Annual Return (%)"
               type="number"
               value={input.annualReturn}
-              onChange={(value) => setInput({ ...input, annualReturn: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, annualReturn: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.5"
             />
@@ -56,7 +60,7 @@ export default function InvestmentGrowthPage() {
               label="Time Period (Years)"
               type="number"
               value={input.years}
-              onChange={(value) => setInput({ ...input, years: parseInt(value) || 0 })}
+              onChange={(value) => setInput({ ...input, years: value === '' ? '' : parseInt(value) })}
               min="1"
               step="1"
             />
@@ -70,7 +74,7 @@ export default function InvestmentGrowthPage() {
             <div>
               <p className="text-sm text-gray-600">Total Invested</p>
               <p className="text-lg font-semibold text-gray-900">
-                {formatCurrency(input.initialAmount + input.monthlyContribution * 12 * input.years)}
+                {formatCurrency((Number(input.initialAmount) || 0) + (Number(input.monthlyContribution) || 0) * 12 * (Number(input.years) || 0))}
               </p>
             </div>
             <div className="bg-white p-3 rounded border border-indigo-200">

@@ -5,10 +5,9 @@ import Select from '../../components/Select'
 import AdSlot from '../../components/AdSlot'
 import { calculateAutoLoan } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
-import type { AutoLoanInput } from '../../types'
 
 export default function AutoLoanPage() {
-  const [input, setInput] = useState<AutoLoanInput>({
+  const [input, setInput] = useState<{carPrice: string | number; downPayment: string | number; downPaymentType: 'percent' | 'dollar'; loanTerm: string | number; interestRate: string | number}>({
     carPrice: 30000,
     downPayment: 10,
     downPaymentType: 'percent',
@@ -16,7 +15,13 @@ export default function AutoLoanPage() {
     interestRate: 5,
   })
 
-  const result = calculateAutoLoan(input)
+  const result = calculateAutoLoan({
+    carPrice: Number(input.carPrice) || 0,
+    downPayment: Number(input.downPayment) || 0,
+    downPaymentType: input.downPaymentType,
+    loanTerm: Number(input.loanTerm) || 0,
+    interestRate: Number(input.interestRate) || 0,
+  })
 
   return (
     <div className="space-y-6">
@@ -34,7 +39,7 @@ export default function AutoLoanPage() {
               label="Car Price ($)"
               type="number"
               value={input.carPrice}
-              onChange={(value) => setInput({ ...input, carPrice: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, carPrice: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="1000"
             />
@@ -54,7 +59,7 @@ export default function AutoLoanPage() {
               label={input.downPaymentType === 'percent' ? 'Down Payment (%)' : 'Down Payment ($)'}
               type="number"
               value={input.downPayment}
-              onChange={(value) => setInput({ ...input, downPayment: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, downPayment: value === '' ? '' : parseFloat(value) })}
               min="0"
               step={input.downPaymentType === 'percent' ? '1' : '100'}
             />
@@ -62,7 +67,7 @@ export default function AutoLoanPage() {
               label="Loan Term (Years)"
               type="number"
               value={input.loanTerm}
-              onChange={(value) => setInput({ ...input, loanTerm: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, loanTerm: value === '' ? '' : parseFloat(value) })}
               min="1"
               max="10"
               step="1"
@@ -71,7 +76,7 @@ export default function AutoLoanPage() {
               label="Interest Rate (% Annual)"
               type="number"
               value={input.interestRate}
-              onChange={(value) => setInput({ ...input, interestRate: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, interestRate: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />

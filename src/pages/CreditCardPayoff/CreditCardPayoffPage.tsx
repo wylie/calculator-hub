@@ -4,16 +4,19 @@ import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
 import { calculateCreditCardPayoff } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
-import type { CreditCardPayoffInput } from '../../types'
 
 export default function CreditCardPayoffPage() {
-  const [input, setInput] = useState<CreditCardPayoffInput>({
+  const [input, setInput] = useState<{balance: string | number; aprRate: string | number; monthlyPayment: string | number}>({
     balance: 5000,
     aprRate: 18,
     monthlyPayment: 200,
   })
 
-  const result = calculateCreditCardPayoff(input)
+  const result = calculateCreditCardPayoff({
+    balance: Number(input.balance) || 0,
+    aprRate: Number(input.aprRate) || 0,
+    monthlyPayment: Number(input.monthlyPayment) || 0,
+  })
 
   return (
     <div className="space-y-6">
@@ -31,7 +34,7 @@ export default function CreditCardPayoffPage() {
               label="Current Balance ($)"
               type="number"
               value={input.balance}
-              onChange={(value) => setInput({ ...input, balance: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, balance: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="100"
             />
@@ -39,7 +42,7 @@ export default function CreditCardPayoffPage() {
               label="APR Interest Rate (%)"
               type="number"
               value={input.aprRate}
-              onChange={(value) => setInput({ ...input, aprRate: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, aprRate: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />
@@ -47,7 +50,7 @@ export default function CreditCardPayoffPage() {
               label="Monthly Payment ($)"
               type="number"
               value={input.monthlyPayment}
-              onChange={(value) => setInput({ ...input, monthlyPayment: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, monthlyPayment: value === '' ? '' : parseFloat(value) })}
               min="1"
               step="10"
             />

@@ -5,17 +5,21 @@ import Select from '../../components/Select'
 import AdSlot from '../../components/AdSlot'
 import { calculateCompoundInterest } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
-import type { CompoundInterestInput } from '../../types'
 
 export default function CompoundInterestPage() {
-  const [input, setInput] = useState<CompoundInterestInput>({
+  const [input, setInput] = useState<{principal: string | number; rate: string | number; time: string | number; compounding: string | number}>({
     principal: 10000,
     rate: 5,
     time: 10,
     compounding: 12,
   })
 
-  const result = calculateCompoundInterest(input)
+  const result = calculateCompoundInterest({
+    principal: Number(input.principal) || 0,
+    rate: Number(input.rate) || 0,
+    time: Number(input.time) || 0,
+    compounding: parseInt(input.compounding as any) || 12,
+  })
 
   const compoundingOptions = [
     { value: 1, label: 'Annually' },
@@ -41,7 +45,7 @@ export default function CompoundInterestPage() {
               label="Principal Amount ($)"
               type="number"
               value={input.principal}
-              onChange={(value) => setInput({ ...input, principal: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, principal: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="100"
             />
@@ -49,7 +53,7 @@ export default function CompoundInterestPage() {
               label="Annual Interest Rate (%)"
               type="number"
               value={input.rate}
-              onChange={(value) => setInput({ ...input, rate: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, rate: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />
@@ -57,7 +61,7 @@ export default function CompoundInterestPage() {
               label="Time Period (Years)"
               type="number"
               value={input.time}
-              onChange={(value) => setInput({ ...input, time: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, time: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />

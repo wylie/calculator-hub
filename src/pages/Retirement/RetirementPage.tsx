@@ -4,10 +4,9 @@ import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
 import { calculateRetirement } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
-import type { RetirementInput } from '../../types'
 
 export default function RetirementPage() {
-  const [input, setInput] = useState<RetirementInput>({
+  const [input, setInput] = useState<{currentAge: string | number; retirementAge: string | number; currentSavings: string | number; annualContribution: string | number; annualExpense: string | number; annualReturn: string | number; inflationRate: string | number}>({
     currentAge: 35,
     retirementAge: 65,
     currentSavings: 100000,
@@ -17,7 +16,15 @@ export default function RetirementPage() {
     inflationRate: 3,
   })
 
-  const result = calculateRetirement(input)
+  const result = calculateRetirement({
+    currentAge: Number(input.currentAge) || 30,
+    retirementAge: Number(input.retirementAge) || 65,
+    currentSavings: Number(input.currentSavings) || 0,
+    annualContribution: Number(input.annualContribution) || 0,
+    annualExpense: Number(input.annualExpense) || 0,
+    annualReturn: Number(input.annualReturn) || 7,
+    inflationRate: Number(input.inflationRate) || 3,
+  })
 
   return (
     <div className="space-y-6">
@@ -35,7 +42,7 @@ export default function RetirementPage() {
               label="Current Age"
               type="number"
               value={input.currentAge}
-              onChange={(value) => setInput({ ...input, currentAge: parseInt(value) || 0 })}
+              onChange={(value) => setInput({ ...input, currentAge: value === '' ? '' : parseInt(value) })}
               min="18"
               max="100"
               step="1"
@@ -44,7 +51,7 @@ export default function RetirementPage() {
               label="Retirement Age"
               type="number"
               value={input.retirementAge}
-              onChange={(value) => setInput({ ...input, retirementAge: parseInt(value) || 0 })}
+              onChange={(value) => setInput({ ...input, retirementAge: value === '' ? '' : parseInt(value) })}
               min="18"
               max="100"
               step="1"
@@ -53,7 +60,7 @@ export default function RetirementPage() {
               label="Current Savings ($)"
               type="number"
               value={input.currentSavings}
-              onChange={(value) => setInput({ ...input, currentSavings: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, currentSavings: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="10000"
             />
@@ -61,7 +68,7 @@ export default function RetirementPage() {
               label="Annual Contribution ($)"
               type="number"
               value={input.annualContribution}
-              onChange={(value) => setInput({ ...input, annualContribution: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, annualContribution: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="1000"
             />
@@ -69,7 +76,7 @@ export default function RetirementPage() {
               label="Annual Expenses ($)"
               type="number"
               value={input.annualExpense}
-              onChange={(value) => setInput({ ...input, annualExpense: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, annualExpense: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="1000"
             />
@@ -77,7 +84,7 @@ export default function RetirementPage() {
               label="Expected Annual Return (%)"
               type="number"
               value={input.annualReturn}
-              onChange={(value) => setInput({ ...input, annualReturn: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, annualReturn: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.5"
             />
@@ -85,7 +92,7 @@ export default function RetirementPage() {
               label="Expected Inflation Rate (%)"
               type="number"
               value={input.inflationRate}
-              onChange={(value) => setInput({ ...input, inflationRate: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, inflationRate: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.5"
             />

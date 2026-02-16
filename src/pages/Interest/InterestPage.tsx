@@ -4,16 +4,19 @@ import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
 import { calculateSimpleInterest } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
-import type { InterestInput } from '../../types'
 
 export default function InterestPage() {
-  const [input, setInput] = useState<InterestInput>({
+  const [input, setInput] = useState<{principal: string | number; rate: string | number; time: string | number}>({
     principal: 10000,
     rate: 5,
     time: 2,
   })
 
-  const result = calculateSimpleInterest(input)
+  const result = calculateSimpleInterest({
+    principal: Number(input.principal) || 0,
+    rate: Number(input.rate) || 0,
+    time: Number(input.time) || 0,
+  })
 
   return (
     <div className="space-y-6">
@@ -31,7 +34,7 @@ export default function InterestPage() {
               label="Principal Amount ($)"
               type="number"
               value={input.principal}
-              onChange={(value) => setInput({ ...input, principal: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, principal: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="100"
             />
@@ -39,7 +42,7 @@ export default function InterestPage() {
               label="Annual Interest Rate (%)"
               type="number"
               value={input.rate}
-              onChange={(value) => setInput({ ...input, rate: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, rate: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />
@@ -47,7 +50,7 @@ export default function InterestPage() {
               label="Time Period (Years)"
               type="number"
               value={input.time}
-              onChange={(value) => setInput({ ...input, time: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, time: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />
@@ -74,7 +77,7 @@ export default function InterestPage() {
         <h2 className="text-lg font-semibold mb-3">Formula</h2>
         <p className="text-gray-600 mb-2">Simple Interest = Principal × Rate × Time ÷ 100</p>
         <p className="text-sm text-gray-500">
-          For example: {formatCurrency(input.principal)} × {input.rate}% × {input.time} years = {formatCurrency(result.interest)} in interest
+          For example: {formatCurrency(Number(input.principal) || 0)} × {Number(input.rate) || 0}% × {Number(input.time) || 0} years = {formatCurrency(result.interest)} in interest
         </p>
       </Card>
 

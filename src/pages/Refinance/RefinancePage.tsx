@@ -4,10 +4,9 @@ import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
 import { calculateRefinance } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
-import type { RefinanceInput } from '../../types'
 
 export default function RefinancePage() {
-  const [input, setInput] = useState<RefinanceInput>({
+  const [input, setInput] = useState<{remainingBalance: string | number; currentRate: string | number; newRate: string | number; originalTerm: string | number; yearsElapsed: string | number; newTerm: string | number; refinanceCost: string | number}>({
     remainingBalance: 250000,
     currentRate: 6,
     newRate: 4,
@@ -17,7 +16,15 @@ export default function RefinancePage() {
     refinanceCost: 3000,
   })
 
-  const result = calculateRefinance(input)
+  const result = calculateRefinance({
+    remainingBalance: Number(input.remainingBalance) || 0,
+    currentRate: Number(input.currentRate) || 0,
+    newRate: Number(input.newRate) || 0,
+    originalTerm: Number(input.originalTerm) || 30,
+    yearsElapsed: Number(input.yearsElapsed) || 0,
+    newTerm: Number(input.newTerm) || 30,
+    refinanceCost: Number(input.refinanceCost) || 0,
+  })
 
   return (
     <div className="space-y-6">
@@ -35,7 +42,7 @@ export default function RefinancePage() {
               label="Remaining Balance ($)"
               type="number"
               value={input.remainingBalance}
-              onChange={(value) => setInput({ ...input, remainingBalance: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, remainingBalance: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="10000"
             />
@@ -43,7 +50,7 @@ export default function RefinancePage() {
               label="Current Interest Rate (%)"
               type="number"
               value={input.currentRate}
-              onChange={(value) => setInput({ ...input, currentRate: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, currentRate: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />
@@ -51,7 +58,7 @@ export default function RefinancePage() {
               label="Original Loan Term (Years)"
               type="number"
               value={input.originalTerm}
-              onChange={(value) => setInput({ ...input, originalTerm: parseInt(value) || 0 })}
+              onChange={(value) => setInput({ ...input, originalTerm: value === '' ? '' : parseInt(value) })}
               min="1"
               step="1"
             />
@@ -59,7 +66,7 @@ export default function RefinancePage() {
               label="Years Already Paid"
               type="number"
               value={input.yearsElapsed}
-              onChange={(value) => setInput({ ...input, yearsElapsed: parseInt(value) || 0 })}
+              onChange={(value) => setInput({ ...input, yearsElapsed: value === '' ? '' : parseInt(value) })}
               min="0"
               step="1"
             />
@@ -71,7 +78,7 @@ export default function RefinancePage() {
               label="New Interest Rate (%)"
               type="number"
               value={input.newRate}
-              onChange={(value) => setInput({ ...input, newRate: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, newRate: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />
@@ -79,15 +86,15 @@ export default function RefinancePage() {
               label="New Loan Term (Years)"
               type="number"
               value={input.newTerm}
-              onChange={(value) => setInput({ ...input, newTerm: parseInt(value) || 0 })}
+              onChange={(value) => setInput({ ...input, newTerm: value === '' ? '' : parseInt(value) })}
               min="1"
               step="1"
             />
             <Input
               label="Refinance Costs ($)"
               type="number"
-              value={input.refinanceCost ?? 0}
-              onChange={(value) => setInput({ ...input, refinanceCost: parseFloat(value) || 0 })}
+              value={input.refinanceCost}
+              onChange={(value) => setInput({ ...input, refinanceCost: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="100"
             />

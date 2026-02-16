@@ -4,17 +4,21 @@ import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
 import { calculateDownPayment } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
-import type { DownPaymentInput } from '../../types'
 
 export default function DownPaymentPage() {
-  const [input, setInput] = useState<DownPaymentInput>({
+  const [input, setInput] = useState<{price: string | number; percentageDown: string | number; interestRate: string | number; loanTerm: string | number}>({
     price: 500000,
     percentageDown: 20,
     interestRate: 5,
     loanTerm: 30,
   })
 
-  const result = calculateDownPayment(input)
+  const result = calculateDownPayment({
+    price: Number(input.price) || 0,
+    percentageDown: Number(input.percentageDown) || 0,
+    interestRate: Number(input.interestRate) || 0,
+    loanTerm: Number(input.loanTerm) || 30,
+  })
 
   return (
     <div className="space-y-6">
@@ -32,7 +36,7 @@ export default function DownPaymentPage() {
               label="Total Price ($)"
               type="number"
               value={input.price}
-              onChange={(value) => setInput({ ...input, price: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, price: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="10000"
             />
@@ -40,7 +44,7 @@ export default function DownPaymentPage() {
               label="Down Payment (%)"
               type="number"
               value={input.percentageDown}
-              onChange={(value) => setInput({ ...input, percentageDown: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, percentageDown: value === '' ? '' : parseFloat(value) })}
               min="0"
               max="100"
               step="0.1"
@@ -49,7 +53,7 @@ export default function DownPaymentPage() {
               label="Interest Rate (% Annual)"
               type="number"
               value={input.interestRate}
-              onChange={(value) => setInput({ ...input, interestRate: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, interestRate: value === '' ? '' : parseFloat(value) })}
               min="0"
               step="0.1"
             />
@@ -57,7 +61,7 @@ export default function DownPaymentPage() {
               label="Loan Term (Years)"
               type="number"
               value={input.loanTerm}
-              onChange={(value) => setInput({ ...input, loanTerm: parseFloat(value) || 0 })}
+              onChange={(value) => setInput({ ...input, loanTerm: value === '' ? '' : parseFloat(value) })}
               min="1"
               step="1"
             />
