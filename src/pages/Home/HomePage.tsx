@@ -17,6 +17,54 @@ export default function HomePage() {
       icon: 'wallet',
     },
     {
+      path: '/interest',
+      title: 'Interest Calculator',
+      description: 'Calculate simple interest on your principal amount.',
+      icon: 'percent',
+    },
+    {
+      path: '/compound-interest',
+      title: 'Compound Interest Calculator',
+      description: 'Watch your money grow with compound interest over time.',
+      icon: 'trending_up',
+    },
+    {
+      path: '/auto-loan',
+      title: 'Auto Loan Calculator',
+      description: 'Calculate car payment and total interest costs.',
+      icon: 'directions_car',
+    },
+    {
+      path: '/credit-card-payoff',
+      title: 'Credit Card Payoff',
+      description: 'Find how long to pay off credit card debt.',
+      icon: 'credit_card',
+    },
+    {
+      path: '/retirement',
+      title: 'Retirement Calculator',
+      description: 'Plan your retirement and check if you\'re on track.',
+      icon: 'savings',
+    },
+    {
+      path: '/investment-growth',
+      title: 'Investment Growth',
+      description: 'Project your investment growth with regular contributions.',
+      icon: 'show_chart',
+    },
+    {
+      path: '/refinance',
+      title: 'Refinance Calculator',
+      description: 'Calculate savings from refinancing your loan.',
+      icon: 'gavel',
+    },
+    {
+      path: '/down-payment',
+      title: 'Down Payment Calculator',
+      description: 'Calculate down payment and monthly payment estimates.',
+      icon: 'attach_money',
+    },
+    {
       path: '/weather',
       title: 'Weather Converter',
       description: 'Convert temperatures between Celsius and Fahrenheit instantly.',
@@ -33,6 +81,12 @@ export default function HomePage() {
       title: 'Bike Gear Calculator',
       description: 'Compute gear inches and speed estimates for your bike setup.',
       icon: 'two_wheeler',
+    },
+    {
+      path: '/net-worth',
+      title: 'Net Worth Calculator',
+      description: 'Track your assets and liabilities to calculate your net worth.',
+      icon: 'account_balance',
     },
   ];
 

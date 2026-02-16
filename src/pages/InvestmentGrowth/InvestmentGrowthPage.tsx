@@ -1,0 +1,102 @@
+import { useState } from 'react'
+import Card from '../../components/Card'
+import Input from '../../components/Input'
+import AdSlot from '../../components/AdSlot'
+import { calculateInvestmentGrowth } from '../../utils/calculators'
+import { formatCurrency, formatPercentage } from '../../utils/formatting'
+import type { InvestmentGrowthInput } from '../../types'
+
+export default function InvestmentGrowthPage() {
+  const [input, setInput] = useState<InvestmentGrowthInput>({
+    initialAmount: 10000,
+    monthlyContribution: 500,
+    annualReturn: 8,
+    years: 20,
+  })
+
+  const result = calculateInvestmentGrowth(input)
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Investment Growth Calculator</h1>
+        <p className="text-gray-600">Project your investment growth with regular contributions</p>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Inputs */}
+        <Card>
+          <h2 className="text-xl font-semibold mb-4">Enter Details</h2>
+          <div className="space-y-4">
+            <Input
+              label="Initial Investment ($)"
+              type="number"
+              value={input.initialAmount}
+              onChange={(value) => setInput({ ...input, initialAmount: parseFloat(value) || 0 })}
+              min="0"
+              step="1000"
+            />
+            <Input
+              label="Monthly Contribution ($)"
+              type="number"
+              value={input.monthlyContribution}
+              onChange={(value) => setInput({ ...input, monthlyContribution: parseFloat(value) || 0 })}
+              min="0"
+              step="50"
+            />
+            <Input
+              label="Expected Annual Return (%)"
+              type="number"
+              value={input.annualReturn}
+              onChange={(value) => setInput({ ...input, annualReturn: parseFloat(value) || 0 })}
+              min="0"
+              step="0.5"
+            />
+            <Input
+              label="Time Period (Years)"
+              type="number"
+              value={input.years}
+              onChange={(value) => setInput({ ...input, years: parseInt(value) || 0 })}
+              min="1"
+              step="1"
+            />
+          </div>
+        </Card>
+
+        {/* Results */}
+        <Card className="bg-indigo-50">
+          <h2 className="text-xl font-semibold mb-4 text-indigo-900">Results</h2>
+          <div className="space-y-3">
+            <div>
+              <p className="text-sm text-gray-600">Total Invested</p>
+              <p className="text-lg font-semibold text-gray-900">
+                {formatCurrency(input.initialAmount + input.monthlyContribution * 12 * input.years)}
+              </p>
+            </div>
+            <div className="bg-white p-3 rounded border border-indigo-200">
+              <p className="text-sm text-gray-600">Final Amount</p>
+              <p className="text-2xl font-bold text-indigo-600">{formatCurrency(result.finalAmount)}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Investment Gain</p>
+              <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.gain)}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Return on Investment</p>
+              <p className="text-lg font-semibold text-indigo-600">{formatPercentage(result.roi)}</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">How It Works</h2>
+        <p className="text-gray-600 text-sm">
+          This calculator shows the power of compound interest combined with regular monthly contributions. Your money grows not just from returns on your initial investment, but also from returns on your contributions and accumulated gains.
+        </p>
+      </Card>
+
+      <AdSlot />
+    </div>
+  )
+}
