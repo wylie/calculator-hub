@@ -12,7 +12,15 @@ export default function ContactPage() {
 
       <Card>
         <h2 className="text-lg font-semibold text-slate-900 mb-3">Email</h2>
-        <p className="text-sm text-slate-600">Reach us at: hello@simplecalculators.io</p>
+        <p className="text-sm text-slate-600">
+          Reach us at:{' '}
+          <a
+            href="mailto:hello@simplecalculators.io"
+            className="text-blue-600 hover:text-blue-700 underline"
+          >
+            hello@simplecalculators.io
+          </a>
+        </p>
       </Card>
     </div>
   );
