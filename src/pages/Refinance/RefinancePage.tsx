@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
@@ -6,7 +6,9 @@ import { calculateRefinance } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function RefinancePage() {
-  const [input, setInput] = useState<{remainingBalance: string | number; currentRate: string | number; newRate: string | number; originalTerm: string | number; yearsElapsed: string | number; newTerm: string | number; refinanceCost: string | number}>({
+  const [input, setInput] = useStickyState<{remainingBalance: string | number; currentRate: string | number; newRate: string | number; originalTerm: string | number; yearsElapsed: string | number; newTerm: string | number; refinanceCost: string | number}>(
+    'refinance-input',
+    {
     remainingBalance: 250000,
     currentRate: 6,
     newRate: 4,
@@ -14,7 +16,8 @@ export default function RefinancePage() {
     yearsElapsed: 5,
     newTerm: 25,
     refinanceCost: 3000,
-  })
+    }
+  )
 
   const result = calculateRefinance({
     remainingBalance: Number(input.remainingBalance) || 0,

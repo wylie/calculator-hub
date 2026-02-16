@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import Select from '../../components/Select'
@@ -7,13 +7,16 @@ import { calculateAutoLoan } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function AutoLoanPage() {
-  const [input, setInput] = useState<{carPrice: string | number; downPayment: string | number; downPaymentType: 'percent' | 'dollar'; loanTerm: string | number; interestRate: string | number}>({
+  const [input, setInput] = useStickyState<{carPrice: string | number; downPayment: string | number; downPaymentType: 'percent' | 'dollar'; loanTerm: string | number; interestRate: string | number}>(
+    'auto-loan-input',
+    {
     carPrice: 30000,
     downPayment: 10,
     downPaymentType: 'percent',
     loanTerm: 5,
     interestRate: 5,
-  })
+    }
+  )
 
   const result = calculateAutoLoan({
     carPrice: Number(input.carPrice) || 0,

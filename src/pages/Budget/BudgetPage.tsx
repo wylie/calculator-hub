@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
@@ -12,8 +12,8 @@ interface ExpenseItem {
 }
 
 export default function BudgetPage() {
-  const [income, setIncome] = useState('5000');
-  const [expenses, setExpenses] = useState<ExpenseItem[]>([
+  const [income, setIncome] = useStickyState('budget-income', '5000');
+  const [expenses, setExpenses] = useStickyState<ExpenseItem[]>('budget-expenses', [
     { id: '1', name: 'Rent', amount: 1500 },
     { id: '2', name: 'Utilities', amount: 200 },
     { id: '3', name: 'Groceries', amount: 600 },

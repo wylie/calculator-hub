@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
@@ -6,12 +6,15 @@ import { calculateInvestmentGrowth } from '../../utils/calculators'
 import { formatCurrency, formatPercentage } from '../../utils/formatting'
 
 export default function InvestmentGrowthPage() {
-  const [input, setInput] = useState<{initialAmount: string | number; monthlyContribution: string | number; annualReturn: string | number; years: string | number}>({
+  const [input, setInput] = useStickyState<{initialAmount: string | number; monthlyContribution: string | number; annualReturn: string | number; years: string | number}>(
+    'investment-growth-input',
+    {
     initialAmount: 10000,
     monthlyContribution: 500,
     annualReturn: 8,
     years: 20,
-  })
+    }
+  )
 
   const result = calculateInvestmentGrowth({
     initialAmount: Number(input.initialAmount) || 0,

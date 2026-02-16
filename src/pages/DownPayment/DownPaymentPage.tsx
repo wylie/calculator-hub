@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
@@ -6,12 +6,15 @@ import { calculateDownPayment } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function DownPaymentPage() {
-  const [input, setInput] = useState<{price: string | number; percentageDown: string | number; interestRate: string | number; loanTerm: string | number}>({
+  const [input, setInput] = useStickyState<{price: string | number; percentageDown: string | number; interestRate: string | number; loanTerm: string | number}>(
+    'down-payment-input',
+    {
     price: 500000,
     percentageDown: 20,
     interestRate: 5,
     loanTerm: 30,
-  })
+    }
+  )
 
   const result = calculateDownPayment({
     price: Number(input.price) || 0,

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
@@ -7,12 +7,12 @@ import AffiliateBox from '../../components/AffiliateBox';
 import { calculateCalories } from '../../utils/calculators';
 
 export default function CaloriesPage() {
-  const [sex, setSex] = useState<'male' | 'female'>('male');
-  const [age, setAge] = useState('30');
-  const [heightCm, setHeightCm] = useState('178');
-  const [weightKg, setWeightKg] = useState('80');
-  const [activityLevel, setActivityLevel] = useState<'sedentary' | 'light' | 'moderate' | 'very' | 'athlete'>('moderate');
-  const [goal, setGoal] = useState<'maintain' | 'lose' | 'gain'>('maintain');
+  const [sex, setSex] = useStickyState<'male' | 'female'>('calories-sex', 'male');
+  const [age, setAge] = useStickyState('calories-age', '30');
+  const [heightCm, setHeightCm] = useStickyState('calories-height', '178');
+  const [weightKg, setWeightKg] = useStickyState('calories-weight', '80');
+  const [activityLevel, setActivityLevel] = useStickyState<'sedentary' | 'light' | 'moderate' | 'very' | 'athlete'>('calories-activity', 'moderate');
+  const [goal, setGoal] = useStickyState<'maintain' | 'lose' | 'gain'>('calories-goal', 'maintain');
 
   const result = calculateCalories({
     sex,

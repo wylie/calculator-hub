@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
@@ -6,7 +6,9 @@ import { calculateRetirement } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function RetirementPage() {
-  const [input, setInput] = useState<{currentAge: string | number; retirementAge: string | number; currentSavings: string | number; annualContribution: string | number; annualExpense: string | number; annualReturn: string | number; inflationRate: string | number}>({
+  const [input, setInput] = useStickyState<{currentAge: string | number; retirementAge: string | number; currentSavings: string | number; annualContribution: string | number; annualExpense: string | number; annualReturn: string | number; inflationRate: string | number}>(
+    'retirement-input',
+    {
     currentAge: 35,
     retirementAge: 65,
     currentSavings: 100000,
@@ -14,7 +16,8 @@ export default function RetirementPage() {
     annualExpense: 50000,
     annualReturn: 7,
     inflationRate: 3,
-  })
+    }
+  )
 
   const result = calculateRetirement({
     currentAge: Number(input.currentAge) || 30,

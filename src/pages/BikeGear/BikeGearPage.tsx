@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
@@ -7,10 +7,10 @@ import AffiliateBox from '../../components/AffiliateBox';
 import { calculateBikeGear, calculateBikeGearCombos } from '../../utils/calculators';
 
 export default function BikeGearPage() {
-  const [chainring, setChainring] = useState('32');
-  const [cog, setCog] = useState('28');
-  const [wheelDiameter, setWheelDiameter] = useState('29');
-  const [cadence, setCadence] = useState('80');
+  const [chainring, setChainring] = useStickyState('bike-gear-chainring', '32');
+  const [cog, setCog] = useStickyState('bike-gear-cog', '28');
+  const [wheelDiameter, setWheelDiameter] = useStickyState('bike-gear-wheel', '29');
+  const [cadence, setCadence] = useStickyState('bike-gear-cadence', '80');
 
   const result = calculateBikeGear({
     chainring: parseFloat(chainring) || 0,

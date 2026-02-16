@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
@@ -8,14 +8,14 @@ import { calculateMortgage } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
 
 export default function MortgagePage() {
-  const [homePrice, setHomePrice] = useState('300000');
-  const [downPayment, setDownPayment] = useState('60000');
-  const [downPaymentIsDollar, setDownPaymentIsDollar] = useState(true);
-  const [loanTerm, setLoanTerm] = useState('30');
-  const [interestRate, setInterestRate] = useState('6.5');
-  const [propertyTax, setPropertyTax] = useState('3600');
-  const [homeInsurance, setHomeInsurance] = useState('1200');
-  const [pmi, setPmi] = useState('0');
+  const [homePrice, setHomePrice] = useStickyState('mortgage-home-price', '300000');
+  const [downPayment, setDownPayment] = useStickyState('mortgage-down-payment', '60000');
+  const [downPaymentIsDollar, setDownPaymentIsDollar] = useStickyState('mortgage-down-payment-dollar', true);
+  const [loanTerm, setLoanTerm] = useStickyState('mortgage-loan-term', '30');
+  const [interestRate, setInterestRate] = useStickyState('mortgage-interest-rate', '6.5');
+  const [propertyTax, setPropertyTax] = useStickyState('mortgage-property-tax', '3600');
+  const [homeInsurance, setHomeInsurance] = useStickyState('mortgage-home-insurance', '1200');
+  const [pmi, setPmi] = useStickyState('mortgage-pmi', '0');
 
   const result = calculateMortgage({
     homePrice: parseFloat(homePrice) || 0,

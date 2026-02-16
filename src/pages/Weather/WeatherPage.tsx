@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
@@ -7,8 +7,8 @@ import { convertTemperature } from '../../utils/calculators';
 import { formatNumber } from '../../utils/formatting';
 
 export default function WeatherPage() {
-  const [value, setValue] = useState('20');
-  const [fromUnit, setFromUnit] = useState<'C' | 'F'>('C');
+  const [value, setValue] = useStickyState('weather-value', '20');
+  const [fromUnit, setFromUnit] = useStickyState<'C' | 'F'>('weather-from-unit', 'C');
 
   const result = convertTemperature({
     value: parseFloat(value) || 0,

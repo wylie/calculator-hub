@@ -20,10 +20,14 @@
       crossorigin="anonymous"></script>
     <script>
       (function () {
-        var redirect = sessionStorage.getItem('redirect');
+        var params = new URLSearchParams(window.location.search);
+        var redirect = params.get('redirect');
         if (redirect) {
-          sessionStorage.removeItem('redirect');
-          history.replaceState(null, '', redirect);
+          params.delete('redirect');
+          var newPath = decodeURIComponent(redirect);
+          var newSearch = params.toString();
+          var newUrl = newPath + (newSearch ? ('?' + newSearch) : '') + window.location.hash;
+          history.replaceState(null, '', newUrl);
         }
       })();
     </script>

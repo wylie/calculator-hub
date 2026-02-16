@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import AdSlot from '../../components/AdSlot'
 import { calculateNetWorth } from '../../utils/calculators'
@@ -19,14 +19,14 @@ interface LiabilityItem {
 const generateId = () => Math.random().toString(36).substring(2, 11)
 
 export default function NetWorthPage() {
-  const [assets, setAssets] = useState<AssetItem[]>([
+  const [assets, setAssets] = useStickyState<AssetItem[]>('net-worth-assets', [
     { id: generateId(), name: 'Checking Account', value: 5000 },
     { id: generateId(), name: 'Savings Account', value: 25000 },
     { id: generateId(), name: 'Home Value', value: 500000 },
     { id: generateId(), name: 'Investments', value: 100000 },
   ])
 
-  const [liabilities, setLiabilities] = useState<LiabilityItem[]>([
+  const [liabilities, setLiabilities] = useStickyState<LiabilityItem[]>('net-worth-liabilities', [
     { id: generateId(), name: 'Mortgage', value: 300000 },
     { id: generateId(), name: 'Car Loan', value: 25000 },
     { id: generateId(), name: 'Credit Cards', value: 5000 },

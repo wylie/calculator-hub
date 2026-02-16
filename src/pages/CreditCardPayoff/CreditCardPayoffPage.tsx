@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
@@ -6,11 +6,14 @@ import { calculateCreditCardPayoff } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function CreditCardPayoffPage() {
-  const [input, setInput] = useState<{balance: string | number; aprRate: string | number; monthlyPayment: string | number}>({
+  const [input, setInput] = useStickyState<{balance: string | number; aprRate: string | number; monthlyPayment: string | number}>(
+    'credit-card-payoff-input',
+    {
     balance: 5000,
     aprRate: 18,
     monthlyPayment: 200,
-  })
+    }
+  )
 
   const result = calculateCreditCardPayoff({
     balance: Number(input.balance) || 0,

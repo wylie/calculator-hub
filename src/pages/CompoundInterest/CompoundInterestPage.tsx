@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import Select from '../../components/Select'
@@ -7,12 +7,15 @@ import { calculateCompoundInterest } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function CompoundInterestPage() {
-  const [input, setInput] = useState<{principal: string | number; rate: string | number; time: string | number; compounding: string | number}>({
+  const [input, setInput] = useStickyState<{principal: string | number; rate: string | number; time: string | number; compounding: string | number}>(
+    'compound-interest-input',
+    {
     principal: 10000,
     rate: 5,
     time: 10,
     compounding: 12,
-  })
+    }
+  )
 
   const result = calculateCompoundInterest({
     principal: Number(input.principal) || 0,

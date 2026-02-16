@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
@@ -6,11 +6,14 @@ import { calculateSimpleInterest } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function InterestPage() {
-  const [input, setInput] = useState<{principal: string | number; rate: string | number; time: string | number}>({
+  const [input, setInput] = useStickyState<{principal: string | number; rate: string | number; time: string | number}>(
+    'interest-input',
+    {
     principal: 10000,
     rate: 5,
     time: 2,
-  })
+    }
+  )
 
   const result = calculateSimpleInterest({
     principal: Number(input.principal) || 0,
