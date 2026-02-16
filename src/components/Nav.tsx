@@ -60,7 +60,7 @@ export default function Nav() {
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-between">
           <Link to="/" className="text-2xl font-bold text-slate-900 hover:text-blue-600">
-            Calculator Hub
+            Simple Calculators
           </Link>
           <ul className="flex flex-wrap gap-0 text-sm items-center">
             <li>

@@ -1,4 +1,4 @@
-# Calculator Hub
+# Simple Calculators
 
 A clean, responsive multi-calculator web app featuring mortgage, budget, weather, calorie, and bike gear calculators. Built with React, TypeScript, Vite, and Tailwind CSS.
 

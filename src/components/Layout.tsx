@@ -18,7 +18,7 @@ export default function Layout({ children }: LayoutProps) {
             financial or medical advice. Please consult with a qualified professional for
             personalized guidance.
           </p>
-          <p>Calculator Hub 2026. All rights reserved.</p>
+          <p>Simple Calculators 2026. All rights reserved.</p>
         </div>
       </footer>
     </div>

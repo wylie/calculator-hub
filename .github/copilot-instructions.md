@@ -18,7 +18,7 @@
 
 ## Project Summary
 
-**Calculator Hub** is a clean, responsive multi-calculator web app built with React, TypeScript, Vite, and Tailwind CSS. It includes 5 fully functional calculators:
+**Simple Calculators** is a clean, responsive multi-calculator web app built with React, TypeScript, Vite, and Tailwind CSS. It includes 5 fully functional calculators:
 
 1. **Mortgage Calculator** - Calculate monthly payments, total interest, and amortization details
 2. **Budget Calculator** - Track monthly income and expenses with dynamic categories
