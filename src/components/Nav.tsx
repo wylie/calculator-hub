@@ -58,11 +58,11 @@ export default function Nav() {
   return (
     <nav className="bg-white border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4 py-4">
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-between">
           <Link to="/" className="text-2xl font-bold text-slate-900 hover:text-blue-600">
             Calculator Hub
           </Link>
-          <ul className="flex flex-wrap gap-1 text-sm">
+          <ul className="flex flex-wrap gap-0 text-sm items-center">
             <li>
               <Link
                 to="/"
@@ -79,7 +79,7 @@ export default function Nav() {
               <li key={category.label} className="relative group">
                 <button
                   onClick={() => setOpenDropdown(openDropdown === category.label ? null : category.label)}
-                  className={`px-3 py-2 rounded-md font-medium transition-colors flex items-center gap-1 ${
+                  className={`px-3 py-2 rounded-md font-medium transition-colors flex items-center gap-0.5 whitespace-nowrap ${
                     isCategoryActive(category.items)
                       ? 'bg-blue-100 text-blue-700'
                       : 'text-slate-600 hover:bg-slate-100'
