@@ -14,7 +14,7 @@ export default function AdSlot({ slotId = '1569767653' }: AdSlotProps) {
   }, [slotId]);
 
   return (
-    <div className="my-3 md:my-6">
+    <div className="my-3 md:my-6 min-h-[250px]">
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}

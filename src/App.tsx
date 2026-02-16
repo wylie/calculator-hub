@@ -1,6 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import HomePage from './pages/Home/HomePage'
+import PrivacyPage from './pages/Privacy/PrivacyPage'
+import TermsPage from './pages/Terms/TermsPage'
+import ContactPage from './pages/Contact/ContactPage'
 import MortgagePage from './pages/Mortgage/MortgagePage'
 import BudgetPage from './pages/Budget/BudgetPage'
 import WeatherPage from './pages/Weather/WeatherPage'
@@ -30,6 +33,9 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/mortgage" element={<MortgagePage />} />
         <Route path="/budget" element={<BudgetPage />} />
         <Route path="/weather" element={<WeatherPage />} />
