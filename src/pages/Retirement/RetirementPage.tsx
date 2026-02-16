@@ -102,33 +102,37 @@ export default function RetirementPage() {
           </div>
         </Card>
 
-        {/* Results */}
-        <Card className={input.retirementAge > input.currentAge ? 'bg-green-50' : 'bg-red-50'}>
-          <h2 className="text-xl font-semibold mb-4">Results</h2>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm text-gray-600">Years to Retirement</p>
-              <p className="text-2xl font-bold text-gray-900">{result.yearsToRetirement}</p>
+        <div>
+          {/* Results */}
+          <Card className={input.retirementAge > input.currentAge ? 'bg-green-50' : 'bg-red-50'}>
+            <h2 className="text-xl font-semibold mb-4">Results</h2>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm text-gray-600">Years to Retirement</p>
+                <p className="text-2xl font-bold text-gray-900">{result.yearsToRetirement}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <p className="text-sm text-gray-600">Projected Fund at Retirement</p>
+                <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.projectedRetirementFund)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Annual Income (4% Rule)</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.annualIncomeAtRetirement)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Needed for Expenses</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.neededAtRetirement)}</p>
+              </div>
+              <div className={`p-3 rounded ${result.onTrack ? 'bg-green-100 border border-green-300' : 'bg-red-100 border border-red-300'}`}>
+                <p className="font-semibold text-gray-900">
+                  {result.onTrack ? '✓ On Track!' : '⚠ Not Quite There Yet'}
+                </p>
+              </div>
             </div>
-            <div className="bg-white p-3 rounded">
-              <p className="text-sm text-gray-600">Projected Fund at Retirement</p>
-              <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.projectedRetirementFund)}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Annual Income (4% Rule)</p>
-              <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.annualIncomeAtRetirement)}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Needed for Expenses</p>
-              <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.neededAtRetirement)}</p>
-            </div>
-            <div className={`p-3 rounded ${result.onTrack ? 'bg-green-100 border border-green-300' : 'bg-red-100 border border-red-300'}`}>
-              <p className="font-semibold text-gray-900">
-                {result.onTrack ? '✓ On Track!' : '⚠ Not Quite There Yet'}
-              </p>
-            </div>
-          </div>
-        </Card>
+          </Card>
+
+          <AdSlot />
+        </div>
       </div>
 
       <Card>

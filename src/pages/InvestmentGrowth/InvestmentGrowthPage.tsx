@@ -70,30 +70,34 @@ export default function InvestmentGrowthPage() {
           </div>
         </Card>
 
-        {/* Results */}
-        <Card className="bg-indigo-50">
-          <h2 className="text-xl font-semibold mb-4 text-indigo-900">Results</h2>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm text-gray-600">Total Invested</p>
-              <p className="text-lg font-semibold text-gray-900">
-                {formatCurrency((Number(input.initialAmount) || 0) + (Number(input.monthlyContribution) || 0) * 12 * (Number(input.years) || 0))}
-              </p>
+        <div>
+          {/* Results */}
+          <Card className="bg-indigo-50">
+            <h2 className="text-xl font-semibold mb-4 text-indigo-900">Results</h2>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm text-gray-600">Total Invested</p>
+                <p className="text-lg font-semibold text-gray-900">
+                  {formatCurrency((Number(input.initialAmount) || 0) + (Number(input.monthlyContribution) || 0) * 12 * (Number(input.years) || 0))}
+                </p>
+              </div>
+              <div className="bg-white p-3 rounded border border-indigo-200">
+                <p className="text-sm text-gray-600">Final Amount</p>
+                <p className="text-2xl font-bold text-indigo-600">{formatCurrency(result.finalAmount)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Investment Gain</p>
+                <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.gain)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Return on Investment</p>
+                <p className="text-lg font-semibold text-indigo-600">{formatPercentage(result.roi)}</p>
+              </div>
             </div>
-            <div className="bg-white p-3 rounded border border-indigo-200">
-              <p className="text-sm text-gray-600">Final Amount</p>
-              <p className="text-2xl font-bold text-indigo-600">{formatCurrency(result.finalAmount)}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Investment Gain</p>
-              <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.gain)}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Return on Investment</p>
-              <p className="text-lg font-semibold text-indigo-600">{formatPercentage(result.roi)}</p>
-            </div>
-          </div>
-        </Card>
+          </Card>
+
+          <AdSlot />
+        </div>
       </div>
 
       <Card>

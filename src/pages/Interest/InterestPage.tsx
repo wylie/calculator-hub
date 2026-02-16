@@ -60,20 +60,24 @@ export default function InterestPage() {
           </div>
         </Card>
 
-        {/* Results */}
-        <Card className="bg-green-50">
-          <h2 className="text-xl font-semibold mb-4 text-green-900">Results</h2>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm text-gray-600">Interest Earned</p>
-              <p className="text-2xl font-bold text-green-600">{formatCurrency(result.interest)}</p>
+        <div>
+          {/* Results */}
+          <Card className="bg-green-50">
+            <h2 className="text-xl font-semibold mb-4 text-green-900">Results</h2>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm text-gray-600">Interest Earned</p>
+                <p className="text-2xl font-bold text-green-600">{formatCurrency(result.interest)}</p>
+              </div>
+              <div className="bg-white p-3 rounded border border-green-200">
+                <p className="text-sm text-gray-600">Total Amount</p>
+                <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.totalAmount)}</p>
+              </div>
             </div>
-            <div className="bg-white p-3 rounded border border-green-200">
-              <p className="text-sm text-gray-600">Total Amount</p>
-              <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.totalAmount)}</p>
-            </div>
-          </div>
-        </Card>
+          </Card>
+
+          <AdSlot />
+        </div>
       </div>
 
       <Card>

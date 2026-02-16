@@ -111,6 +111,8 @@ export default function WeatherPage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

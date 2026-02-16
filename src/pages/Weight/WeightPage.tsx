@@ -79,6 +79,8 @@ export default function WeightPage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

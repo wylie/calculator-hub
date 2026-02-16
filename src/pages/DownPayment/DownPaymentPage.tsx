@@ -71,24 +71,28 @@ export default function DownPaymentPage() {
           </div>
         </Card>
 
-        {/* Results */}
-        <Card className="bg-sky-50">
-          <h2 className="text-xl font-semibold mb-4 text-sky-900">Results</h2>
-          <div className="space-y-3">
-            <div className="bg-white p-3 rounded border border-sky-200">
-              <p className="text-sm text-gray-600">Down Payment Required</p>
-              <p className="text-2xl font-bold text-sky-600">{formatCurrency(result.downPaymentAmount)}</p>
+        <div>
+          {/* Results */}
+          <Card className="bg-sky-50">
+            <h2 className="text-xl font-semibold mb-4 text-sky-900">Results</h2>
+            <div className="space-y-3">
+              <div className="bg-white p-3 rounded border border-sky-200">
+                <p className="text-sm text-gray-600">Down Payment Required</p>
+                <p className="text-2xl font-bold text-sky-600">{formatCurrency(result.downPaymentAmount)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Loan Amount</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.loanAmount)}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <p className="text-sm text-gray-600">Estimated Monthly Payment</p>
+                <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.monthlyPayment)}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm text-gray-600">Loan Amount</p>
-              <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.loanAmount)}</p>
-            </div>
-            <div className="bg-white p-3 rounded">
-              <p className="text-sm text-gray-600">Estimated Monthly Payment</p>
-              <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.monthlyPayment)}</p>
-            </div>
-          </div>
-        </Card>
+          </Card>
+
+          <AdSlot />
+        </div>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">

@@ -75,6 +75,8 @@ export default function DateDifferencePage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

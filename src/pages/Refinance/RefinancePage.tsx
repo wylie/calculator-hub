@@ -104,36 +104,40 @@ export default function RefinancePage() {
           </div>
         </Card>
 
-        {/* Results */}
-        <Card className="bg-teal-50">
-          <h2 className="text-xl font-semibold mb-4 text-teal-900">Results</h2>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm text-gray-600">Current Monthly Payment</p>
-              <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.currentMonthlyPayment)}</p>
+        <div>
+          {/* Results */}
+          <Card className="bg-teal-50">
+            <h2 className="text-xl font-semibold mb-4 text-teal-900">Results</h2>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm text-gray-600">Current Monthly Payment</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.currentMonthlyPayment)}</p>
+              </div>
+              <div className="bg-white p-3 rounded border border-teal-200">
+                <p className="text-sm text-gray-600">New Monthly Payment</p>
+                <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.newMonthlyPayment)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Monthly Savings</p>
+                <p className={`text-lg font-semibold ${result.monthlySavings > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {result.monthlySavings > 0 ? '+' : ''}{formatCurrency(result.monthlySavings)}
+                </p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <p className="text-sm text-gray-600">Total Savings (Net)</p>
+                <p className={`text-xl font-semibold ${result.totalSavings > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {result.totalSavings > 0 ? '+' : ''}{formatCurrency(result.totalSavings)}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Break-Even Point</p>
+                <p className="text-lg font-semibold text-gray-900">{result.breakEvenMonths} months</p>
+              </div>
             </div>
-            <div className="bg-white p-3 rounded border border-teal-200">
-              <p className="text-sm text-gray-600">New Monthly Payment</p>
-              <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.newMonthlyPayment)}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Monthly Savings</p>
-              <p className={`text-lg font-semibold ${result.monthlySavings > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {result.monthlySavings > 0 ? '+' : ''}{formatCurrency(result.monthlySavings)}
-              </p>
-            </div>
-            <div className="bg-white p-3 rounded">
-              <p className="text-sm text-gray-600">Total Savings (Net)</p>
-              <p className={`text-xl font-semibold ${result.totalSavings > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {result.totalSavings > 0 ? '+' : ''}{formatCurrency(result.totalSavings)}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Break-Even Point</p>
-              <p className="text-lg font-semibold text-gray-900">{result.breakEvenMonths} months</p>
-            </div>
-          </div>
-        </Card>
+          </Card>
+
+          <AdSlot />
+        </div>
       </div>
 
       <AdSlot />

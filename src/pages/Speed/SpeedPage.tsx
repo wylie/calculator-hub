@@ -79,6 +79,8 @@ export default function SpeedPage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

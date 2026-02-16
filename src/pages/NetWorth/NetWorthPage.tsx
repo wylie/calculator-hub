@@ -178,6 +178,8 @@ export default function NetWorthPage() {
       </div>
 
       <AdSlot />
+
+      <AdSlot />
     </div>
   )
 }

@@ -114,6 +114,8 @@ export default function LengthPage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

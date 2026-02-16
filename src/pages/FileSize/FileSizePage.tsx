@@ -98,6 +98,8 @@ export default function FileSizePage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

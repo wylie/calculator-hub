@@ -79,6 +79,8 @@ export default function VolumePage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

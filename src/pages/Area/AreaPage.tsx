@@ -79,6 +79,8 @@ export default function AreaPage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

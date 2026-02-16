@@ -79,6 +79,8 @@ export default function TimePage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

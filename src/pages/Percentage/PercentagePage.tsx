@@ -93,6 +93,8 @@ export default function PercentagePage() {
           <AdSlot />
         </div>
       </div>
+
+      <AdSlot />
     </div>
   );
 }

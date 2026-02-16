@@ -86,28 +86,32 @@ export default function AutoLoanPage() {
           </div>
         </Card>
 
-        {/* Results */}
-        <Card className="bg-purple-50">
-          <h2 className="text-xl font-semibold mb-4 text-purple-900">Results</h2>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm text-gray-600">Loan Amount</p>
-              <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.loanAmount)}</p>
+        <div>
+          {/* Results */}
+          <Card className="bg-purple-50">
+            <h2 className="text-xl font-semibold mb-4 text-purple-900">Results</h2>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm text-gray-600">Loan Amount</p>
+                <p className="text-xl font-semibold text-gray-900">{formatCurrency(result.loanAmount)}</p>
+              </div>
+              <div className="bg-white p-3 rounded border border-purple-200">
+                <p className="text-sm text-gray-600">Monthly Payment</p>
+                <p className="text-2xl font-bold text-purple-600">{formatCurrency(result.monthlyPayment)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Total Interest Paid</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.totalInterest)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Total Cost</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.totalCost)}</p>
+              </div>
             </div>
-            <div className="bg-white p-3 rounded border border-purple-200">
-              <p className="text-sm text-gray-600">Monthly Payment</p>
-              <p className="text-2xl font-bold text-purple-600">{formatCurrency(result.monthlyPayment)}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Total Interest Paid</p>
-              <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.totalInterest)}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Total Cost</p>
-              <p className="text-lg font-semibold text-gray-900">{formatCurrency(result.totalCost)}</p>
-            </div>
-          </div>
-        </Card>
+          </Card>
+
+          <AdSlot />
+        </div>
       </div>
 
       <AdSlot />
