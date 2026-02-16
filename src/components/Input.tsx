@@ -36,7 +36,7 @@ export default function Input({
         min={min}
         max={max}
         step={step}
-        className={`w-full px-3 py-2 border rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 ${
+        className={`w-full px-3 py-2 border rounded-md text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-0 ${
           error
             ? 'border-red-500 focus:ring-red-500'
             : 'border-slate-300 focus:ring-blue-500'
