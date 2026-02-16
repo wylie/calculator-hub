@@ -158,6 +158,15 @@ export default function BikeGearPage() {
         href="https://amzn.to/4cCjN4m"
         iconName="tools"
       />
+
+      <RelatedTools
+        tools={[
+          { path: '/speed', title: 'Speed Converter', icon: 'speed' },
+          { path: '/calories', title: 'Calorie Calculator', icon: 'fastfood' },
+          { path: '/length', title: 'Length Converter', icon: 'straighten' },
+          { path: '/percentage', title: 'Percentage Calculator', icon: 'percent' },
+        ]}
+      />
     </div>
   );
 }

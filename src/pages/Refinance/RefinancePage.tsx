@@ -1,8 +1,7 @@
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
-import AdSlot from '../../components/AdSlot'
-import { calculateRefinance } from '../../utils/calculators'
+import AdSlot from '../../components/AdSlot'import RelatedTools from '../../components/RelatedTools';import { calculateRefinance } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function RefinancePage() {
@@ -141,6 +140,15 @@ export default function RefinancePage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
+          { path: '/down-payment', title: 'Down Payment Calculator', icon: 'trending_down' },
+          { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
+          { path: '/interest', title: 'Interest Calculator', icon: 'percent' },
+        ]}
+      />
     </div>
   )
 }

@@ -4,6 +4,7 @@ import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import AffiliateBox from '../../components/AffiliateBox';
+import RelatedTools from '../../components/RelatedTools';
 import { calculateCalories } from '../../utils/calculators';
 
 export default function CaloriesPage() {
@@ -162,6 +163,15 @@ export default function CaloriesPage() {
         buttonText="Shop Now"
         href="https://amzn.to/3Ms4K2Q"
         iconName="scale"
+      />
+
+      <RelatedTools
+        tools={[
+          { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
+          { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
+          { path: '/length', title: 'Length Converter', icon: 'straighten' },
+          { path: '/percentage', title: 'Percentage Calculator', icon: 'percent' },
+        ]}
       />
     </div>
   );

@@ -4,6 +4,7 @@ import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import AffiliateBox from '../../components/AffiliateBox';
+import RelatedTools from '../../components/RelatedTools';
 import { calculateMortgage } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
 
@@ -190,6 +191,15 @@ export default function MortgagePage() {
         buttonText="View Book"
         href="https://www.amazon.com/Mortgage-Encyclopedia-Authoritative-Programs-Practices/dp/0071739580?crid=3ANA7CMIUQ9UO&dib=eyJ2IjoiMSJ9.uhGlj2DRediHhbZQm-nDUX4oakeWyysKfpV76RoqUdyIyqN3cM0VoBFy9DNwAHa86ZefeYTJvNvDzWBZSlvnlRfwUjnrBMnrBcXV0BeEG_F8UhujZ52rFZv8vp_pgyxf2kmbkK9_tcy64Cj7m4Co4vyy4avPtGNg-XYCj-IoGxzapufM2weGmd8KT8c9xGN0CO7odTu38YvWhEOCq218g3qQdj0WyYDmc0hExhvApc8.d8Pibtgntm32ytdcIWItPRzH1Aa0J3eVQuxvFHZMSA0&dib_tag=se&keywords=mortgage+books&qid=1771211090&sprefix=mortgage+books%2Caps%2C293&sr=8-3&linkCode=ll2&tag=simplecalcula-20&linkId=ae487e4a199e4d85e168aa648cbd2951&language=en_US&ref_=as_li_ss_tl"
         iconName="compare_arrows"
+      />
+
+      <RelatedTools
+        tools={[
+          { path: '/refinance', title: 'Refinance Calculator', icon: 'home_improvement_tools' },
+          { path: '/down-payment', title: 'Down Payment Calculator', icon: 'trending_down' },
+          { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
+          { path: '/credit-card-payoff', title: 'Credit Card Payoff', icon: 'credit_card' },
+        ]}
       />
     </div>
   );

@@ -3,6 +3,7 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
+import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
 
 export default function VolumePage() {
@@ -81,6 +82,15 @@ export default function VolumePage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/length', title: 'Length Converter', icon: 'straighten' },
+          { path: '/area', title: 'Area Converter', icon: 'square_foot' },
+          { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
+          { path: '/file-size', title: 'File Size Converter', icon: 'storage' },
+        ]}
+      />
     </div>
   );
 }

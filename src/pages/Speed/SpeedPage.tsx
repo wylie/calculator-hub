@@ -81,6 +81,15 @@ export default function SpeedPage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
+          { path: '/length', title: 'Length Converter', icon: 'straighten' },
+          { path: '/date-difference', title: 'Date Difference', icon: 'date_range' },
+          { path: '/time', title: 'Time Converter', icon: 'schedule' },
+        ]}
+      />
     </div>
   );
 }

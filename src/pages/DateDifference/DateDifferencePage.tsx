@@ -1,6 +1,7 @@
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import AdSlot from '../../components/AdSlot';
+import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
 
 const todayIso = new Date().toISOString().slice(0, 10);
@@ -77,6 +78,15 @@ export default function DateDifferencePage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/time', title: 'Time Converter', icon: 'schedule' },
+          { path: '/percentage', title: 'Percentage Calculator', icon: 'percent' },
+          { path: '/speed', title: 'Speed Converter', icon: 'speed' },
+          { path: '/length', title: 'Length Converter', icon: 'straighten' },
+        ]}
+      />
     </div>
   );
 }

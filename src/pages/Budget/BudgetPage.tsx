@@ -3,6 +3,7 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
 import AffiliateBox from '../../components/AffiliateBox';
+import RelatedTools from '../../components/RelatedTools';
 import { formatCurrency, formatPercentage } from '../../utils/formatting';
 
 interface ExpenseItem {
@@ -178,6 +179,15 @@ export default function BudgetPage() {
         buttonText="View Planner"
         href="https://amzn.to/3OiZG1h"
         iconName="calculate"
+      />
+
+      <RelatedTools
+        tools={[
+          { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
+          { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
+          { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
+          { path: '/retirement', title: 'Retirement Calculator', icon: 'celebration' },
+        ]}
       />
     </div>
   );

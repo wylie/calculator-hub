@@ -3,6 +3,7 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
+import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
 
 export default function LengthPage() {
@@ -116,6 +117,15 @@ export default function LengthPage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
+          { path: '/speed', title: 'Speed Converter', icon: 'speed' },
+          { path: '/area', title: 'Area Converter', icon: 'square_foot' },
+          { path: '/volume', title: 'Volume Converter', icon: 'water_drop' },
+        ]}
+      />
     </div>
   );
 }

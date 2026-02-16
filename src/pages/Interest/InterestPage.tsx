@@ -1,8 +1,7 @@
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
-import AdSlot from '../../components/AdSlot'
-import { calculateSimpleInterest } from '../../utils/calculators'
+import AdSlot from '../../components/AdSlot'import RelatedTools from '../../components/RelatedTools';import { calculateSimpleInterest } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function InterestPage() {
@@ -89,6 +88,15 @@ export default function InterestPage() {
       </Card>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/compound-interest', title: 'Compound Interest', icon: 'calculate' },
+          { path: '/investment-growth', title: 'Investment Growth', icon: 'trending_up' },
+          { path: '/refinance', title: 'Refinance Calculator', icon: 'home_improvement_tools' },
+          { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
+        ]}
+      />
     </div>
   )
 }

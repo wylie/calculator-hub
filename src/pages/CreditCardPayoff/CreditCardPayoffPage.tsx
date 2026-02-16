@@ -1,8 +1,7 @@
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
-import AdSlot from '../../components/AdSlot'
-import { calculateCreditCardPayoff } from '../../utils/calculators'
+import AdSlot from '../../components/AdSlot'import RelatedTools from '../../components/RelatedTools';import { calculateCreditCardPayoff } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function CreditCardPayoffPage() {
@@ -95,6 +94,15 @@ export default function CreditCardPayoffPage() {
       </Card>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
+          { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
+          { path: '/retirement', title: 'Retirement Calculator', icon: 'celebration' },
+          { path: '/investment-growth', title: 'Investment Growth', icon: 'trending_up' },
+        ]}
+      />
     </div>
   )
 }

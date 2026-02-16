@@ -2,6 +2,7 @@ import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
+import RelatedTools from '../../components/RelatedTools'
 import { calculateRetirement } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
@@ -143,6 +144,15 @@ export default function RetirementPage() {
       </Card>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/investment-growth', title: 'Investment Growth', icon: 'trending_up' },
+          { path: '/compound-interest', title: 'Compound Interest', icon: 'calculate' },
+          { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
+          { path: '/interest', title: 'Interest Calculator', icon: 'percent' },
+        ]}
+      />
     </div>
   )
 }

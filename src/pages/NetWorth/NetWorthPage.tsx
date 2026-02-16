@@ -180,6 +180,15 @@ export default function NetWorthPage() {
       <AdSlot />
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/retirement', title: 'Retirement Calculator', icon: 'celebration' },
+          { path: '/investment-growth', title: 'Investment Growth', icon: 'trending_up' },
+          { path: '/budget', title: 'Budget Calculator', icon: 'account_balance_wallet' },
+          { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
+        ]}
+      />
     </div>
   )
 }

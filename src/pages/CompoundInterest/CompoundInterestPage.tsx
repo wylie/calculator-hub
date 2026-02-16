@@ -106,6 +106,15 @@ export default function CompoundInterestPage() {
       </Card>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/interest', title: 'Interest Calculator', icon: 'percent' },
+          { path: '/investment-growth', title: 'Investment Growth', icon: 'trending_up' },
+          { path: '/retirement', title: 'Retirement Calculator', icon: 'celebration' },
+          { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
+        ]}
+      />
     </div>
   )
 }

@@ -108,6 +108,15 @@ export default function InvestmentGrowthPage() {
       </Card>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/retirement', title: 'Retirement Calculator', icon: 'celebration' },
+          { path: '/compound-interest', title: 'Compound Interest', icon: 'calculate' },
+          { path: '/interest', title: 'Interest Calculator', icon: 'percent' },
+          { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
+        ]}
+      />
     </div>
   )
 }

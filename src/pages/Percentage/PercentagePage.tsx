@@ -2,6 +2,7 @@ import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
+import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
 
 export default function PercentagePage() {
@@ -95,6 +96,15 @@ export default function PercentagePage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/interest', title: 'Interest Calculator', icon: 'percent' },
+          { path: '/finance', title: 'Finance Calculator', icon: 'trending_up' },
+          { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
+          { path: '/calories', title: 'Calorie Calculator', icon: 'fastfood' },
+        ]}
+      />
     </div>
   );
 }

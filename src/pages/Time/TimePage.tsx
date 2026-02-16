@@ -3,6 +3,7 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
+import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
 
 export default function TimePage() {
@@ -81,6 +82,15 @@ export default function TimePage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/date-difference', title: 'Date Difference', icon: 'date_range' },
+          { path: '/speed', title: 'Speed Converter', icon: 'speed' },
+          { path: '/percentage', title: 'Percentage Calculator', icon: 'percent' },
+          { path: '/file-size', title: 'File Size Converter', icon: 'storage' },
+        ]}
+      />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import Card from '../../components/Card'
 import Input from '../../components/Input'
 import Select from '../../components/Select'
 import AdSlot from '../../components/AdSlot'
+import RelatedTools from '../../components/RelatedTools'
 import { calculateAutoLoan } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
@@ -115,6 +116,15 @@ export default function AutoLoanPage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
+          { path: '/credit-card-payoff', title: 'Credit Card Payoff', icon: 'credit_card' },
+          { path: '/refinance', title: 'Refinance Calculator', icon: 'home_improvement_tools' },
+          { path: '/down-payment', title: 'Down Payment Calculator', icon: 'trending_down' },
+        ]}
+      />
     </div>
   )
 }

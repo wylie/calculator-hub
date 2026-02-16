@@ -3,6 +3,7 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
+import RelatedTools from '../../components/RelatedTools';
 import { convertTemperature } from '../../utils/calculators';
 import { formatNumber } from '../../utils/formatting';
 
@@ -113,6 +114,15 @@ export default function WeatherPage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
+          { path: '/length', title: 'Length Converter', icon: 'straighten' },
+          { path: '/speed', title: 'Speed Converter', icon: 'speed' },
+          { path: '/percentage', title: 'Percentage Calculator', icon: 'percent' },
+        ]}
+      />
     </div>
   );
 }

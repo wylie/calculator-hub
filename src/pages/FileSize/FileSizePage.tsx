@@ -3,6 +3,7 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
+import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
 
 const sizeUnits = ['KB', 'MB', 'GB'] as const;
@@ -100,6 +101,15 @@ export default function FileSizePage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/volume', title: 'Volume Converter', icon: 'water_drop' },
+          { path: '/percentage', title: 'Percentage Calculator', icon: 'percent' },
+          { path: '/time', title: 'Time Converter', icon: 'schedule' },
+          { path: '/speed', title: 'Speed Converter', icon: 'speed' },
+        ]}
+      />
     </div>
   );
 }
