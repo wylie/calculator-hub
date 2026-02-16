@@ -176,7 +176,7 @@ export default function BudgetPage() {
         title="Budgeting Apps"
         description="Try popular budgeting apps to manage your finances more effectively."
         buttonText="Explore Apps"
-        href="https://example.com/budgeting-apps"
+        href="https://amzn.to/3OiZG1h"
         iconName="calculate"
       />
     </div>

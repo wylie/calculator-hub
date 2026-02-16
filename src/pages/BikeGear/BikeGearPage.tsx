@@ -155,7 +155,7 @@ export default function BikeGearPage() {
         title="Bike Tools & Accessories"
         description="Professional-grade tools to maintain and service your bikes like a pro."
         buttonText="Browse Tools"
-        href="https://example.com/bike-tools"
+        href="https://amzn.to/4cCjN4m"
         iconName="tools"
       />
     </div>

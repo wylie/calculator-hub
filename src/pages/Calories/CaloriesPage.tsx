@@ -160,7 +160,7 @@ export default function CaloriesPage() {
         title="Digital Kitchen Scale"
         description="Accurately track your food portions with a reliable digital kitchen scale."
         buttonText="Shop Now"
-        href="https://example.com/kitchen-scale"
+        href="https://amzn.to/3Ms4K2Q"
         iconName="scale"
       />
     </div>
