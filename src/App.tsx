@@ -6,6 +6,15 @@ import BudgetPage from './pages/Budget/BudgetPage'
 import WeatherPage from './pages/Weather/WeatherPage'
 import CaloriesPage from './pages/Calories/CaloriesPage'
 import BikeGearPage from './pages/BikeGear/BikeGearPage'
+import WeightPage from './pages/Weight/WeightPage'
+import LengthPage from './pages/Length/LengthPage'
+import SpeedPage from './pages/Speed/SpeedPage'
+import VolumePage from './pages/Volume/VolumePage'
+import AreaPage from './pages/Area/AreaPage'
+import TimePage from './pages/Time/TimePage'
+import FileSizePage from './pages/FileSize/FileSizePage'
+import PercentagePage from './pages/Percentage/PercentagePage'
+import DateDifferencePage from './pages/DateDifference/DateDifferencePage'
 import InterestPage from './pages/Interest/InterestPage'
 import CompoundInterestPage from './pages/CompoundInterest/CompoundInterestPage'
 import AutoLoanPage from './pages/AutoLoan/AutoLoanPage'
@@ -24,6 +33,15 @@ function App() {
         <Route path="/mortgage" element={<MortgagePage />} />
         <Route path="/budget" element={<BudgetPage />} />
         <Route path="/weather" element={<WeatherPage />} />
+        <Route path="/weight" element={<WeightPage />} />
+        <Route path="/length" element={<LengthPage />} />
+        <Route path="/speed" element={<SpeedPage />} />
+        <Route path="/volume" element={<VolumePage />} />
+        <Route path="/area" element={<AreaPage />} />
+        <Route path="/time" element={<TimePage />} />
+        <Route path="/file-size" element={<FileSizePage />} />
+        <Route path="/percentage" element={<PercentagePage />} />
+        <Route path="/date-difference" element={<DateDifferencePage />} />
         <Route path="/calories" element={<CaloriesPage />} />
         <Route path="/bike-gear" element={<BikeGearPage />} />
         <Route path="/interest" element={<InterestPage />} />

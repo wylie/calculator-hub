@@ -46,9 +46,23 @@ export default function Nav() {
     {
       label: 'Lifestyle',
       items: [
-        { path: '/weather', label: 'Weather' },
         { path: '/calories', label: 'Calories' },
         { path: '/bike-gear', label: 'Bike Gear' },
+      ],
+    },
+    {
+      label: 'Converters',
+      items: [
+        { path: '/weather', label: 'Temperature' },
+        { path: '/weight', label: 'Weight' },
+        { path: '/length', label: 'Length' },
+        { path: '/speed', label: 'Speed' },
+        { path: '/volume', label: 'Volume' },
+        { path: '/area', label: 'Area' },
+        { path: '/time', label: 'Time' },
+        { path: '/file-size', label: 'File Size' },
+        { path: '/percentage', label: 'Percentage' },
+        { path: '/date-difference', label: 'Date Difference' },
       ],
     },
   ];
