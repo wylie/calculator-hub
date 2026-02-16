@@ -18,6 +18,15 @@
     />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6736467803282205"
       crossorigin="anonymous"></script>
+    <script>
+      (function () {
+        var redirect = sessionStorage.getItem('redirect');
+        if (redirect) {
+          sessionStorage.removeItem('redirect');
+          history.replaceState(null, '', redirect);
+        }
+      })();
+    </script>
     <title>Simple Calculators</title>
   </head>
   <body>
