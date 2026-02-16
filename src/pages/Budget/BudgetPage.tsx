@@ -173,9 +173,9 @@ export default function BudgetPage() {
       </div>
 
       <AffiliateBox
-        title="Budgeting Apps"
-        description="Try popular budgeting apps to manage your finances more effectively."
-        buttonText="Explore Apps"
+        title="Budget Planner"
+        description="Get a simple planner to track spending and build better habits."
+        buttonText="View Planner"
         href="https://amzn.to/3OiZG1h"
         iconName="calculate"
       />
