@@ -4,7 +4,7 @@ interface AdSlotProps {
   slotId?: string;
 }
 
-export default function AdSlot({ slotId = '1234567890' }: AdSlotProps) {
+export default function AdSlot({ slotId = '1569767653' }: AdSlotProps) {
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
