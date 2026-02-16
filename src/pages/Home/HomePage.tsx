@@ -90,6 +90,69 @@ export default function HomePage() {
     },
   ];
 
+  const converters = [
+    {
+      path: '/weather',
+      title: 'Temperature Converter',
+      description: 'Convert Celsius and Fahrenheit instantly.',
+      icon: 'thermostat',
+    },
+    {
+      path: '/weight',
+      title: 'Weight Converter',
+      description: 'Convert pounds and kilograms.',
+      icon: 'fitness_center',
+    },
+    {
+      path: '/length',
+      title: 'Length Converter',
+      description: 'Convert inches, centimeters, feet, and meters.',
+      icon: 'straighten',
+    },
+    {
+      path: '/speed',
+      title: 'Speed Converter',
+      description: 'Convert mph and km/h.',
+      icon: 'speed',
+    },
+    {
+      path: '/volume',
+      title: 'Volume Converter',
+      description: 'Convert gallons and liters.',
+      icon: 'water_drop',
+    },
+    {
+      path: '/area',
+      title: 'Area Converter',
+      description: 'Convert square feet and square meters.',
+      icon: 'crop_square',
+    },
+    {
+      path: '/time',
+      title: 'Time Converter',
+      description: 'Convert hours and minutes.',
+      icon: 'schedule',
+    },
+    {
+      path: '/file-size',
+      title: 'File Size Converter',
+      description: 'Convert KB, MB, and GB.',
+      icon: 'storage',
+    },
+    {
+      path: '/percentage',
+      title: 'Percentage Converter',
+      description: 'Convert percent and decimal values.',
+      icon: 'percent',
+    },
+    {
+      path: '/date-difference',
+      title: 'Date Difference',
+      description: 'Calculate the difference between dates.',
+      icon: 'event',
+    },
+  ];
+
   return (
     <div>
       <h2 className="text-3xl font-bold text-slate-900 mb-4">Welcome to Simple Calculators</h2>
@@ -131,6 +194,30 @@ export default function HomePage() {
             </Card>
           </Link>
         ))}
+      </div>
+
+      <div className="mt-12">
+        <h3 className="text-2xl font-bold text-slate-900 mb-4">Quick Converters</h3>
+        <p className="text-slate-600 mb-6">
+          Jump straight to unit converters for common everyday tasks.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {converters.map((converter) => (
+            <Link key={converter.path} to={converter.path}>
+              <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
+                <div className="flex items-start gap-4">
+                  <span className="material-symbols-outlined text-3xl text-blue-600 flex-shrink-0">
+                    {converter.icon}
+                  </span>
+                  <div>
+                    <h3 className="text-base font-semibold text-slate-900 mb-1">{converter.title}</h3>
+                    <p className="text-xs text-slate-600">{converter.description}</p>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
