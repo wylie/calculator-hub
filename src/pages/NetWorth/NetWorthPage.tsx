@@ -1,6 +1,7 @@
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import AdSlot from '../../components/AdSlot'
+import RelatedTools from '../../components/RelatedTools'
 import { calculateNetWorth } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 

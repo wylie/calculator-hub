@@ -2,6 +2,7 @@ import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import AdSlot from '../../components/AdSlot'
+import RelatedTools from '../../components/RelatedTools'
 import { calculateInvestmentGrowth } from '../../utils/calculators'
 import { formatCurrency, formatPercentage } from '../../utils/formatting'
 

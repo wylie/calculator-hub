@@ -3,6 +3,7 @@ import Card from '../../components/Card'
 import Input from '../../components/Input'
 import Select from '../../components/Select'
 import AdSlot from '../../components/AdSlot'
+import RelatedTools from '../../components/RelatedTools'
 import { calculateCompoundInterest } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 

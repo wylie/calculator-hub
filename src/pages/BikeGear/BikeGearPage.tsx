@@ -4,6 +4,7 @@ import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import AffiliateBox from '../../components/AffiliateBox';
+import RelatedTools from '../../components/RelatedTools';
 import { calculateBikeGear, calculateBikeGearCombos } from '../../utils/calculators';
 
 export default function BikeGearPage() {

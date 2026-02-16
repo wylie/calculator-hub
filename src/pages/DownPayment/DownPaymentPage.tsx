@@ -1,9 +1,10 @@
-import useStickyState from '../../utils/useStickyState'
-import Card from '../../components/Card'
-import Input from '../../components/Input'
-import AdSlot from '../../components/AdSlot'
-import { calculateDownPayment } from '../../utils/calculators'
-import { formatCurrency } from '../../utils/formatting'
+import useStickyState from '../../utils/useStickyState';
+import Card from '../../components/Card';
+import Input from '../../components/Input';
+import AdSlot from '../../components/AdSlot';
+import RelatedTools from '../../components/RelatedTools';
+import { calculateDownPayment } from '../../utils/calculators';
+import { formatCurrency } from '../../utils/formatting';
 
 export default function DownPaymentPage() {
   const [input, setInput] = useStickyState<{price: string | number; percentageDown: string | number; interestRate: string | number; loanTerm: string | number}>(
@@ -117,6 +118,15 @@ export default function DownPaymentPage() {
       </div>
 
       <AdSlot />
+
+      <RelatedTools
+        tools={[
+          { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
+          { path: '/refinance', title: 'Refinance Calculator', icon: 'home_improvement_tools' },
+          { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
+          { path: '/interest', title: 'Interest Calculator', icon: 'percent' },
+        ]}
+      />
     </div>
-  )
+  );
 }

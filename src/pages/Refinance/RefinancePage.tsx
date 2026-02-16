@@ -1,7 +1,9 @@
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
-import AdSlot from '../../components/AdSlot'import RelatedTools from '../../components/RelatedTools';import { calculateRefinance } from '../../utils/calculators'
+import AdSlot from '../../components/AdSlot'
+import RelatedTools from '../../components/RelatedTools'
+import { calculateRefinance } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
 
 export default function RefinancePage() {
@@ -150,5 +152,5 @@ export default function RefinancePage() {
         ]}
       />
     </div>
-  )
+  );
 }
