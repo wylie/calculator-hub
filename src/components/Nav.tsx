@@ -14,6 +14,7 @@ interface NavItem {
 export default function Nav() {
   const location = useLocation();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navCategories: NavCategory[] = [
     {
@@ -58,11 +59,13 @@ export default function Nav() {
   return (
     <nav className="bg-white border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4 py-4">
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-between">
-          <Link to="/" className="text-2xl font-bold text-slate-900 hover:text-blue-600">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="text-2xl font-bold text-slate-900 hover:text-blue-600 flex-shrink-0">
             Simple Calculators
           </Link>
-          <ul className="flex flex-wrap gap-0 text-sm items-center">
+          
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex flex-wrap gap-0 text-sm items-center">
             <li>
               <Link
                 to="/"
@@ -108,7 +111,73 @@ export default function Nav() {
               </li>
             ))}
           </ul>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100"
+          >
+            <span className="material-symbols-outlined text-2xl">menu</span>
+          </button>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t border-slate-200">
+            <Link
+              to="/"
+              className={`block px-4 py-2 rounded-md font-medium transition-colors ${
+                location.pathname === '/'
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
+            {navCategories.map((category) => (
+              <div key={category.label}>
+                <button
+                  onClick={() => setOpenDropdown(openDropdown === category.label ? null : category.label)}
+                  className={`w-full text-left px-4 py-2 rounded-md font-medium transition-colors flex items-center justify-between ${
+                    isCategoryActive(category.items)
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-slate-600 hover:bg-slate-100'
+                  }`}
+                >
+                  {category.label}
+                  <span className={`material-symbols-outlined transition-transform ${
+                    openDropdown === category.label ? 'rotate-180' : ''
+                  }`}>
+                    expand_more
+                  </span>
+                </button>
+                {/* Mobile Dropdown */}
+                {openDropdown === category.label && (
+                  <div className="bg-slate-50 border-l-2 border-blue-300">
+                    {category.items.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={`block px-6 py-2 text-sm transition-colors ${
+                          isActive(item.path)
+                            ? 'bg-blue-100 text-blue-700 font-medium'
+                            : 'text-slate-700 hover:bg-slate-100'
+                        }`}
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setOpenDropdown(null);
+                        }}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );
