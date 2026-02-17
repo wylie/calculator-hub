@@ -25,7 +25,10 @@ export default function RelatedTools({ tools }: RelatedToolsProps) {
             className="hover:opacity-75 transition-opacity"
           >
             <Card className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-xl text-blue-600">
+              <span 
+                className="material-symbols-outlined text-blue-600"
+                style={{ fontSize: '24px', fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}
+              >
                 {tool.icon}
               </span>
               <span className="text-sm font-medium text-slate-700">{tool.title}</span>
