@@ -195,7 +195,7 @@ export default function MortgagePage() {
 
       <RelatedTools
         tools={[
-          { path: '/refinance', title: 'Refinance Calculator', icon: 'home_improvement_tools' },
+          { path: '/refinance', title: 'Refinance Calculator', icon: 'handyman' },
           { path: '/down-payment', title: 'Down Payment Calculator', icon: 'trending_down' },
           { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
           { path: '/credit-card-payoff', title: 'Credit Card Payoff', icon: 'credit_card' },

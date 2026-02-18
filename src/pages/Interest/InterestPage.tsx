@@ -95,7 +95,7 @@ export default function InterestPage() {
         tools={[
           { path: '/compound-interest', title: 'Compound Interest', icon: 'calculate' },
           { path: '/investment-growth', title: 'Investment Growth', icon: 'trending_up' },
-          { path: '/refinance', title: 'Refinance Calculator', icon: 'home_improvement_tools' },
+          { path: '/refinance', title: 'Refinance Calculator', icon: 'handyman' },
           { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
         ]}
       />

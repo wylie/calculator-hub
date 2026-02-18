@@ -122,7 +122,7 @@ export default function DownPaymentPage() {
       <RelatedTools
         tools={[
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
-          { path: '/refinance', title: 'Refinance Calculator', icon: 'home_improvement_tools' },
+          { path: '/refinance', title: 'Refinance Calculator', icon: 'handyman' },
           { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
           { path: '/interest', title: 'Interest Calculator', icon: 'percent' },
         ]}
