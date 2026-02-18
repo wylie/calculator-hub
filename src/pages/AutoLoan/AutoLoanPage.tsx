@@ -121,7 +121,7 @@ export default function AutoLoanPage() {
         tools={[
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
           { path: '/credit-card-payoff', title: 'Credit Card Payoff', icon: 'credit_card' },
-          { path: '/refinance', title: 'Refinance Calculator', icon: 'handyman' },
+          { path: '/refinance', title: 'Refinance Calculator', icon: 'build' },
           { path: '/down-payment', title: 'Down Payment Calculator', icon: 'trending_down' },
         ]}
       />
