@@ -1,0 +1,9 @@
+# Redirect www to non-www
+https://www.simplecalculators.io/* https://simplecalculators.io/:splat 301!
+
+# Redirect http to https
+http://simplecalculators.io/* https://simplecalculators.io/:splat 301!
+http://www.simplecalculators.io/* https://simplecalculators.io/:splat 301!
+
+# Single Page App routing - serve index.html for all non-file requests
+/* /index.html 200

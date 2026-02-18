@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import ConsentBanner from './ConsentBanner';
+import CanonicalLink from './CanonicalLink';
 import Nav from './Nav';
 
 interface LayoutProps {
@@ -9,6 +10,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50">
+      <CanonicalLink />
       <Nav />
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-8">
         {children}
