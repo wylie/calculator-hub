@@ -1,8 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import RefinancePage from '../react-pages/Refinance/RefinancePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How does this refinance calculator estimate savings?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It compares current and proposed monthly payments, then estimates total net savings after refinance costs over the selected term.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is break-even point in refinancing?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Break-even is the number of months it takes for monthly savings to recover upfront refinance costs.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can a refinance increase total cost?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. A lower rate can still cost more overall if the new term is much longer or costs are high. Always review net savings and break-even.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Refinance Calculator">
+<MainLayout
+  title="Refinance Calculator"
+  description="Compare current mortgage terms vs refinance options, estimate monthly savings, break-even period, and total net savings."
+  jsonLd={faqSchema}
+>
   <RefinancePage client:load />
 </MainLayout>

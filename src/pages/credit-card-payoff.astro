@@ -1,8 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import CreditCardPayoffPage from '../react-pages/CreditCardPayoff/CreditCardPayoffPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How does credit card payoff time get calculated?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The calculator uses your balance, APR, and monthly payment to estimate the number of months required to pay the debt to zero.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What if my monthly payment is too low?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'If payment is very low relative to APR, payoff can take much longer and total interest can become very high.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How can I reduce total interest paid?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Increase monthly payments, reduce APR through refinancing or transfers, and avoid adding new balances during payoff.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Credit Card Payoff">
+<MainLayout
+  title="Credit Card Payoff"
+  description="Estimate credit card payoff timeline, total interest, and total paid based on balance, APR, and monthly payment."
+  jsonLd={faqSchema}
+>
   <CreditCardPayoffPage client:load />
 </MainLayout>

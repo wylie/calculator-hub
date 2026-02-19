@@ -83,6 +83,33 @@ export default function VolumePage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this volume converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          Converts US gallons and liters for household, fuel, and storage measurements.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Liters = gallons × 3.785411784</li>
+          <li>Gallons = liters ÷ 3.785411784</li>
+          <li>Calculations use US gallon units</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Volume converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Does this use US or UK gallons?</summary>
+            <p className="mt-2">This tool uses US gallon conversion values.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I use this for recipes?</summary>
+            <p className="mt-2">Yes, it is helpful for converting liquid measurements between systems.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/length', title: 'Length Converter', icon: 'straighten' },

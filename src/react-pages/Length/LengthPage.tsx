@@ -118,6 +118,33 @@ export default function LengthPage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this length converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          This page includes two common conversions: inches ↔ centimeters and feet ↔ meters for daily and professional use.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>1 inch = 2.54 centimeters</li>
+          <li>1 foot = 0.3048 meters</li>
+          <li>Conversions run both directions instantly</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Length converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What unit pairs are supported?</summary>
+            <p className="mt-2">Inches/centimeters and feet/meters are both supported.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I use this for construction measurements?</summary>
+            <p className="mt-2">Yes, this is useful for quick field checks and unit translation.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },

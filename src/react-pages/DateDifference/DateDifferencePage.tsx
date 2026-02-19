@@ -79,6 +79,34 @@ export default function DateDifferencePage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this date difference calculator works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          The tool measures the absolute time gap between two dates and reports the difference in days, weeks,
+          and approximate months.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Days are based on exact millisecond difference</li>
+          <li>Weeks are derived from days ÷ 7</li>
+          <li>Months are estimated using average month length</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Date difference FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Are month values exact?</summary>
+            <p className="mt-2">Month totals are approximate for quick planning since calendar months have different lengths.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I compare dates in any order?</summary>
+            <p className="mt-2">Yes. The calculator uses absolute difference, so start/end order does not affect magnitude.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/time', title: 'Time Converter', icon: 'schedule' },

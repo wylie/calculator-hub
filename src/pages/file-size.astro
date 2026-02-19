@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import FileSizePage from '../react-pages/FileSize/FileSizePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What file size units are supported?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'This converter supports kilobytes (KB), megabytes (MB), and gigabytes (GB).',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are conversions based on 1024?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. The calculator uses binary factors where 1 MB = 1024 KB and 1 GB = 1024 MB.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="File Size Converter">
+<MainLayout
+  title="File Size Converter"
+  description="Convert file sizes between KB, MB, and GB using standard binary (1024-based) units."
+  jsonLd={faqSchema}
+>
   <FileSizePage client:load />
 </MainLayout>

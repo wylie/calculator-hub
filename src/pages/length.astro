@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import LengthPage from '../react-pages/Length/LengthPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What units can I convert here?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'This converter supports inches and centimeters, plus feet and meters.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is this useful for both small and large measurements?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Use short-length conversion for inch/cm values and long-length conversion for feet/meters.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Length Converter">
+<MainLayout
+  title="Length Converter"
+  description="Convert inches and centimeters, feet and meters with fast two-way length conversion."
+  jsonLd={faqSchema}
+>
   <LengthPage client:load />
 </MainLayout>

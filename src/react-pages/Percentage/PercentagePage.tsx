@@ -97,10 +97,38 @@ export default function PercentagePage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this percentage converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          This tool handles three related tasks: finding a percentage of a value, converting percent to decimal,
+          and converting decimal to percent.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Percent of value = base × percent ÷ 100</li>
+          <li>Percent to decimal = percent ÷ 100</li>
+          <li>Decimal to percent = decimal × 100</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Percentage converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">How do I find 15% of 200?</summary>
+            <p className="mt-2">Multiply 200 by 15 and divide by 100, giving 30.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What is 0.15 as a percent?</summary>
+            <p className="mt-2">Multiply by 100, so 0.15 equals 15%.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/interest', title: 'Interest Calculator', icon: 'percent' },
-          { path: '/finance', title: 'Finance Calculator', icon: 'trending_up' },
+          { path: '/compound-interest', title: 'Compound Interest', icon: 'trending_up' },
           { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
           { path: '/calories', title: 'Calorie Calculator', icon: 'fastfood' },
         ]}

@@ -95,6 +95,38 @@ export default function CreditCardPayoffPage() {
         </p>
       </Card>
 
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">How this credit card payoff calculator works</h2>
+        <p className="text-sm text-gray-600 mb-3">
+          This tool estimates payoff timeline based on your current balance, APR, and monthly payment amount.
+          It also estimates total interest paid before the balance reaches zero.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+          <li>Higher APR generally increases total interest cost</li>
+          <li>Higher monthly payment reduces payoff time</li>
+          <li>Longer payoff periods typically mean more interest paid</li>
+        </ul>
+        <p className="text-xs text-gray-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">Credit card payoff FAQ</h2>
+        <div className="space-y-3 text-sm text-gray-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Why is my payoff time so long?</summary>
+            <p className="mt-2">If APR is high and payment is close to minimum, a larger share goes to interest and principal decreases slowly.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What helps reduce total interest?</summary>
+            <p className="mt-2">Increase monthly payments, avoid new charges, and consider lower-rate options where appropriate.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Is this an exact lender payoff quote?</summary>
+            <p className="mt-2">No. It is an estimate for planning. Actual payoff timing can vary by issuer fees and statement timing.</p>
+          </details>
+        </div>
+      </Card>
+
       <AdSlot />
 
       <RelatedTools

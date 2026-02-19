@@ -1,8 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import DownPaymentPage from '../react-pages/DownPayment/DownPaymentPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How is down payment amount calculated?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Down payment amount is estimated by multiplying home price by the selected down payment percentage.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does this include taxes and insurance in monthly payment?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Monthly payment in this calculator estimates principal and interest only.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why is 20 percent down important?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A 20 percent down payment often reduces loan risk and can help avoid PMI on conventional mortgages.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Down Payment Calculator">
+<MainLayout
+  title="Down Payment Calculator"
+  description="Estimate down payment amount, resulting loan size, and principal-and-interest monthly payment for a home purchase."
+  jsonLd={faqSchema}
+>
   <DownPaymentPage client:load />
 </MainLayout>

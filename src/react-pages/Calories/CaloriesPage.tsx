@@ -165,6 +165,38 @@ export default function CaloriesPage() {
         iconName="scale"
       />
 
+      <Card className="mt-6">
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this calorie calculator works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          This calculator estimates BMR using the Mifflin-St Jeor equation, applies your activity multiplier to estimate
+          TDEE, then adjusts calories for your selected goal.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>BMR estimates resting calorie needs</li>
+          <li>TDEE = BMR × activity level</li>
+          <li>Goal target applies a practical deficit or surplus</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card className="mt-6">
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Calorie calculator FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What is BMR?</summary>
+            <p className="mt-2">BMR is the number of calories your body needs at rest to maintain basic functions.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What is TDEE?</summary>
+            <p className="mt-2">TDEE is your total daily energy expenditure after factoring in activity level.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Is a 500 calorie deficit always right?</summary>
+            <p className="mt-2">It is a common starting point for gradual fat loss. Individual needs can vary based on body size, activity, and goals.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },

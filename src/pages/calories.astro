@@ -1,8 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import CaloriesPage from '../react-pages/Calories/CaloriesPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What formula does this calorie calculator use?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It uses the Mifflin-St Jeor equation to estimate BMR, then applies an activity multiplier to estimate TDEE and daily calorie targets.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between BMR and TDEE?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'BMR is calories your body needs at rest. TDEE is BMR adjusted for activity level and reflects your typical daily energy use.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How is weight-loss target calculated?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The weight-loss mode sets daily calories to TDEE minus 500 kcal as a common starting deficit.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Calorie Calculator">
+<MainLayout
+  title="Calorie Calculator"
+  description="Calculate BMR, TDEE, and daily calorie targets for maintenance, weight loss, or weight gain using Mifflin-St Jeor."
+  jsonLd={faqSchema}
+>
   <CaloriesPage client:load />
 </MainLayout>

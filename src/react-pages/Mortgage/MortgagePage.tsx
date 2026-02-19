@@ -193,6 +193,38 @@ export default function MortgagePage() {
         iconName="compare_arrows"
       />
 
+      <Card className="mt-6">
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this mortgage calculator works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          This tool uses a standard amortization approach to estimate monthly principal and interest. It then adds
+          optional monthly costs for property tax, home insurance, and PMI to show your total estimated monthly payment.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Loan amount = home price minus down payment</li>
+          <li>Monthly P&amp;I is based on APR and loan term</li>
+          <li>Monthly total includes optional tax, insurance, and PMI</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card className="mt-6">
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Mortgage calculator FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">How is monthly mortgage payment calculated?</summary>
+            <p className="mt-2">Monthly principal and interest are calculated using the loan amount, APR, and term. Optional costs are added after that.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Does this include taxes and insurance?</summary>
+            <p className="mt-2">Yes. Enter annual property tax and insurance to include them as monthly amounts in the total estimate.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I use percent or dollar down payment?</summary>
+            <p className="mt-2">Yes. Use the toggle beside the down-payment input to switch between $ and % modes.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/refinance', title: 'Refinance Calculator', icon: 'build' },

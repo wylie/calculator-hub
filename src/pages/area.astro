@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import AreaPage from '../react-pages/Area/AreaPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I convert square feet to square meters?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Multiply square feet by 0.09290304 to get square meters. The converter also supports reverse conversion.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I use this for room size estimates?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. It is useful for property listings, room measurements, and renovation planning across unit systems.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Area Converter">
+<MainLayout
+  title="Area Converter"
+  description="Convert area between square feet and square meters for home, construction, and planning use cases."
+  jsonLd={faqSchema}
+>
   <AreaPage client:load />
 </MainLayout>

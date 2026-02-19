@@ -117,6 +117,38 @@ export default function AutoLoanPage() {
 
       <AdSlot />
 
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">How this auto loan calculator works</h2>
+        <p className="text-sm text-gray-600 mb-3">
+          This calculator estimates principal-and-interest payments using your car price, down payment, APR, and loan term.
+          It also shows total interest and total loan cost over the full repayment period.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+          <li>Loan amount = vehicle price minus down payment</li>
+          <li>Monthly payment is estimated with an amortization formula</li>
+          <li>Total cost combines principal and total interest</li>
+        </ul>
+        <p className="text-xs text-gray-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">Auto loan calculator FAQ</h2>
+        <div className="space-y-3 text-sm text-gray-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I use percent or dollar down payment?</summary>
+            <p className="mt-2">Yes. You can switch down payment type and the calculator will recalculate the loan amount automatically.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Does this include insurance, taxes, or dealer fees?</summary>
+            <p className="mt-2">No. These results estimate loan payment only. Add insurance and fees separately for a complete vehicle budget.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">How can I lower monthly payment?</summary>
+            <p className="mt-2">A larger down payment, lower APR, or longer term can reduce monthly payment, though longer terms may increase total interest.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },

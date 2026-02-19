@@ -1,8 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import NetWorthPage from '../react-pages/NetWorth/NetWorthPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How is net worth calculated?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Net worth equals total assets minus total liabilities. Positive values indicate assets exceed debts.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What should I include as assets?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Common assets include cash, investments, retirement accounts, vehicles, and property values.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What should I include as liabilities?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Include mortgage balances, student loans, car loans, credit card debt, and any other outstanding obligations.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Net Worth Calculator">
+<MainLayout
+  title="Net Worth Calculator"
+  description="Track total assets and liabilities, then calculate your net worth to measure overall financial position."
+  jsonLd={faqSchema}
+>
   <NetWorthPage client:load />
 </MainLayout>

@@ -141,6 +141,38 @@ export default function RetirementPage() {
         <p className="text-gray-600 text-sm">
           The 4% rule suggests you can safely withdraw 4% of your retirement savings annually. This estimate uses this rule to determine if your projected fund will support your lifestyle.
         </p>
+        <p className="text-xs text-gray-500 mt-3">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">How this retirement calculator works</h2>
+        <p className="text-sm text-gray-600 mb-3">
+          The calculator projects savings growth from current assets and yearly contributions, then adjusts spending goals
+          using inflation assumptions to estimate retirement readiness.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+          <li>Projected fund uses assumed annual return and contribution schedule</li>
+          <li>Needed amount estimates retirement expenses in future dollars</li>
+          <li>On-track status compares projected fund vs target need</li>
+        </ul>
+      </Card>
+
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">Retirement calculator FAQ</h2>
+        <div className="space-y-3 text-sm text-gray-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Why does inflation matter so much?</summary>
+            <p className="mt-2">Inflation increases future living costs, so retirement income targets must account for reduced purchasing power.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Is the 4% rule guaranteed?</summary>
+            <p className="mt-2">No. It is a planning rule of thumb, not a guarantee. Real outcomes depend on market returns and spending behavior.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What if I am not on track?</summary>
+            <p className="mt-2">Common adjustments include increasing contributions, delaying retirement, lowering expected expenses, or revisiting return assumptions.</p>
+          </details>
+        </div>
       </Card>
 
       <AdSlot />

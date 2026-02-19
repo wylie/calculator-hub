@@ -143,6 +143,38 @@ export default function RefinancePage() {
 
       <AdSlot />
 
+      <Card>
+        <h2 className="text-xl font-semibold mb-3">How this refinance calculator works</h2>
+        <p className="text-sm text-gray-700 mb-3">
+          The calculator compares your current loan payment to a proposed refinance payment, then estimates total
+          net savings after refinance costs over the new term.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+          <li>Monthly savings = current monthly payment minus new monthly payment</li>
+          <li>Total net savings factors in refinance closing costs</li>
+          <li>Break-even months estimate when savings recover upfront costs</li>
+        </ul>
+        <p className="text-xs text-gray-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h2 className="text-xl font-semibold mb-3">Refinance calculator FAQ</h2>
+        <div className="space-y-3 text-sm text-gray-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What is break-even point?</summary>
+            <p className="mt-2">Break-even is the number of months it takes for monthly savings to offset refinance costs.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can refinancing increase total cost?</summary>
+            <p className="mt-2">Yes. If you reset into a much longer term or pay high costs, total lifetime interest can still rise.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What rate drop is worth refinancing?</summary>
+            <p className="mt-2">There is no single rule; compare monthly savings, break-even timing, and how long you plan to keep the loan.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },

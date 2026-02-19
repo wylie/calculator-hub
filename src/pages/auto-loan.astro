@@ -1,8 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import AutoLoanPage from '../react-pages/AutoLoan/AutoLoanPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How is monthly car payment calculated?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Monthly payment is estimated from loan amount, annual interest rate, and loan term using a standard amortization formula.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I use percent or dollar down payment?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. You can switch down payment type between percentage and fixed dollar amount.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does this include insurance and fees?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. This estimate focuses on loan principal and interest. Add registration, insurance, and taxes separately for full ownership cost.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Auto Loan Calculator">
+<MainLayout
+  title="Auto Loan Calculator"
+  description="Estimate monthly car payment, total interest, and total loan cost with adjustable down payment type, term, and APR."
+  jsonLd={faqSchema}
+>
   <AutoLoanPage client:load />
 </MainLayout>

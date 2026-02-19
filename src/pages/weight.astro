@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import WeightPage from '../react-pages/Weight/WeightPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I convert pounds to kilograms?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Multiply pounds by 0.45359237 to get kilograms. This calculator handles conversion automatically both ways.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How precise is the conversion?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The calculator uses standard conversion constants and shows rounded output for readability.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Weight Converter">
+<MainLayout
+  title="Weight Converter"
+  description="Convert weights between pounds and kilograms quickly with accurate formulas."
+  jsonLd={faqSchema}
+>
   <WeightPage client:load />
 </MainLayout>

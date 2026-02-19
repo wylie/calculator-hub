@@ -178,6 +178,38 @@ export default function NetWorthPage() {
         </div>
       </div>
 
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">How this net worth calculator works</h2>
+        <p className="text-sm text-gray-600 mb-3">
+          Net worth is calculated by subtracting total liabilities from total assets. This gives a snapshot of your
+          overall financial position at a specific point in time.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+          <li>Assets include cash, investments, and property values</li>
+          <li>Liabilities include loans, credit cards, and other debts</li>
+          <li>Updating values regularly helps track long-term progress</li>
+        </ul>
+        <p className="text-xs text-gray-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">Net worth calculator FAQ</h2>
+        <div className="space-y-3 text-sm text-gray-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">How often should I update my net worth?</summary>
+            <p className="mt-2">Monthly or quarterly updates work well for most people and make trends easier to track.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can net worth be negative?</summary>
+            <p className="mt-2">Yes. Negative net worth means total liabilities are greater than total assets.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Should I use market value for assets?</summary>
+            <p className="mt-2">Using realistic current market values gives a more accurate snapshot than original purchase prices.</p>
+          </details>
+        </div>
+      </Card>
+
       <AdSlot />
 
       <AdSlot />
@@ -187,7 +219,7 @@ export default function NetWorthPage() {
           { path: '/retirement', title: 'Retirement Calculator', icon: 'celebration' },
           { path: '/investment-growth', title: 'Investment Growth', icon: 'trending_up' },
           { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
-          { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
+          { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
         ]}
       />
     </div>

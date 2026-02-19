@@ -83,6 +83,33 @@ export default function WeightPage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this weight converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          This converter translates between pounds and kilograms using standard metric-imperial conversion constants.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Kilograms = pounds × 0.45359237</li>
+          <li>Pounds = kilograms ÷ 0.45359237</li>
+          <li>Useful for fitness, nutrition, and shipping estimates</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Weight converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">How many kilograms are in one pound?</summary>
+            <p className="mt-2">One pound equals 0.45359237 kilograms.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I enter decimal values?</summary>
+            <p className="mt-2">Yes. Decimal values are supported for more accurate conversions.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/calories', title: 'Calorie Calculator', icon: 'fastfood' },

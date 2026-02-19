@@ -115,6 +115,34 @@ export default function WeatherPage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this temperature converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          This converter switches between Celsius and Fahrenheit using standard formulas and shows quick reference
+          temperatures for common real-world points.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Fahrenheit = Celsius × 9/5 + 32</li>
+          <li>Celsius = (Fahrenheit − 32) × 5/9</li>
+          <li>Decimal input is supported for precise conversion</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Temperature converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">How do I convert Celsius to Fahrenheit?</summary>
+            <p className="mt-2">Multiply Celsius by 9/5 and add 32. The tool performs this automatically.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I convert the other way?</summary>
+            <p className="mt-2">Yes. Select Fahrenheit as your input unit and the result is shown in Celsius.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },

@@ -1,8 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import RetirementPage from '../react-pages/Retirement/RetirementPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What does the retirement calculator project?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It projects retirement fund value at your target age using current savings, annual contributions, expected return, and inflation assumptions.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How is retirement income estimated?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The tool uses the 4 percent rule to estimate annual withdrawal income from your projected retirement fund.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why include inflation in planning?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Inflation reduces purchasing power over time, so future expense targets should account for rising costs.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Retirement Calculator">
+<MainLayout
+  title="Retirement Calculator"
+  description="Project retirement savings, estimate annual retirement income using the 4% rule, and check if your plan is on track."
+  jsonLd={faqSchema}
+>
   <RetirementPage client:load />
 </MainLayout>

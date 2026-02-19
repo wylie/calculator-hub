@@ -117,6 +117,38 @@ export default function DownPaymentPage() {
         </Card>
       </div>
 
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">How this down payment calculator works</h2>
+        <p className="text-sm text-gray-600 mb-3">
+          This tool converts your down payment percentage into a dollar amount, then estimates resulting loan size and
+          monthly principal-and-interest payment based on interest rate and loan term.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+          <li>Down payment amount = home price × down payment percent</li>
+          <li>Loan amount = home price minus down payment</li>
+          <li>Monthly payment estimate includes principal and interest only</li>
+        </ul>
+        <p className="text-xs text-gray-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">Down payment calculator FAQ</h2>
+        <div className="space-y-3 text-sm text-gray-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Is 20% down required?</summary>
+            <p className="mt-2">Not always. Many programs allow lower down payments, but 20% often helps avoid PMI on conventional loans.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Does this include taxes, insurance, or HOA?</summary>
+            <p className="mt-2">No. This monthly estimate focuses on principal and interest. Add other housing costs separately.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What happens if I increase down payment?</summary>
+            <p className="mt-2">A larger down payment reduces loan amount, which usually lowers monthly payment and total interest.</p>
+          </details>
+        </div>
+      </Card>
+
       <AdSlot />
 
       <RelatedTools

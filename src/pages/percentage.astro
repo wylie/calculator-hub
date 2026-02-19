@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import PercentagePage from '../react-pages/Percentage/PercentagePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I calculate a percentage of a number?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Multiply the value by the percentage and divide by 100. The calculator does this automatically.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I convert percent to decimal?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Divide percent by 100 to convert to decimal, and multiply decimal by 100 to convert back to percent.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Percentage Converter">
+<MainLayout
+  title="Percentage Converter"
+  description="Calculate percentages and convert between percent and decimal values with fast examples."
+  jsonLd={faqSchema}
+>
   <PercentagePage client:load />
 </MainLayout>

@@ -1,8 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import BudgetPage from '../react-pages/Budget/BudgetPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How does the budget calculator work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Enter net monthly income and add expense categories. The calculator totals expenses, shows remaining amount, and estimates savings rate.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is a good savings rate?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Many people target at least 20 percent, but a sustainable rate depends on debt, goals, and local cost of living.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I customize expense categories?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. You can add, edit, and remove custom expense rows to match your real monthly budget.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Budget Calculator">
+<MainLayout
+  title="Budget Calculator"
+  description="Track monthly income and expenses, estimate remaining cash flow, and calculate your savings rate with customizable categories."
+  jsonLd={faqSchema}
+>
   <BudgetPage client:load />
 </MainLayout>

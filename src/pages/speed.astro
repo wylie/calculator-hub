@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SpeedPage from '../react-pages/Speed/SpeedPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I convert mph to km/h?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Multiply mph by 1.609344 to get km/h. This calculator converts both directions automatically.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I use decimal speeds?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Decimal input is supported for precise conversion results.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Speed Converter">
+<MainLayout
+  title="Speed Converter"
+  description="Convert speed between miles per hour and kilometers per hour using standard conversion factors."
+  jsonLd={faqSchema}
+>
   <SpeedPage client:load />
 </MainLayout>

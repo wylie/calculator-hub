@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import TimePage from '../react-pages/Time/TimePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I convert hours to minutes?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Multiply hours by 60 to get minutes. For minutes to hours, divide by 60.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can this handle fractional hours?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Decimal values are supported for both units.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Time Converter">
+<MainLayout
+  title="Time Converter"
+  description="Convert time between hours and minutes quickly for scheduling and planning tasks."
+  jsonLd={faqSchema}
+>
   <TimePage client:load />
 </MainLayout>

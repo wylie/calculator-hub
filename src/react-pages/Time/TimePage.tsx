@@ -83,6 +83,33 @@ export default function TimePage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this time converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          Converts between hours and minutes for scheduling, work logs, and quick duration checks.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Minutes = hours × 60</li>
+          <li>Hours = minutes ÷ 60</li>
+          <li>Supports decimal values for partial units</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Time converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">How many minutes are in 2.5 hours?</summary>
+            <p className="mt-2">2.5 hours equals 150 minutes.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I convert minutes back to hours?</summary>
+            <p className="mt-2">Yes. Choose minutes as input and the result is displayed in hours.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/date-difference', title: 'Date Difference', icon: 'date_range' },

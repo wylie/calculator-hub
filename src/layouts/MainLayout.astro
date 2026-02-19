@@ -7,11 +7,95 @@ interface Props {
   title: string;
   description?: string;
   canonical?: string;
+  image?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const { title, description, canonical } = Astro.props;
-const canonicalUrl = canonical || `https://simplecalculators.io${Astro.url.pathname}`;
+const siteUrl = 'https://simplecalculators.io';
+const siteName = 'Simple Calculators';
+const { title, description, canonical, image, noindex = false, jsonLd } = Astro.props;
+const canonicalUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
 const defaultDescription = 'Free online calculators and converters for mortgage, budget, weather, calories, and more. Simple, accurate, and easy to use.';
+const pageDescription = description || defaultDescription;
+const pageTitle = `${title} | ${siteName}`;
+const ogSlug = Astro.url.pathname === '/' ? 'home' : Astro.url.pathname.replace(/^\//, '').replace(/\/$/, '');
+const ogImage = image || `${siteUrl}/og/${ogSlug}.svg`;
+const isToolPage = /calculator|converter/i.test(title);
+const breadcrumbItems = Astro.url.pathname === '/'
+  ? [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` }]
+  : [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+      { '@type': 'ListItem', position: 2, name: title, item: canonicalUrl },
+    ];
+
+const baseJsonLd: Array<Record<string, unknown>> = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteName,
+    url: `${siteUrl}/`,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteUrl}/?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: pageTitle,
+    description: pageDescription,
+    url: canonicalUrl,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: siteName,
+      url: `${siteUrl}/`,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbItems,
+  },
+];
+
+if (isToolPage) {
+  baseJsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: title,
+    applicationCategory: title.toLowerCase().includes('converter') ? 'UtilitiesApplication' : 'FinanceApplication',
+    operatingSystem: 'Any',
+    isAccessibleForFree: true,
+    url: canonicalUrl,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  });
+
+  baseJsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: title,
+    description: pageDescription,
+    author: {
+      '@type': 'Organization',
+      name: siteName,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteName,
+    },
+    dateModified: '2026-02-18',
+    mainEntityOfPage: canonicalUrl,
+  });
+}
+
+const pageJsonLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const allJsonLd = [...baseJsonLd, ...pageJsonLd];
 ---
 
 <!doctype html>
@@ -19,9 +103,23 @@ const defaultDescription = 'Free online calculators and converters for mortgage,
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} | Simple Calculators</title>
-    <meta name="description" content={description || defaultDescription} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
     
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,6 +146,10 @@ const defaultDescription = 'Free online calculators and converters for mortgage,
       gtag('js', new Date());
       gtag('config', 'G-7Z9DM31C5W');
     </script>
+
+    {allJsonLd.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
   </head>
   <body>
     <div class="flex flex-col min-h-screen bg-slate-50">

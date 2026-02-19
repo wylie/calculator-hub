@@ -181,6 +181,38 @@ export default function BudgetPage() {
         iconName="calculate"
       />
 
+      <Card className="mt-6">
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this budget calculator works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          Add your monthly net income and expense categories, then the calculator totals your spending and shows your
+          remaining cash flow and estimated savings rate.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Total expenses are summed across all categories</li>
+          <li>Remaining = income minus total expenses</li>
+          <li>Savings rate is based on your savings category or positive remaining cash flow</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card className="mt-6">
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Budget calculator FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I add custom expense categories?</summary>
+            <p className="mt-2">Yes. Use the Add button to create as many expense rows as you need and rename each row.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What if my budget is negative?</summary>
+            <p className="mt-2">A negative remaining amount means expenses exceed income. Reduce categories or increase income to restore balance.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What savings rate should I target?</summary>
+            <p className="mt-2">Many people aim for around 20%, but the right rate depends on debt, emergency savings, and personal goals.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },

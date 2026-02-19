@@ -106,6 +106,25 @@ export default function InvestmentGrowthPage() {
         <p className="text-gray-600 text-sm">
           This calculator shows the power of compound interest combined with regular monthly contributions. Your money grows not just from returns on your initial investment, but also from returns on your contributions and accumulated gains.
         </p>
+        <p className="text-xs text-gray-500 mt-3">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h2 className="text-lg font-semibold mb-3">Investment growth FAQ</h2>
+        <div className="space-y-3 text-sm text-gray-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">What is ROI in this calculator?</summary>
+            <p className="mt-2">ROI is the percentage gain relative to total invested amount over the selected period.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Does this account for taxes or fees?</summary>
+            <p className="mt-2">No. The estimate is pre-tax and does not include fund expenses or brokerage fees.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can future returns be lower than expected?</summary>
+            <p className="mt-2">Yes. Annual returns vary over time, so use conservative assumptions for planning scenarios.</p>
+          </details>
+        </div>
       </Card>
 
       <AdSlot />

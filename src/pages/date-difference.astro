@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import DateDifferencePage from '../react-pages/DateDifference/DateDifferencePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How is date difference calculated?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The calculator computes the absolute difference between two selected dates and reports days, weeks, and approximate months.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are months exact in date difference?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Month values are approximate and based on average month length for quick planning comparisons.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Date Difference">
+<MainLayout
+  title="Date Difference"
+  description="Calculate the difference between two dates in days, weeks, and approximate months."
+  jsonLd={faqSchema}
+>
   <DateDifferencePage client:load />
 </MainLayout>

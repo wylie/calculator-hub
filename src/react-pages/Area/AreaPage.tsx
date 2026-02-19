@@ -83,6 +83,33 @@ export default function AreaPage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this area converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          Converts area between square feet and square meters using standard geometry unit factors.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>Square meters = square feet × 0.09290304</li>
+          <li>Square feet = square meters ÷ 0.09290304</li>
+          <li>Useful for floor plans and property comparisons</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Area converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I use decimals?</summary>
+            <p className="mt-2">Yes. Decimal values are supported for both units.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Is this useful for home listings?</summary>
+            <p className="mt-2">Yes, it helps compare listings that use different area units.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/length', title: 'Length Converter', icon: 'straighten' },

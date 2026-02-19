@@ -83,6 +83,33 @@ export default function SpeedPage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this speed converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          Converts speed between miles per hour and kilometers per hour using a standard factor.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>km/h = mph × 1.609344</li>
+          <li>mph = km/h ÷ 1.609344</li>
+          <li>Useful for travel, fitness, and vehicle comparisons</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">Speed converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">How many km/h is 60 mph?</summary>
+            <p className="mt-2">60 mph is approximately 96.56 km/h.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I use decimal speeds?</summary>
+            <p className="mt-2">Yes. Decimal speed values are supported.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },

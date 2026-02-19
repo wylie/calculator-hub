@@ -102,6 +102,33 @@ export default function FileSizePage() {
 
       <AdSlot />
 
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">How this file size converter works</h3>
+        <p className="text-sm text-slate-700 mb-3">
+          This tool converts between KB, MB, and GB using binary-size factors (1024 based) common in computing contexts.
+        </p>
+        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>1 MB = 1024 KB</li>
+          <li>1 GB = 1024 MB</li>
+          <li>Great for storage planning and transfer estimates</li>
+        </ul>
+        <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
+      </Card>
+
+      <Card>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">File size converter FAQ</h3>
+        <div className="space-y-3 text-sm text-slate-700">
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Does this use binary or decimal units?</summary>
+            <p className="mt-2">This converter uses binary factors (1024), which is common for file size calculations.</p>
+          </details>
+          <details className="rounded border border-slate-200 p-3 bg-white">
+            <summary className="font-medium cursor-pointer">Can I convert in both directions?</summary>
+            <p className="mt-2">Yes. Select source and target units to convert either way.</p>
+          </details>
+        </div>
+      </Card>
+
       <RelatedTools
         tools={[
           { path: '/volume', title: 'Volume Converter', icon: 'water_drop' },

@@ -14,13 +14,17 @@ export default function RelatedTools({ tools }: RelatedToolsProps) {
   if (!tools || tools.length === 0) return null
 
   return (
-    <div className="mt-8 pt-8 border-t border-slate-200">
-      <h3 className="text-lg font-semibold text-slate-900 mb-4">Related Tools</h3>
+    <section className="mt-8 pt-8 border-t border-slate-200" aria-label="Related calculators and converters">
+      <h2 className="text-lg font-semibold text-slate-900 mb-2">Related Tools</h2>
+      <p className="text-sm text-slate-600 mb-4">
+        Explore more calculators and converters for related scenarios.
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {tools.map((tool) => (
           <a
             key={tool.path}
             href={tool.path}
+            title={`Open ${tool.title}`}
             className="hover:opacity-75 transition-opacity"
           >
             <Card className="flex items-center gap-3">
@@ -35,6 +39,6 @@ export default function RelatedTools({ tools }: RelatedToolsProps) {
           </a>
         ))}
       </div>
-    </div>
+    </section>
   )
 }

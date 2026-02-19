@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import VolumePage from '../react-pages/Volume/VolumePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I convert gallons to liters?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Multiply gallons by 3.785411784 to convert to liters. The calculator can also convert liters back to gallons.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is this using US gallons?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. This converter uses US gallon conversion constants.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Volume Converter">
+<MainLayout
+  title="Volume Converter"
+  description="Convert volume between US gallons and liters with accurate conversion constants."
+  jsonLd={faqSchema}
+>
   <VolumePage client:load />
 </MainLayout>

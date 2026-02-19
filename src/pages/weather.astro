@@ -1,8 +1,35 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import WeatherPage from '../react-pages/Weather/WeatherPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I convert Celsius to Fahrenheit?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Use F = C × 9/5 + 32. This converter performs that calculation automatically in either direction.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can this convert Fahrenheit to Celsius too?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Select Fahrenheit as input and the tool returns the Celsius value.',
+      },
+    },
+  ],
+};
 ---
 
-<MainLayout title="Weather Converter">
+<MainLayout
+  title="Weather Converter"
+  description="Convert temperatures between Celsius and Fahrenheit instantly, with practical reference points."
+  jsonLd={faqSchema}
+>
   <WeatherPage client:load />
 </MainLayout>

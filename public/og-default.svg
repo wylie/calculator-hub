@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Simple Calculators</title>
+  <desc id="desc">Free online calculators and converters.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="#ffffff">
+    <text x="90" y="260" font-family="Inter, system-ui, sans-serif" font-size="74" font-weight="700">Simple Calculators</text>
+    <text x="90" y="330" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="400" opacity="0.9">Mortgage, budget, conversion, fitness, and finance tools</text>
+    <text x="90" y="390" font-family="Inter, system-ui, sans-serif" font-size="30" font-weight="400" opacity="0.8">Fast • Accurate • Free</text>
+  </g>
+  <g transform="translate(930 140)">
+    <rect x="0" y="0" width="190" height="190" rx="28" fill="#ffffff" opacity="0.12"/>
+    <path d="M44 68h102v16H44zm0 36h102v16H44zm0 36h66v16H44z" fill="#ffffff"/>
+    <circle cx="136" cy="148" r="18" fill="#3b82f6"/>
+    <path d="M130 148l5 5 10-12" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
