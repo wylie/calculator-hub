@@ -115,7 +115,7 @@ export default function FileSizePage() {
         <p className="text-xs text-slate-500 mt-4">Last updated: February 2026</p>
       </Card>
 
-      <Card>
+      <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">File size converter FAQ</h3>
         <div className="space-y-3 text-sm text-slate-700">
           <details className="rounded border border-slate-200 p-3 bg-white">
