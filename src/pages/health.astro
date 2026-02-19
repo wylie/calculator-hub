@@ -1,0 +1,11 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HealthPage from '../react-pages/Categories/HealthPage';
+---
+
+<MainLayout
+  title="Health & Lifestyle Calculators"
+  description="Tools for health, fitness, nutrition, cycling, and lifestyle calculations. BMI, calories, TDEE, water intake, and more."
+>
+  <HealthPage client:load />
+</MainLayout>

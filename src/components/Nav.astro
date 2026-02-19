@@ -6,6 +6,7 @@ interface NavItem {
 
 interface NavCategory {
   label: string;
+  path: string;
   items: NavItem[];
 }
 
@@ -14,6 +15,7 @@ const currentPath = Astro.url.pathname;
 const navCategories: NavCategory[] = [
   {
     label: 'Loans & Real Estate',
+    path: '/loans',
     items: [
       { path: '/mortgage', label: 'Mortgage' },
       { path: '/auto-loan', label: 'Auto Loan' },
@@ -26,6 +28,7 @@ const navCategories: NavCategory[] = [
   },
   {
     label: 'Savings & Investment',
+    path: '/savings-investment',
     items: [
       { path: '/interest', label: 'Interest' },
       { path: '/compound-interest', label: 'Compound Interest' },
@@ -38,6 +41,7 @@ const navCategories: NavCategory[] = [
     ],
   },
   {
+    path: '/budgeting',
     label: 'Budgeting & Finance',
     items: [
       { path: '/budget', label: 'Budget' },
@@ -51,6 +55,7 @@ const navCategories: NavCategory[] = [
     ],
   },
   {
+    path: '/health',
     label: 'Health & Lifestyle',
     items: [
       { path: '/calories', label: 'Calories' },
@@ -70,7 +75,8 @@ const navCategories: NavCategory[] = [
       { path: '/gpa', label: 'GPA Calculator' },
     ],
   },
-  {
+  {path: '/converters',
+    
     label: 'Converters & Tools',
     items: [
       { path: '/weather', label: 'Temperature' },
@@ -127,7 +133,7 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
             <details class="mt-2">
               <summary
                 class={`list-none px-4 py-3 rounded-md text-base font-medium cursor-pointer flex items-center justify-between ${
-                  isCategoryActive(category.items)
+                  isActive(category.path) || isCategoryActive(category.items)
                     ? 'bg-blue-100 text-blue-700'
                     : 'text-slate-700 hover:bg-slate-100'
                 }`}
@@ -136,6 +142,16 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
                 <span class="material-symbols-outlined text-lg">expand_more</span>
               </summary>
               <div class="mt-2 ml-3 border-l-2 border-blue-200">
+                <a
+                  href={category.path}
+                  class={`block px-4 py-2 text-base font-semibold ${
+                    isActive(category.path)
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-blue-600 hover:bg-blue-50'
+                  }`}
+                >
+                  View All {category.label}
+                </a>
                 {category.items.map((item) => (
                   <a
                     href={item.path}
@@ -172,17 +188,17 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
         </li>
         {navCategories.map((category, index) => (
           <li class="relative group">
-            <button
-              type="button"
+            <a
+              href={category.path}
               class={`px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-1 whitespace-nowrap ${
-                isCategoryActive(category.items)
+                isActive(category.path) || isCategoryActive(category.items)
                   ? 'bg-blue-100 text-blue-700'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
               {category.label}
               <span class="material-symbols-outlined text-lg">expand_more</span>
-            </button>
+            </a>
             {category.items.length > 10 ? (
               <div class={`absolute ${index >= navCategories.length - 2 ? 'right-0' : 'left-0'} top-full hidden group-hover:grid grid-cols-2 gap-1 bg-white border border-slate-200 rounded-md shadow-lg z-10 p-2 w-96`}>
                 {category.items.map((item) => (

@@ -1,0 +1,11 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import BudgetingPage from '../react-pages/Categories/BudgetingPage';
+---
+
+<MainLayout
+  title="Budgeting & Finance Calculators"
+  description="Take control of your finances with budgeting tools, debt calculators, net worth tracking, and personal finance planning."
+>
+  <BudgetingPage client:load />
+</MainLayout>

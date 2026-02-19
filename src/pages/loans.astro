@@ -1,0 +1,11 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import LoansPage from '../react-pages/Categories/LoansPage';
+---
+
+<MainLayout
+  title="Loans & Real Estate Calculators"
+  description="Comprehensive calculators for mortgages, auto loans, refinancing, and real estate decisions. Calculate payments, savings, and affordability."
+>
+  <LoansPage client:load />
+</MainLayout>

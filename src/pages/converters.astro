@@ -1,0 +1,11 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import ConvertersPage from '../react-pages/Categories/ConvertersPage';
+---
+
+<MainLayout
+  title="Converters & Tools"
+  description="Quick and accurate unit converters for temperature, weight, length, speed, volume, time, percentages, and more."
+>
+  <ConvertersPage client:load />
+</MainLayout>
