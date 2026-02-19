@@ -104,18 +104,18 @@ const isActive = (path: string) => currentPath === path;
 const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(item.path));
 ---
 
-<nav class="bg-white border-b border-slate-200">
-  <div class="max-w-6xl mx-auto px-4 py-4">
-    <div class="flex items-center justify-between">
-      <a href="/" class="text-2xl font-bold text-slate-900 hover:text-blue-600 flex-shrink-0">
+<nav class="bg-white border-b border-slate-200 shadow-sm">
+  <div class="max-w-7xl mx-auto px-6 py-0">
+    <div class="flex items-center justify-between gap-8">
+      <a href="/" class="text-2xl font-bold text-slate-900 hover:text-blue-600 flex-shrink-0 py-4">
         Simple Calculators
       </a>
 
-      <ul class="hidden lg:flex gap-0 text-sm items-center">
+      <ul class="hidden lg:flex gap-1 text-sm items-center">
         <li>
           <a
             href="/"
-            class={`px-2.5 py-2 rounded-md font-medium transition-colors ${
+            class={`px-4 py-3 rounded-md font-medium transition-colors ${
               currentPath === '/'
                 ? 'bg-blue-100 text-blue-700'
                 : 'text-slate-600 hover:bg-slate-100'
@@ -128,22 +128,22 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
           <li class="relative group">
             <button
               type="button"
-              class={`px-2.5 py-2 rounded-md font-medium text-xs transition-colors flex items-center gap-0.5 whitespace-nowrap ${
+              class={`px-4 py-3 rounded-md font-medium text-sm transition-colors flex items-center gap-1 whitespace-nowrap ${
                 isCategoryActive(category.items)
                   ? 'bg-blue-100 text-blue-700'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
               {category.label}
-              <span class="material-symbols-outlined text-sm">expand_more</span>
+              <span class="material-symbols-outlined text-lg">expand_more</span>
             </button>
-            <div class="absolute left-0 top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 min-w-48">
+            <div class="absolute left-0 top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 min-w-56">
               {category.items.map((item) => (
                 <a
                   href={item.path}
-                  class={`block px-4 py-2 text-sm transition-colors ${
+                  class={`block px-4 py-3 text-sm transition-colors ${
                     isActive(item.path)
-                      ? 'bg-blue-50 text-blue-700 font-medium'
+                      ? 'bg-blue-50 text-blue-700 font-semibold'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
@@ -156,13 +156,13 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
       </ul>
 
       <details class="lg:hidden relative">
-        <summary class="list-none p-2 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
+        <summary class="list-none p-3 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
           <span class="material-symbols-outlined text-2xl align-middle">menu</span>
         </summary>
-        <div class="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-2 z-20">
+        <div class="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-3 z-20">
           <a
             href="/"
-            class={`block px-3 py-2 rounded-md text-sm font-medium ${
+            class={`block px-4 py-3 rounded-md text-base font-medium ${
               currentPath === '/'
                 ? 'bg-blue-100 text-blue-700'
                 : 'text-slate-700 hover:bg-slate-100'
@@ -171,24 +171,24 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
             Home
           </a>
           {navCategories.map((category) => (
-            <details class="mt-1">
+            <details class="mt-2">
               <summary
-                class={`list-none px-3 py-2 rounded-md text-sm font-medium cursor-pointer flex items-center justify-between ${
+                class={`list-none px-4 py-3 rounded-md text-base font-medium cursor-pointer flex items-center justify-between ${
                   isCategoryActive(category.items)
                     ? 'bg-blue-100 text-blue-700'
                     : 'text-slate-700 hover:bg-slate-100'
                 }`}
               >
                 {category.label}
-                <span class="material-symbols-outlined text-base">expand_more</span>
+                <span class="material-symbols-outlined text-lg">expand_more</span>
               </summary>
-              <div class="mt-1 ml-2 border-l-2 border-blue-200">
+              <div class="mt-2 ml-3 border-l-2 border-blue-200">
                 {category.items.map((item) => (
                   <a
                     href={item.path}
-                    class={`block px-3 py-2 text-sm ${
+                    class={`block px-4 py-2 text-base ${
                       isActive(item.path)
-                        ? 'bg-blue-50 text-blue-700 font-medium'
+                        ? 'bg-blue-50 text-blue-700 font-semibold'
                         : 'text-slate-700 hover:bg-slate-100'
                     }`}
                   >
