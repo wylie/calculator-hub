@@ -44,6 +44,44 @@ import type {
   InflationOutput,
   SavingsInput,
   SavingsOutput,
+  LoanAffordabilityInput,
+  LoanAffordabilityOutput,
+  RentVsBuyInput,
+  RentVsBuyOutput,
+  EmergencyFundInput,
+  EmergencyFundOutput,
+  DebtToIncomeInput,
+  DebtToIncomeOutput,
+  TDEEInput,
+  TDEEOutput,
+  IdealWeightInput,
+  IdealWeightOutput,
+  WaterIntakeInput,
+  WaterIntakeOutput,
+  ProteinIntakeInput,
+  ProteinIntakeOutput,
+  HeightConvertInput,
+  HeightConvertOutput,
+  DistanceConvertInput,
+  DistanceConvertOutput,
+  CookingConvertInput,
+  CookingConvertOutput,
+  PowerConvertInput,
+  PowerConvertOutput,
+  CyclingPowerToWeightInput,
+  CyclingPowerToWeightOutput,
+  TirePressureInput,
+  TirePressureOutput,
+  HikingPaceInput,
+  HikingPaceOutput,
+  CaloriesCyclingInput,
+  CaloriesCyclingOutput,
+  PercentageIncreaseInput,
+  PercentageIncreaseOutput,
+  PercentageDecreaseInput,
+  PercentageDecreaseOutput,
+  PercentChangeInput,
+  PercentChangeOutput,
 } from '../types';
 
 // Mortgage Calculator
@@ -666,6 +704,461 @@ export function calculateSavings(input: SavingsInput): SavingsOutput {
     totalContributions: Math.round(totalContributions * 100) / 100,
     totalInterest: Math.round(totalInterest * 100) / 100,
     finalAmount: Math.round(currentAmount * 100) / 100,
+  };
+}
+
+// Loan Affordability Calculator
+export function calculateLoanAffordability(input: LoanAffordabilityInput): LoanAffordabilityOutput {
+  const maxMonthlyPayment = input.monthlyIncome * 0.28 - input.monthlyDebts;
+  const monthlyRate = input.interestRate / 100 / 12;
+  const numPayments = input.desiredLoanTerm * 12;
+  const maxLoanAmount = maxMonthlyPayment * ((1 - Math.pow(1 + monthlyRate, -numPayments)) / monthlyRate);
+  const debtToIncomeRatio = (input.monthlyDebts / input.monthlyIncome) * 100;
+
+  return {
+    maxMonthlyPayment: Math.round(maxMonthlyPayment * 100) / 100,
+    maxLoanAmount: Math.round(maxLoanAmount * 100) / 100,
+    debtToIncomeRatio: Math.round(debtToIncomeRatio * 10) / 10,
+    canAfford: maxLoanAmount > 0,
+    affordabilityMessage: maxLoanAmount > 0 ? `You can afford up to $${maxLoanAmount.toFixed(2)}` : 'Your debt-to-income ratio is too high',
+  };
+}
+
+// Rent vs Buy Calculator
+export function calculateRentVsBuy(input: RentVsBuyInput): RentVsBuyOutput {
+  const downPayment = input.homePrice * (input.downPaymentPercent / 100);
+  const loanAmount = input.homePrice - downPayment;
+  const monthlyRate = input.interestRate / 100 / 12;
+  const numPayments = input.loanTerm * 12;
+  const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+
+  let totalRent = 0;
+  let currentRent = input.monthlyRent;
+  let remainingBalance = loanAmount;
+  const monthlyPropertyTax = (input.homePrice * input.propertyTaxRate) / 12 / 100;
+  const monthlyInsurance = input.homeInsuranceAnnual / 12;
+  const monthlyMaintenance = (input.homePrice * input.maintenancePercent) / 12 / 100;
+  let totalInterest = 0;
+
+  for (let month = 0; month < input.years * 12; month++) {
+    totalRent += currentRent;
+    currentRent *= (1 + input.annualRentIncrease / 100) ** (1 / 12);
+
+    // Calculate interest for this month
+    const interestPayment = remainingBalance * monthlyRate;
+    totalInterest += interestPayment;
+    remainingBalance -= monthlyPayment - interestPayment;
+  }
+
+  const homeValue = input.homePrice * Math.pow(1 + input.homeAppreciationRate / 100, input.years);
+  const homeEquity = homeValue - Math.max(0, remainingBalance);
+  const totalBuyCost = downPayment + monthlyPayment * input.years * 12 + monthlyPropertyTax * input.years * 12 + monthlyInsurance * input.years * 12 + monthlyMaintenance * input.years * 12;
+
+  const netCostDifference = totalRent - (totalBuyCost - homeEquity);
+
+  return {
+    totalRentPaid: Math.round(totalRent * 100) / 100,
+    totalBuyCost: Math.round(totalBuyCost * 100) / 100,
+    homeEquity: Math.round(homeEquity * 100) / 100,
+    netCostDifference: Math.round(netCostDifference * 100) / 100,
+    recommendation: netCostDifference > 0 ? 'Buying appears to be the better option' : 'Renting appears to be the better option',
+    buyMonthlyPayment: Math.round(monthlyPayment * 100) / 100,
+    rentMonthlyCost: Math.round(input.monthlyRent * 100) / 100,
+  };
+}
+
+// Emergency Fund Calculator
+export function calculateEmergencyFund(input: EmergencyFundInput): EmergencyFundOutput {
+  const recommendedAmount = input.monthlyExpenses * input.monthsOfExpenses;
+  return {
+    recommendedAmount: Math.round(recommendedAmount * 100) / 100,
+  };
+}
+
+// Debt-to-Income Ratio Calculator
+export function calculateDebtToIncomeRatio(input: DebtToIncomeInput): DebtToIncomeOutput {
+  const ratio = input.monthlyDebts / input.monthlyIncome;
+  const percentValue = ratio * 100;
+  let statusMessage = '';
+  
+  if (percentValue <= 15) statusMessage = 'Excellent - Very low debt burden';
+  else if (percentValue <= 28) statusMessage = 'Good - Healthy debt level';
+  else if (percentValue <= 36) statusMessage = 'Fair - Manageable but should monitor';
+  else if (percentValue <= 43) statusMessage = 'Poor - High debt burden, consider paying down debt';
+  else statusMessage = 'Critical - Consider debt reduction strategies';
+
+  const mortgageAffordability = (input.monthlyIncome * 0.28) - input.monthlyDebts;
+
+  return {
+    debtToIncomeRatio: Math.round(ratio * 1000) / 1000,
+    percentValue: Math.round(percentValue * 10) / 10,
+    statusMessage,
+    mortgageAffordability: Math.round(mortgageAffordability * 100) / 100,
+  };
+}
+
+// TDEE Calculator
+export function calculateTDEE(input: TDEEInput): TDEEOutput {
+  // Mifflin-St Jeor formula
+  let bmr: number;
+  const heightCm = input.heightCm;
+  const weight = input.weightKg;
+  const age = input.age;
+
+  if (input.sex === 'male') {
+    bmr = 10 * weight + 6.25 * heightCm - 5 * age + 5;
+  } else {
+    bmr = 10 * weight + 6.25 * heightCm - 5 * age - 161;
+  }
+
+  const activityMultipliers: Record<string, number> = {
+    sedentary: 1.2,
+    light: 1.375,
+    moderate: 1.55,
+    active: 1.725,
+    veryactive: 1.9,
+  };
+
+  const tdee = bmr * activityMultipliers[input.activityLevel];
+  const cutCalories = Math.round((tdee - 500) * 10) / 10;
+  const bulkCalories = Math.round((tdee + 500) * 10) / 10;
+
+  return {
+    bmr: Math.round(bmr * 10) / 10,
+    tdee: Math.round(tdee * 10) / 10,
+    cutCalories,
+    bulkCalories,
+  };
+}
+
+// Ideal Weight Calculator
+export function calculateIdealWeight(input: IdealWeightInput): IdealWeightOutput {
+  const heightInches = input.heightCm / 2.54;
+  let idealWeightLbs: number;
+
+  switch (input.formula) {
+    case 'devine':
+      idealWeightLbs = input.sex === 'male' ? 50 + 2.3 * (heightInches - 60) : 45.5 + 2.3 * (heightInches - 60);
+      break;
+    case 'robinson':
+      idealWeightLbs = input.sex === 'male' ? 52 + 1.9 * (heightInches - 60) : 49 + 1.7 * (heightInches - 60);
+      break;
+    case 'miller':
+      idealWeightLbs = input.sex === 'male' ? 56.2 + 1.41 * (heightInches - 60) : 53.1 + 1.36 * (heightInches - 60);
+      break;
+    case 'bmi':
+    default:
+      const bmiLow = 18.5 * ((input.heightCm / 100) ** 2);
+      const bmiHigh = 24.9 * ((input.heightCm / 100) ** 2);
+      return {
+        idealWeightLbs: Math.round((bmiLow + bmiHigh) / 2 / 0.453592 * 10) / 10,
+        idealWeightKg: Math.round((bmiLow + bmiHigh) / 2 * 10) / 10,
+        bmiRangeLow: Math.round(bmiLow * 10) / 10,
+        bmiRangeHigh: Math.round(bmiHigh * 10) / 10,
+      };
+  }
+
+  return {
+    idealWeightLbs: Math.round(idealWeightLbs * 10) / 10,
+    idealWeightKg: Math.round(idealWeightLbs * 0.453592 * 10) / 10,
+    bmiRangeLow: 18.5,
+    bmiRangeHigh: 24.9,
+  };
+}
+
+// Water Intake Calculator
+export function calculateWaterIntake(input: WaterIntakeInput): WaterIntakeOutput {
+  const activityMultipliers: Record<string, number> = {
+    sedentary: 0.5,
+    light: 0.55,
+    moderate: 0.6,
+    active: 0.65,
+    veryactive: 0.7,
+  };
+
+  const baseMultiplier = activityMultipliers[input.activityLevel];
+  const liters = input.weightKg * baseMultiplier;
+  const ounces = liters * 33.814;
+  const cups = liters * 4.227;
+  const bottles = liters / 0.5;
+
+  return {
+    recommendedLiters: Math.round(liters * 10) / 10,
+    recommendedOunces: Math.round(ounces * 10) / 10,
+    cupsPerDay: Math.round(cups * 10) / 10,
+    bottlesPerDay: Math.round(bottles * 10) / 10,
+  };
+}
+
+// Protein Intake Calculator
+export function calculateProteinIntake(input: ProteinIntakeInput): ProteinIntakeOutput {
+  const ratios: Record<string, number> = {
+    maintain: 1.6,
+    muscle: 2.2,
+    loss: 2.4,
+  };
+
+  const gramsPerKg = ratios[input.goal];
+  const totalGrams = input.weightKg * gramsPerKg;
+  const gramsPerMeal = Math.round((totalGrams / 4) * 10) / 10;
+  const caloriesFromProtein = totalGrams * 4;
+
+  return {
+    gramsPerKg: gramsPerKg,
+    totalGrams: Math.round(totalGrams * 10) / 10,
+    gramsPerMeal,
+    caloriesFromProtein: Math.round(caloriesFromProtein * 10) / 10,
+  };
+}
+
+// Height Converter
+export function convertHeight(input: HeightConvertInput): HeightConvertOutput {
+  let inches: number;
+  let centimeters: number;
+
+  switch (input.fromUnit) {
+    case 'ft':
+      inches = input.value * 12;
+      centimeters = input.value * 30.48;
+      break;
+    case 'in':
+      inches = input.value;
+      centimeters = input.value * 2.54;
+      break;
+    case 'cm':
+      centimeters = input.value;
+      inches = input.value / 2.54;
+      break;
+  }
+
+  const feet = Math.floor(inches / 12);
+  const remainingInches = Math.round((inches % 12) * 100) / 100;
+
+  return {
+    inches: Math.round(inches * 100) / 100,
+    feet,
+    centimeters: Math.round(centimeters * 100) / 100,
+    formatted: `${feet}'${remainingInches}"`,
+  };
+}
+
+// Distance Converter
+export function convertDistance(input: DistanceConvertInput): DistanceConvertOutput {
+  let miles: number;
+  let kilometers: number;
+
+  if (input.fromUnit === 'miles') {
+    miles = input.value;
+    kilometers = input.value * 1.60934;
+  } else {
+    kilometers = input.value;
+    miles = input.value / 1.60934;
+  }
+
+  return {
+    miles: Math.round(miles * 10000) / 10000,
+    kilometers: Math.round(kilometers * 10000) / 10000,
+  };
+}
+
+// Cooking Converter
+export function convertCooking(input: CookingConvertInput): CookingConvertOutput {
+  // Rough conversions - can vary by ingredient
+  const conversions: Record<string, Record<string, number>> = {
+    cups: { grams: 236.6, ml: 236.6, oz: 8 },
+    grams: { cups: 0.004227, ml: 1, oz: 0.03527 },
+    ml: { cups: 0.004227, grams: 1, oz: 0.03527 },
+    oz: { cups: 0.125, grams: 28.35, ml: 28.35 },
+  };
+
+  const baseCups = ['cups', 'grams', 'ml', 'oz'].reduce((acc, unit) => {
+    if (unit === input.fromUnit) {
+      if (input.fromUnit === 'cups') return input.value;
+      if (input.fromUnit === 'grams') return input.value / 236.6;
+      if (input.fromUnit === 'ml') return input.value / 236.6;
+      if (input.fromUnit === 'oz') return input.value / 8;
+    }
+    return acc;
+  }, 0);
+
+  return {
+    cups: Math.round(baseCups * 1000) / 1000,
+    grams: Math.round(baseCups * 236.6 * 1000) / 1000,
+    ml: Math.round(baseCups * 236.6 * 1000) / 1000,
+    oz: Math.round(baseCups * 8 * 1000) / 1000,
+  };
+}
+
+// Power Converter
+export function convertPower(input: PowerConvertInput): PowerConvertOutput {
+  let watts: number;
+  let horsepower: number;
+
+  if (input.fromUnit === 'watts') {
+    watts = input.value;
+    horsepower = input.value / 745.7;
+  } else {
+    horsepower = input.value;
+    watts = input.value * 745.7;
+  }
+
+  return {
+    watts: Math.round(watts * 100) / 100,
+    horsepower: Math.round(horsepower * 100) / 100,
+  };
+}
+
+// Cycling Power-to-Weight Calculator
+export function calculateCyclingPowerToWeight(input: CyclingPowerToWeightInput): CyclingPowerToWeightOutput {
+  const ratio = input.powerWatts / input.weightKg;
+  let level = '';
+  let category = '';
+
+  if (ratio < 2) {
+    level = 'Beginner';
+    category = 'Just starting out';
+  } else if (ratio < 3) {
+    level = 'Recreational';
+    category = 'Casual cyclist';
+  } else if (ratio < 4) {
+    level = 'Intermediate';
+    category = 'Active rider';
+  } else if (ratio < 5) {
+    level = 'Advanced';
+    category = 'Competitive cyclist';
+  } else if (ratio < 6) {
+    level = 'Elite';
+    category = 'Professional level';
+  } else {
+    level = 'Professional';
+    category = 'Elite athlete';
+  }
+
+  return {
+    ratio: Math.round(ratio * 100) / 100,
+    level,
+    category,
+  };
+}
+
+// Tire Pressure Calculator
+export function calculateTirePressure(input: TirePressureInput): TirePressureOutput {
+  const totalWeight = input.riderWeightKg + input.bikeWeightKg;
+  let basePressure: number;
+
+  // Simplified formula based on tire width and total weight
+  const frontPressure = (totalWeight * 10) / input.tireWidth;
+  const rearPressure = (totalWeight * 10.5) / input.tireWidth;
+  
+  const avgPressure = (frontPressure + rearPressure) / 2;
+
+  if (input.riderPosition === 'road') {
+    basePressure = avgPressure * 0.8;
+  } else if (input.riderPosition === 'gravel') {
+    basePressure = avgPressure * 0.6;
+  } else {
+    basePressure = avgPressure * 0.4;
+  }
+
+  const recommendedPsi = Math.round(basePressure * 10) / 10;
+  const minPsi = Math.round(recommendedPsi * 0.85 * 10) / 10;
+  const maxPsi = Math.round(recommendedPsi * 1.15 * 10) / 10;
+
+  return {
+    recommendedPsi,
+    recommendedBar: Math.round(recommendedPsi / 14.5038 * 100) / 100,
+    minPsi,
+    maxPsi,
+  };
+}
+
+// Hiking Pace Calculator
+export function calculateHikingPace(input: HikingPaceInput): HikingPaceOutput {
+  const distance = input.unit === 'miles' ? input.distance : input.distance / 1.60934;
+  
+  // Tobler's formula for hiking speed accounting for elevation
+  // Simplified: rough calculations for different fitness levels
+  const fitnessMultipliers: Record<string, number> = {
+    beginner: 0.8,
+    intermediate: 1.0,
+    advanced: 1.3,
+  };
+
+  const baseSpeed = 3; // miles per hour on flat terrain
+  const elevationFactor = (input.elevation / 1000) * 0.5; // Rough factor for every 1000 ft
+  const adjustedSpeed = (baseSpeed * fitnessMultipliers[input.fitness]) - elevationFactor;
+  const safeSpeed = Math.max(adjustedSpeed, 1); // Minimum 1 mph
+  
+  const timeMinutes = (distance / safeSpeed) * 60;
+  const hours = Math.floor(timeMinutes / 60);
+  const minutes = Math.round(timeMinutes % 60);
+
+  return {
+    timeMinutes: Math.round(timeMinutes),
+    timeFormatted: `${hours}h ${minutes}m`,
+    paceMph: Math.round(safeSpeed * 10) / 10,
+    paceMin: Math.round((60 / safeSpeed) * 10) / 10,
+  };
+}
+
+// Calories Burned Cycling Calculator
+export function calculateCaloriesCycling(input: CaloriesCyclingInput): CaloriesCyclingOutput {
+  const intensityMultipliers: Record<string, number> = {
+    easy: 6,
+    moderate: 10,
+    vigorous: 15,
+    race: 20,
+  };
+
+  const caloriesPerKg = intensityMultipliers[input.intensity];
+  const totalCalories = input.weightKg * caloriesPerKg * (input.duration / 60);
+
+  const minutesForBurning: Record<number, number> = {
+    100: Math.round((100 / totalCalories) * input.duration),
+    250: Math.round((250 / totalCalories) * input.duration),
+    500: Math.round((500 / totalCalories) * input.duration),
+  };
+
+  return {
+    caloriesBurned: Math.round(totalCalories),
+    minutesForBurning: Object.fromEntries(
+      Object.entries(minutesForBurning).map(([cal, min]) => [cal, Math.round(min)])
+    ),
+  };
+}
+
+// Percentage Increase Calculator
+export function calculatePercentageIncrease(input: PercentageIncreaseInput): PercentageIncreaseOutput {
+  const increase = input.newValue - input.originalValue;
+  const percentIncrease = (increase / input.originalValue) * 100;
+
+  return {
+    percentIncrease: Math.round(percentIncrease * 100) / 100,
+    increase: Math.round(increase * 100) / 100,
+  };
+}
+
+// Percentage Decrease Calculator
+export function calculatePercentageDecrease(input: PercentageDecreaseInput): PercentageDecreaseOutput {
+  const decrease = input.originalValue - input.newValue;
+  const percentDecrease = (decrease / input.originalValue) * 100;
+
+  return {
+    percentDecrease: Math.round(percentDecrease * 100) / 100,
+    decrease: Math.round(decrease * 100) / 100,
+  };
+}
+
+// Percent Change Calculator
+export function calculatePercentChange(input: PercentChangeInput): PercentChangeOutput {
+  const change = input.endValue - input.startValue;
+  const percentChange = (change / input.startValue) * 100;
+  const isIncrease = change >= 0;
+
+  return {
+    percentChange: Math.round(Math.abs(percentChange) * 100) / 100,
+    change: Math.round(change * 100) / 100,
+    isIncrease,
   };
 }
 

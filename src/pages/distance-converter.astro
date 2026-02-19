@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import DistanceConverterPage from '../react-pages/DistanceConverter/DistanceConverterPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many kilometers in a mile?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'One mile equals 1.60934 kilometers. Use this converter for exact conversions.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s the quick conversion method?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Miles to km: multiply by 1.6. Km to miles: multiply by 0.62. These are rough estimates.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is this used for running distances?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. A 5K is 3.1 miles, a 10K is 6.2 miles, a marathon is 42.2 km (26.2 miles).',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Distance Converter - Miles to Kilometers"
+  description="Convert distance between miles and kilometers. Perfect for running, cycling, and travel distances."
+  jsonLd={faqSchema}
+>
+  <DistanceConverterPage client:load />
+</MainLayout>

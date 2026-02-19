@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HeightConverterPage from '../react-pages/HeightConverter/HeightConverterPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I convert feet and inches to centimeters?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Feet to cm: multiply by 30.48. Inches to cm: multiply by 2.54. Or use this converter.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s my height in centimeters?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Enter your height in feet and inches to see the exact centimeter equivalent.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is this accurate?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. These are standard conversions. Height may vary slightly by time of day (spine compression).',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Height Converter - Convert ft/in to cm"
+  description="Convert height between feet/inches and centimeters. Fast and accurate height unit conversions."
+  jsonLd={faqSchema}
+>
+  <HeightConverterPage client:load />
+</MainLayout>

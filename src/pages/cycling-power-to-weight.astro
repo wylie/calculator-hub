@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import CyclingPowerToWeightPage from '../react-pages/CyclingPowerToWeight/CyclingPowerToWeightPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What\'s a good power-to-weight ratio for cycling?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Above 3 w/kg is very good. Elite cyclists can produce 5+ w/kg. This ratio predicts climbing speed.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I improve my power-to-weight ratio?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Increase power (intervals, strength training) or lose weight. Both improve ratio and climbing.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why is this important?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Power-to-weight determines climbing ability more than anything else. Lighter bikes matter less than your fitness.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Cycling Power-to-Weight Calculator - Check Your Ratio"
+  description="Calculate your cycling power-to-weight ratio. Understand your climbing ability and fitness level as a cyclist."
+  jsonLd={faqSchema}
+>
+  <CyclingPowerToWeightPage client:load />
+</MainLayout>

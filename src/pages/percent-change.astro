@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import PercentChangePage from '../react-pages/PercentChange/PercentChangePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What\'s the difference between percentage increase and percent change?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Percentage increase only goes up. Percent change can be positive or negative, showing any change.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I calculate percent change?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Formula: ((End Value - Start Value) / Start Value) × 100. Result can be positive (increase) or negative (decrease).',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s an example?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Stock price from $100 to $120 = +20% change. From $100 to $80 = -20% change.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Percent Change Calculator"
+  description="Calculate percent change between two values. Works for increases and decreases. Perfect for stocks, grades, and metrics."
+  jsonLd={faqSchema}
+>
+  <PercentChangePage client:load />
+</MainLayout>

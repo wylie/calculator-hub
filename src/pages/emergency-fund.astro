@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import EmergencyFundPage from '../react-pages/EmergencyFund/EmergencyFundPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many months should I save for emergencies?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Financial experts typically recommend 3-6 months of expenses. More if you have irregular income or dependents.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What counts as an emergency?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Job loss, medical emergency, major home/car repair, or significant life event. Not planned expenses.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Where should I keep emergency funds?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A high-yield savings account. You need quick access but also want to earn some interest.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Emergency Fund Calculator - How Much You Need"
+  description="Calculate how much emergency fund you should have. Find out how many months of expenses to save for financial security."
+  jsonLd={faqSchema}
+>
+  <EmergencyFundPage client:load />
+</MainLayout>

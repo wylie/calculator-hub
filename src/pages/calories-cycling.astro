@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import CaloriesCyclingPage from '../react-pages/CaloriesCycling/CaloriesCyclingPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many calories does cycling burn?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Depends on intensity, weight, and duration. Vigorous cycling burns 10-15 calories per kg of body weight per hour.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which cycling intensity burns most calories?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Race pace burns the most. But moderate cycling for longer duration often burns similar total calories.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does heavier weight burn more calories?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Your body burns more calories when heavier. This is scaled into the calculation per kilogram.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Calories Burned Cycling Calculator"
+  description="Calculate calories burned while cycling based on weight, duration, and intensity. Track your cycling workouts."
+  jsonLd={faqSchema}
+>
+  <CaloriesCyclingPage client:load />
+</MainLayout>

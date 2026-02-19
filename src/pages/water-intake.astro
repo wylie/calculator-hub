@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import WaterIntakePage from '../react-pages/WaterIntake/WaterIntakePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Is there a universal water intake amount?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. It depends on weight, activity level, climate, and health. Use this calculator for a personalized recommendation.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do beverages other than water count?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Some do. Water from coffee, tea, and food contributes. This calculator focuses on water specifically.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What if I drink too much water?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Excessive water can cause hyponatremia (dangerously low sodium). Follow these guidelines and listen to thirst.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Water Intake Calculator - How Much Water You Need"
+  description="Calculate your daily water intake needs based on weight and activity level. Stay properly hydrated with personalized recommendations."
+  jsonLd={faqSchema}
+>
+  <WaterIntakePage client:load />
+</MainLayout>

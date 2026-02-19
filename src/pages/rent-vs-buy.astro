@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import RentVsBuyPage from '../react-pages/RentVsBuy/RentVsBuyPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Should I rent or buy?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'This depends on many factors including your time horizon, local market prices, interest rates, and personal preferences. Use this calculator to compare total costs over time.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What costs does this include?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For renting: rent and annual increases. For buying: down payment, mortgage payments, property tax, insurance, and maintenance.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does home appreciation matter?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Home appreciation affects your equity. This calculator accounts for appreciation to show your net position.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Rent vs Buy Calculator - Compare Total Costs"
+  description="Free rent vs buy calculator. Compare the total cost of renting and buying a home over time. See which option saves you money."
+  jsonLd={faqSchema}
+>
+  <RentVsBuyPage client:load />
+</MainLayout>

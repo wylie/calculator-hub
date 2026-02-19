@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import DebtToIncomePage from '../react-pages/DebtToIncome/DebtToIncomePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is a good debt-to-income ratio?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Below 15% is excellent, 15-28% is good, 28-43% is fair. Above 43% is considered high.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does this affect mortgage approval?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Most lenders require a DTI ratio below 43% for mortgage approval. Lower ratios get better rates.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What debts are included?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'All monthly debt obligations including loans, credit cards, student loans, and child support payments.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Debt-to-Income Ratio Calculator - Check Your Financial Health"
+  description="Calculate your debt-to-income ratio. See if your debt level is healthy and what it means for loan approval."
+  jsonLd={faqSchema}
+>
+  <DebtToIncomePage client:load />
+</MainLayout>

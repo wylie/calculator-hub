@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import IdealWeightPage from '../react-pages/IdealWeight/IdealWeightPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Which formula is best?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Different formulas give different results. Compare them all to get a range. BMI-based is most commonly used.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s the difference between ideal weight and healthy weight?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ideal weight varies by formula. Healthy weight is typically a BMI between 18.5-24.9 regardless of formula.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does ideal weight account for muscle?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. These formulas are population averages. Muscular people may be above ideal weight but still healthy.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Ideal Weight Calculator - Find Your Target"
+  description="Calculate your ideal weight using multiple formulas. Find your healthy weight range and set realistic fitness goals."
+  jsonLd={faqSchema}
+>
+  <IdealWeightPage client:load />
+</MainLayout>

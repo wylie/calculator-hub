@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HikingPacePage from '../react-pages/HikingPace/HikingPacePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How long does a hike take?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It depends on distance, elevation gain, fitness level, and terrain. This calculator estimates based on all factors.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What pace should I hike at?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Beginners: 2-3 mph. Intermediate: 3-4 mph. Advanced: 4+ mph. Elevation slows you significantly.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does elevation affect hiking time?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Elevation gain slows hiking significantly. Generally, add 50% more time for every 1000 feet of elevation.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Hiking Pace Calculator - Estimate Hike Duration"
+  description="Calculate hiking time based on distance, elevation, and fitness. Plan your hikes with accurate time estimates."
+  jsonLd={faqSchema}
+>
+  <HikingPacePage client:load />
+</MainLayout>

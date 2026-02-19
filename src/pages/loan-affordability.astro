@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import LoanAffordabilityPage from '../react-pages/LoanAffordability/LoanAffordabilityPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is debt-to-income ratio?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It\'s the percentage of your monthly income that goes toward debt payments. Most lenders want to see this under 43%.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I borrow more than this shows?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Possibly, but lenders may charge higher interest rates. This calculator uses conservative lending standards.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does this include taxes and insurance?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'This calculator focuses on the loan payment itself. Actual affordability may be lower when including taxes and insurance.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Loan Affordability Calculator - How Much Can You Borrow?"
+  description="Free loan affordability calculator. Find out how much you can borrow based on your income, debts, and desired loan term."
+  jsonLd={faqSchema}
+>
+  <LoanAffordabilityPage client:load />
+</MainLayout>

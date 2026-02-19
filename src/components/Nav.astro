@@ -13,13 +13,15 @@ const currentPath = Astro.url.pathname;
 
 const navCategories: NavCategory[] = [
   {
-    label: 'Loans',
+    label: 'Loans & Real Estate',
     items: [
       { path: '/mortgage', label: 'Mortgage' },
       { path: '/auto-loan', label: 'Auto Loan' },
       { path: '/loan', label: 'Loan' },
+      { path: '/loan-affordability', label: 'Loan Affordability' },
       { path: '/refinance', label: 'Refinance' },
       { path: '/down-payment', label: 'Down Payment' },
+      { path: '/rent-vs-buy', label: 'Rent vs Buy' },
     ],
   },
   {
@@ -31,26 +33,41 @@ const navCategories: NavCategory[] = [
       { path: '/retirement', label: 'Retirement' },
       { path: '/savings', label: 'Savings' },
       { path: '/inflation', label: 'Inflation' },
+      { path: '/emergency-fund', label: 'Emergency Fund' },
     ],
   },
   {
-    label: 'Budgeting',
+    label: 'Budgeting & Debt',
     items: [
       { path: '/budget', label: 'Budget' },
       { path: '/credit-card-payoff', label: 'Credit Card Payoff' },
       { path: '/net-worth', label: 'Net Worth' },
+      { path: '/debt-to-income', label: 'Debt-to-Income' },
       { path: '/tax', label: 'Tax' },
       { path: '/salary-hourly', label: 'Salary / Hourly' },
     ],
   },
   {
-    label: 'Lifestyle',
+    label: 'Health & Fitness',
     items: [
       { path: '/calories', label: 'Calories' },
       { path: '/bmi', label: 'BMI' },
+      { path: '/tdee', label: 'TDEE' },
+      { path: '/ideal-weight', label: 'Ideal Weight' },
+      { path: '/water-intake', label: 'Water Intake' },
+      { path: '/protein-intake', label: 'Protein Intake' },
       { path: '/age', label: 'Age' },
       { path: '/tip', label: 'Tip' },
+    ],
+  },
+  {
+    label: 'Cycling & Sports',
+    items: [
       { path: '/bike-gear', label: 'Bike Gear' },
+      { path: '/cycling-power-to-weight', label: 'Power-to-Weight' },
+      { path: '/tire-pressure', label: 'Tire Pressure' },
+      { path: '/hiking-pace', label: 'Hiking Pace' },
+      { path: '/calories-cycling', label: 'Calories Cycling' },
     ],
   },
   {
@@ -58,15 +75,27 @@ const navCategories: NavCategory[] = [
     items: [
       { path: '/weather', label: 'Temperature' },
       { path: '/weight', label: 'Weight' },
+      { path: '/height-converter', label: 'Height' },
+      { path: '/distance-converter', label: 'Distance' },
       { path: '/length', label: 'Length' },
       { path: '/speed', label: 'Speed' },
       { path: '/volume', label: 'Volume' },
       { path: '/area', label: 'Area' },
       { path: '/time', label: 'Time' },
       { path: '/time-duration', label: 'Time Duration' },
+      { path: '/cooking-converter', label: 'Cooking' },
+      { path: '/power-converter', label: 'Power' },
       { path: '/file-size', label: 'File Size' },
       { path: '/percentage', label: 'Percentage' },
       { path: '/date-difference', label: 'Date Difference' },
+    ],
+  },
+  {
+    label: 'Percentage',
+    items: [
+      { path: '/percentage-increase', label: 'Percentage Increase' },
+      { path: '/percentage-decrease', label: 'Percentage Decrease' },
+      { path: '/percent-change', label: 'Percent Change' },
     ],
   },
 ];

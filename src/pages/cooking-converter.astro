@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import CookingConverterPage from '../react-pages/CookingConverter/CookingConverterPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Why do recipes use different units?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Recipes come from different regions. US uses cups, most others use grams for accuracy. Grams is more precise.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How many grams are in a cup?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'About 236.6 grams, but this varies by ingredient. Sugar, flour, and butter have different weights.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I use a scale for baking?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. A scale is more accurate than measuring cups, especially for baking where precision matters.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Cooking Converter - Convert Cups to Grams"
+  description="Convert cooking measurements between cups, grams, ml, and ounces. Perfect for recipes from different regions."
+  jsonLd={faqSchema}
+>
+  <CookingConverterPage client:load />
+</MainLayout>

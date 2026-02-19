@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import PowerConverterPage from '../react-pages/PowerConverter/PowerConverterPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many watts in a horsepower?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'One horsepower equals 745.7 watts. This conversion is used for motors and engines.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s the difference between mechanical and electrical horsepower?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Mechanical HP (746 watts) and electrical HP (746 watts) are essentially the same. Use 745.7 for exact conversion.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why use watts instead of horsepower?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Watts is the international standard. Horsepower is mostly used in the US for cars and equipment.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Power Converter - Watts to Horsepower"
+  description="Convert power between watts and horsepower. Useful for electrical and mechanical power conversions."
+  jsonLd={faqSchema}
+>
+  <PowerConverterPage client:load />
+</MainLayout>

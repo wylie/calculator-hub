@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import ProteinIntakePage from '../react-pages/ProteinIntake/ProteinIntakePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much protein do I need?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For maintenance: 1.6g/kg. For muscle gain: 2.2g/kg. For weight loss: 2.4g/kg to preserve muscle.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I get too much protein?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Generally no for healthy people. Excess protein is converted to carbs/fat. Very high amounts may stress kidneys.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What are good protein sources?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Meat, fish, eggs, dairy, legumes, nuts, and seeds. Mix sources to get all amino acids.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Protein Intake Calculator - Calculate Your Daily Protein Needs"
+  description="Calculate your daily protein requirements based on weight and fitness goals. Tips for hitting protein targets."
+  jsonLd={faqSchema}
+>
+  <ProteinIntakePage client:load />
+</MainLayout>

@@ -350,3 +350,263 @@ export interface SavingsOutput {
   totalInterest: number;
   finalAmount: number;
 }
+
+// Loan Affordability Calculator
+export interface LoanAffordabilityInput {
+  monthlyIncome: number;
+  monthlyDebts: number;
+  desiredLoanTerm: number;
+  interestRate: number;
+}
+
+export interface LoanAffordabilityOutput {
+  maxMonthlyPayment: number;
+  maxLoanAmount: number;
+  debtToIncomeRatio: number;
+  canAfford: boolean;
+  affordabilityMessage: string;
+}
+
+// Rent vs Buy Calculator
+export interface RentVsBuyInput {
+  homePrice: number;
+  downPaymentPercent: number;
+  monthlyRent: number;
+  interestRate: number;
+  loanTerm: number;
+  propertyTaxRate: number;
+  homeInsuranceAnnual: number;
+  maintenancePercent: number;
+  annualRentIncrease: number;
+  homeAppreciationRate: number;
+  years: number;
+}
+
+export interface RentVsBuyOutput {
+  totalRentPaid: number;
+  totalBuyCost: number;
+  homeEquity: number;
+  netCostDifference: number;
+  recommendation: string;
+  buyMonthlyPayment: number;
+  rentMonthlyCost: number;
+}
+
+// Emergency Fund Calculator
+export interface EmergencyFundInput {
+  monthlyExpenses: number;
+  monthsOfExpenses: number;
+}
+
+export interface EmergencyFundOutput {
+  recommendedAmount: number;
+  currentAmount?: number;
+  amountNeeded?: number;
+}
+
+// Debt-to-Income Ratio Calculator
+export interface DebtToIncomeInput {
+  monthlyIncome: number;
+  monthlyDebts: number;
+}
+
+export interface DebtToIncomeOutput {
+  debtToIncomeRatio: number;
+  percentValue: number;
+  statusMessage: string;
+  mortgageAffordability: number;
+}
+
+// TDEE Calculator (Total Daily Energy Expenditure)
+export interface TDEEInput {
+  age: number;
+  sex: 'male' | 'female';
+  heightCm: number;
+  weightKg: number;
+  activityLevel: 'sedentary' | 'light' | 'moderate' | 'active' | 'veryactive';
+}
+
+export interface TDEEOutput {
+  bmr: number;
+  tdee: number;
+  cutCalories: number;
+  bulkCalories: number;
+}
+
+// Ideal Weight Calculator
+export interface IdealWeightInput {
+  heightCm: number;
+  sex: 'male' | 'female';
+  formula: 'devine' | 'robinson' | 'miller' | 'bmi';
+}
+
+export interface IdealWeightOutput {
+  idealWeightLbs: number;
+  idealWeightKg: number;
+  bmiRangeLow: number;
+  bmiRangeHigh: number;
+}
+
+// Water Intake Calculator
+export interface WaterIntakeInput {
+  weightKg: number;
+  activityLevel: 'sedentary' | 'light' | 'moderate' | 'active' | 'veryactive';
+}
+
+export interface WaterIntakeOutput {
+  recommendedLiters: number;
+  recommendedOunces: number;
+  cupsPerDay: number;
+  bottlesPerDay: number;
+}
+
+// Protein Intake Calculator
+export interface ProteinIntakeInput {
+  weightKg: number;
+  goal: 'maintain' | 'muscle' | 'loss';
+}
+
+export interface ProteinIntakeOutput {
+  gramsPerKg: number;
+  totalGrams: number;
+  gramsPerMeal: number;
+  caloriesFromProtein: number;
+}
+
+// Height Converter
+export interface HeightConvertInput {
+  value: number;
+  fromUnit: 'ft' | 'in' | 'cm';
+}
+
+export interface HeightConvertOutput {
+  inches: number;
+  feet: number;
+  centimeters: number;
+  formatted: string;
+}
+
+// Distance Converter
+export interface DistanceConvertInput {
+  value: number;
+  fromUnit: 'miles' | 'km';
+}
+
+export interface DistanceConvertOutput {
+  miles: number;
+  kilometers: number;
+}
+
+// Cooking Converter
+export interface CookingConvertInput {
+  value: number;
+  fromUnit: 'cups' | 'grams' | 'ml' | 'oz';
+  ingredient: string;
+}
+
+export interface CookingConvertOutput {
+  cups: number;
+  grams: number;
+  ml: number;
+  oz: number;
+}
+
+// Power Converter
+export interface PowerConvertInput {
+  value: number;
+  fromUnit: 'watts' | 'hp';
+}
+
+export interface PowerConvertOutput {
+  watts: number;
+  horsepower: number;
+}
+
+// Cycling Power-to-Weight Calculator
+export interface CyclingPowerToWeightInput {
+  powerWatts: number;
+  weightKg: number;
+}
+
+export interface CyclingPowerToWeightOutput {
+  ratio: number;
+  level: string;
+  category: string;
+}
+
+// Tire Pressure Calculator
+export interface TirePressureInput {
+  riderWeightKg: number;
+  bikeWeightKg: number;
+  tireWidth: number;
+  rimDiameter: number;
+  riderPosition: 'road' | 'gravel' | 'mtb';
+}
+
+export interface TirePressureOutput {
+  recommendedPsi: number;
+  recommendedBar: number;
+  minPsi: number;
+  maxPsi: number;
+}
+
+// Hiking Pace Calculator
+export interface HikingPaceInput {
+  distance: number;
+  elevation: number;
+  unit: 'miles' | 'km';
+  fitness: 'beginner' | 'intermediate' | 'advanced';
+}
+
+export interface HikingPaceOutput {
+  timeMinutes: number;
+  timeFormatted: string;
+  paceMph: number;
+  paceMin: number;
+}
+
+// Calories Burned Cycling Calculator
+export interface CaloriesCyclingInput {
+  weightKg: number;
+  duration: number;
+  intensity: 'easy' | 'moderate' | 'vigorous' | 'race';
+}
+
+export interface CaloriesCyclingOutput {
+  caloriesBurned: number;
+  minutesForBurning: Record<number, number>;
+}
+
+// Percentage Increase Calculator
+export interface PercentageIncreaseInput {
+  originalValue: number;
+  newValue: number;
+}
+
+export interface PercentageIncreaseOutput {
+  percentIncrease: number;
+  increase: number;
+}
+
+// Percentage Decrease Calculator
+export interface PercentageDecreaseInput {
+  originalValue: number;
+  newValue: number;
+}
+
+export interface PercentageDecreaseOutput {
+  percentDecrease: number;
+  decrease: number;
+}
+
+// Percent Change Calculator
+export interface PercentChangeInput {
+  startValue: number;
+  endValue: number;
+}
+
+export interface PercentChangeOutput {
+  percentChange: number;
+  change: number;
+  isIncrease: boolean;
+}

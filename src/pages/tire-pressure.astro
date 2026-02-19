@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import TirePressurePage from '../react-pages/TirePressure/TirePressurePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What tire pressure should I use?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It depends on tire width, rider weight, and terrain. Road bikes need higher pressure (80-130 psi). Gravel and MTB are lower.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I always use max pressure?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Max pressure is on the sidewall but not optimal. Lower pressure gives better grip and comfort.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does tire pressure affect rolling resistance?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Higher pressure reduces rolling resistance but reduces grip. Find the sweet spot for your conditions.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Tire Pressure Calculator - Bike PSI Calculator"
+  description="Calculate the ideal tire pressure for your bike based on weight, tire size, and riding style. Get optimal comfort and performance."
+  jsonLd={faqSchema}
+>
+  <TirePressurePage client:load />
+</MainLayout>

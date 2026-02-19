@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import PercentageIncreasePage from '../react-pages/PercentageIncrease/PercentageIncreasePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I calculate percentage increase?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Formula: ((New Value - Original Value) / Original Value) × 100. This calculator does it instantly.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s the difference between increase and percentage increase?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Increase is the raw difference. Percentage increase shows that difference as a percent of the original.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can percentage increase be negative?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No, not technically. If the value decreased, use the percentage decrease calculator instead.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Percentage Increase Calculator"
+  description="Calculate the percentage increase between two values. See percentage growth for prices, salaries, and more."
+  jsonLd={faqSchema}
+>
+  <PercentageIncreasePage client:load />
+</MainLayout>

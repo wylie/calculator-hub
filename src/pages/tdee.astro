@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import TDEEPage from '../react-pages/TDEE/TDEEPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is TDEE?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Total Daily Energy Expenditure - the total calories your body burns daily at rest plus activities.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I use TDEE for weight loss?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Eat below your TDEE to lose weight (typical deficit is 500 calories = 1 lb loss per week).',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s the difference between BMR and TDEE?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'BMR is calories burned at rest. TDEE includes activity. TDEE = BMR × activity multiplier.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="TDEE Calculator - Total Daily Energy Expenditure"
+  description="Calculate your TDEE and daily calorie needs. Find your maintenance calories and targets for weight loss or muscle gain."
+  jsonLd={faqSchema}
+>
+  <TDEEPage client:load />
+</MainLayout>

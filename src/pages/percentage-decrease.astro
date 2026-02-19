@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import PercentageDecreasePage from '../react-pages/PercentageDecrease/PercentageDecreasePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I calculate percentage decrease?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Formula: ((Original Value - New Value) / Original Value) × 100. This calculator does it instantly.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s an example of percentage decrease?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'If a $100 item goes on sale for $75, that\'s a 25% decrease in price.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is percentage decrease the same as discount?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes, for pricing. Discount percentage is the same as percentage decrease from original price.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Percentage Decrease Calculator"
+  description="Calculate the percentage decrease between two values. Perfect for discounts, price drops, and losses."
+  jsonLd={faqSchema}
+>
+  <PercentageDecreasePage client:load />
+</MainLayout>
