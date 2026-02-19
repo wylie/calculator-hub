@@ -178,6 +178,27 @@ export default function NetWorthPage() {
         </div>
       </div>
 
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Net Worth Tips</h3>
+          <p className="text-sm text-gray-600">
+            Track your net worth quarterly to monitor financial progress over time
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Include retirement accounts, home equity, and investments as key assets
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            Illiquid assets like real estate may take time to convert to cash if needed
+          </p>
+        </Card>
+      </div>
+
       <Card>
         <h2 className="text-lg font-semibold mb-3">How this net worth calculator works</h2>
         <p className="text-sm text-gray-600 mb-3">

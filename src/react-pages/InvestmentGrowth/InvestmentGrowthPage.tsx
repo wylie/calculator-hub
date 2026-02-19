@@ -101,6 +101,27 @@ export default function InvestmentGrowthPage() {
         </div>
       </div>
 
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Investment Tips</h3>
+          <p className="text-sm text-gray-600">
+            Diversify across different asset classes to help manage risk over time
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Historical market averages show 8-10% annual returns over long periods
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            Returns vary by year—past performance doesn't guarantee future results
+          </p>
+        </Card>
+      </div>
+
       <Card>
         <h2 className="text-lg font-semibold mb-3">How It Works</h2>
         <p className="text-gray-600 text-sm">

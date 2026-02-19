@@ -88,12 +88,26 @@ export default function CreditCardPayoffPage() {
         </div>
       </div>
 
-      <Card>
-        <h2 className="text-lg font-semibold mb-3">Payoff Tip</h2>
-        <p className="text-gray-600">
-          Increasing your monthly payment can significantly reduce the time and total interest paid. Try adjusting your monthly payment above to see the difference!
-        </p>
-      </Card>
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Payoff Tips</h3>
+          <p className="text-sm text-gray-600">
+            Pay more than the minimum to significantly reduce total interest costs
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Average credit card APR ranges from 18-24% depending on credit score
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            This shows payoff timeline assuming fixed monthly payment amounts
+          </p>
+        </Card>
+      </div>
 
       <Card>
         <h2 className="text-lg font-semibold mb-3">How this credit card payoff calculator works</h2>

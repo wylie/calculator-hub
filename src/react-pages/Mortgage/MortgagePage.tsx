@@ -185,6 +185,27 @@ export default function MortgagePage() {
         </div>
       </div>
 
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Mortgage Tip</h3>
+          <p className="text-sm text-gray-600">
+            Putting down 20% or more helps you avoid PMI (Private Mortgage Insurance)
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Average mortgages run 30 years at 6-8% APR depending on market conditions
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            This calculator shows P&I only. Add property taxes, insurance, and HOA fees
+          </p>
+        </Card>
+      </div>
+
       <AffiliateBox
         title="Mortgage Reference Guide"
         description="Learn about mortgage programs, terminology, and best practices."

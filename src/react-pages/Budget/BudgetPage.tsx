@@ -173,6 +173,27 @@ export default function BudgetPage() {
         </div>
       </div>
 
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Budget Tips</h3>
+          <p className="text-sm text-gray-600">
+            Follow the 50/30/20 rule: 50% needs, 30% wants, 20% savings
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Financial experts recommend maintaining 3-6 months of expenses as emergency fund
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            Tracking expenses over time helps reveal spending patterns and areas to optimize
+          </p>
+        </Card>
+      </div>
+
       <AffiliateBox
         title="Budget Planner"
         description="Get a simple planner to track spending and build better habits."

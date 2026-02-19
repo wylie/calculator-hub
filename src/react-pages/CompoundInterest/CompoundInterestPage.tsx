@@ -98,6 +98,27 @@ export default function CompoundInterestPage() {
         </div>
       </div>
 
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Compound Tips</h3>
+          <p className="text-sm text-gray-600">
+            More frequent compounding (daily vs annually) accelerates growth over time
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Rule of 72: Divide 72 by interest rate to estimate years to double your money
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            Inflation can reduce the real purchasing power of returns over long periods
+          </p>
+        </Card>
+      </div>
+
       <Card>
         <h2 className="text-lg font-semibold mb-3">Formula</h2>
         <p className="text-gray-600 mb-2">A = P(1 + r/n)^(nt)</p>

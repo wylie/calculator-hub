@@ -136,6 +136,27 @@ export default function RetirementPage() {
         </div>
       </div>
 
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Retirement Tips</h3>
+          <p className="text-sm text-gray-600">
+            Start early—compound growth rewards time more than any other factor
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Historical stock market averages around 10% annually over long periods
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            This calculator uses the 4% withdrawal rule for sustainable retirement spending
+          </p>
+        </Card>
+      </div>
+
       <Card>
         <h2 className="text-lg font-semibold mb-3">About the 4% Rule</h2>
         <p className="text-gray-600 text-sm">

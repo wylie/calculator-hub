@@ -141,6 +141,27 @@ export default function RefinancePage() {
         </div>
       </div>
 
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Refinance Tips</h3>
+          <p className="text-sm text-gray-600">
+            Check break-even months to ensure you'll stay in the home long enough to benefit
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Typical refinance closing costs range from $2,000 to $5,000 depending on location
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            Savings assume you'll hold the loan through the full new term completion
+          </p>
+        </Card>
+      </div>
+
       <AdSlot />
 
       <Card>

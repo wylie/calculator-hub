@@ -115,6 +115,27 @@ export default function AutoLoanPage() {
         </div>
       </div>
 
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Auto Loan Tips</h3>
+          <p className="text-sm text-gray-600">
+            Shorter loan terms save significantly on total interest paid over time
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
+          <p className="text-sm text-gray-600">
+            Average auto loan terms range from 4-6 years with rates around 5-8% APR
+          </p>
+        </Card>
+        <Card>
+          <h3 className="font-semibold mb-2 text-sm">Note</h3>
+          <p className="text-sm text-gray-600">
+            Total cost includes principal + interest over the full loan term
+          </p>
+        </Card>
+      </div>
+
       <AdSlot />
 
       <Card>
