@@ -23,7 +23,7 @@ export default function ROIPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">ROI Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">ROI Calculator</h1>
       <p className="text-slate-600 mb-6">
         Calculate your return on investment (ROI) to measure the profitability of an investment.
       </p>

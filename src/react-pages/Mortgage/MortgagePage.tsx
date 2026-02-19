@@ -42,7 +42,7 @@ export default function MortgagePage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Mortgage Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Mortgage Calculator</h1>
       <p className="text-slate-600 mb-6">
         Calculate your monthly mortgage payment and see the total interest paid over the life of the loan.
       </p>

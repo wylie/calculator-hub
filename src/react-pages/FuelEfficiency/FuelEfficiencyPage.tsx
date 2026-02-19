@@ -30,7 +30,7 @@ export default function FuelEfficiencyPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Fuel Efficiency Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Fuel Efficiency Calculator</h1>
       <p className="text-slate-600 mb-6">
         Calculate your vehicle's fuel efficiency in MPG, KM/L, and cost per distance traveled.
       </p>

@@ -21,7 +21,7 @@ export default function DateDifferencePage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Date Difference Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Date Difference Calculator</h1>
       <p className="text-slate-600 mb-6">
         Calculate the time difference between two dates.
       </p>

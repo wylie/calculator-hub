@@ -50,7 +50,7 @@ export default function GPAPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">GPA Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">GPA Calculator</h1>
       <p className="text-slate-600 mb-6">
         Calculate your weighted GPA based on course grades and credit weights.
       </p>

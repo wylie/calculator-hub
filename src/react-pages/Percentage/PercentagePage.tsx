@@ -26,7 +26,7 @@ export default function PercentagePage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Percentage Converter</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Percentage Converter</h1>
       <p className="text-slate-600 mb-6">
         Calculate percentage of a number and convert between percent and decimal.
       </p>

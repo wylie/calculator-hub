@@ -33,7 +33,7 @@ export default function FileSizePage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">File Size Converter</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">File Size Converter</h1>
       <p className="text-slate-600 mb-6">
         Convert file sizes between KB, MB, and GB.
       </p>

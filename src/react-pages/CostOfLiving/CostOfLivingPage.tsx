@@ -38,7 +38,7 @@ export default function CostOfLivingPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Cost of Living Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Cost of Living Calculator</h1>
       <p className="text-slate-600 mb-6">
         Estimate your monthly and yearly cost of living across different expense categories.
       </p>

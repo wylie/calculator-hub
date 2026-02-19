@@ -29,7 +29,7 @@ export default function LengthPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Length Converter</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Length Converter</h1>
       <p className="text-slate-600 mb-6">
         Convert inches and centimeters, feet and meters.
       </p>

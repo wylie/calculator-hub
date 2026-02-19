@@ -35,7 +35,7 @@ export default function BikeGearPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Bike Gear Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Bike Gear Calculator</h1>
       <p className="text-slate-600 mb-6">
         Calculate gear inches and speed estimates for different chainring and cog combinations.
       </p>

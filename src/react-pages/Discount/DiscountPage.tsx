@@ -23,7 +23,7 @@ export default function DiscountPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Discount Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Discount Calculator</h1>
       <p className="text-slate-600 mb-6">
         Calculate discount amounts and final prices to understand your savings on purchases.
       </p>

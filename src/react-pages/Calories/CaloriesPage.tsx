@@ -35,7 +35,7 @@ export default function CaloriesPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Calorie Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Calorie Calculator</h1>
       <p className="text-slate-600 mb-6">
         Calculate your BMR and daily calorie target based on your goals and activity level.
       </p>

@@ -70,7 +70,7 @@ export default function BudgetPage() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-slate-900 mb-2">Budget Calculator</h2>
+      <h1 className="text-3xl font-bold text-slate-900 mb-2">Budget Calculator</h1>
       <p className="text-slate-600 mb-6">
         Plan your monthly budget by tracking income and expenses with real-time calculations.
       </p>
