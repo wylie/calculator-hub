@@ -102,13 +102,13 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
 <nav class="bg-white border-b border-slate-200 shadow-sm">
   <div class="max-w-7xl mx-auto px-6">
     <!-- Site Name Row -->
-    <div class="flex items-center justify-between py-3 border-b border-slate-100">
+    <div class="flex items-center justify-center py-3 border-b border-slate-100 relative">
       <a href="/" class="text-2xl font-bold text-slate-900 hover:text-blue-600">
         Simple Calculators
       </a>
       
       <!-- Mobile Menu Button -->
-      <details class="lg:hidden relative">
+      <details class="lg:hidden absolute right-0">
         <summary class="list-none p-2 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
           <span class="material-symbols-outlined text-2xl align-middle">menu</span>
         </summary>
@@ -156,50 +156,67 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
     </div>
 
     <!-- Navigation Row -->
-    <ul class="hidden lg:flex justify-center gap-1 text-sm py-2">
-      <li>
-        <a
-          href="/"
-          class={`px-4 py-2 rounded-md font-medium transition-colors ${
-            currentPath === '/'
-              ? 'bg-blue-100 text-blue-700'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Home
-        </a>
-      </li>
-      {navCategories.map((category) => (
-        <li class="relative group">
-          <button
-            type="button"
-            class={`px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-1 whitespace-nowrap ${
-              isCategoryActive(category.items)
+    <div class="hidden lg:block">
+      <ul class="flex justify-center gap-1 text-sm py-2">
+        <li>
+          <a
+            href="/"
+            class={`px-4 py-2 rounded-md font-medium transition-colors ${
+              currentPath === '/'
                 ? 'bg-blue-100 text-blue-700'
                 : 'text-slate-600 hover:bg-slate-100'
             }`}
           >
-            {category.label}
-            <span class="material-symbols-outlined text-lg">expand_more</span>
-          </button>
-          <div class={`absolute left-0 top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 ${
-            category.items.length > 10 ? 'grid grid-cols-2 gap-x-2 p-2 min-w-96' : 'min-w-56'
-          }`}>
-            {category.items.map((item) => (
-              <a
-                href={item.path}
-                class={`block px-4 py-3 text-sm transition-colors rounded-md ${
-                  isActive(item.path)
-                    ? 'bg-blue-50 text-blue-700 font-semibold'
-                    : 'text-slate-700 hover:bg-slate-50'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
+            Home
+          </a>
         </li>
-      ))}
-    </ul>
+        {navCategories.map((category) => (
+          <li class="relative group">
+            <button
+              type="button"
+              class={`px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-1 whitespace-nowrap ${
+                isCategoryActive(category.items)
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              {category.label}
+              <span class="material-symbols-outlined text-lg">expand_more</span>
+            </button>
+            {category.items.length > 10 ? (
+              <div class="absolute left-0 top-full hidden group-hover:grid grid-cols-2 gap-1 bg-white border border-slate-200 rounded-md shadow-lg z-10 p-2 w-96">
+                {category.items.map((item) => (
+                  <a
+                    href={item.path}
+                    class={`block px-4 py-2 text-sm transition-colors rounded-md ${
+                      isActive(item.path)
+                        ? 'bg-blue-50 text-blue-700 font-semibold'
+                        : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div class="absolute left-0 top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 min-w-56">
+                {category.items.map((item) => (
+                  <a
+                    href={item.path}
+                    class={`block px-4 py-3 text-sm transition-colors ${
+                      isActive(item.path)
+                        ? 'bg-blue-50 text-blue-700 font-semibold'
+                        : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </nav>
