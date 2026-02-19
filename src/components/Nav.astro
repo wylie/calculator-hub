@@ -111,11 +111,11 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
         Simple Calculators
       </a>
 
-      <ul class="hidden md:flex flex-wrap gap-0 text-sm items-center">
+      <ul class="hidden lg:flex gap-0 text-sm items-center">
         <li>
           <a
             href="/"
-            class={`px-3 py-2 rounded-md font-medium transition-colors ${
+            class={`px-2.5 py-2 rounded-md font-medium transition-colors ${
               currentPath === '/'
                 ? 'bg-blue-100 text-blue-700'
                 : 'text-slate-600 hover:bg-slate-100'
@@ -128,14 +128,14 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
           <li class="relative group">
             <button
               type="button"
-              class={`px-3 py-2 rounded-md font-medium transition-colors flex items-center gap-0.5 whitespace-nowrap ${
+              class={`px-2.5 py-2 rounded-md font-medium text-xs transition-colors flex items-center gap-0.5 whitespace-nowrap ${
                 isCategoryActive(category.items)
                   ? 'bg-blue-100 text-blue-700'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
               {category.label}
-              <span class="material-symbols-outlined text-base">expand_more</span>
+              <span class="material-symbols-outlined text-sm">expand_more</span>
             </button>
             <div class="absolute left-0 top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 min-w-48">
               {category.items.map((item) => (
@@ -155,7 +155,7 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
         ))}
       </ul>
 
-      <details class="md:hidden relative">
+      <details class="lg:hidden relative">
         <summary class="list-none p-2 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
           <span class="material-symbols-outlined text-2xl align-middle">menu</span>
         </summary>
