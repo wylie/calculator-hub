@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import TimeDurationPage from '../react-pages/TimeDuration/TimeDurationPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What if my times cross midnight?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'In single-day mode, the calculator assumes end time is after start. Enable dates for precise multi-day calculation.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I track work hours with this?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes! Enter your clock-in and clock-out times to calculate total work hours.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why use decimal hours?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Decimal hours (e.g., 7.5 instead of 7:30) makes it easier to calculate pay or billing rates.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Time Duration Calculator - Calculate Hours Between Times"
+  description="Free time duration calculator. Calculate hours and minutes between two times. Track work hours, meeting durations, or any time span."
+  jsonLd={faqSchema}
+>
+  <TimeDurationPage client:load />
+</MainLayout>

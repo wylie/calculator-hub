@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import InflationPage from '../react-pages/Inflation/InflationPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What inflation rate should I use?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Historical US average is ~3%. Use 2-3% for conservative estimates, or check current CPI rates for recent trends.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does inflation affect savings?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'If your savings earn less than inflation, you lose purchasing power even as the balance grows.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is inflation the same for everything?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Housing, healthcare, and education often inflate faster than general CPI averages.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Inflation Calculator - Adjust for Inflation Over Time"
+  description="Free inflation calculator. See how inflation affects purchasing power. Calculate future value and real cost changes over any time period."
+  jsonLd={faqSchema}
+>
+  <InflationPage client:load />
+</MainLayout>

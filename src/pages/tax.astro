@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import TaxPage from '../react-pages/Tax/TaxPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What\'s the difference between with/without tax included?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Without = calculate tax on a pre-tax amount. With = extract the tax from a total that already includes it.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I use this for income tax?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'This works for simple percentage taxes. Income tax often uses brackets, which need a more complex calculator.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What tax rate should I use?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Check your local sales tax rate. In the US, combine state and local rates for the total percentage.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Tax Calculator - Calculate Sales Tax and Total with Tax"
+  description="Free tax calculator. Calculate sales tax, VAT, or GST on any amount. Work backwards from totals that include tax. Simple and accurate."
+  jsonLd={faqSchema}
+>
+  <TaxPage client:load />
+</MainLayout>

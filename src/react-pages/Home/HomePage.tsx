@@ -87,6 +87,60 @@ export default function HomePage() {
       description: 'Track your assets and liabilities to calculate your net worth.',
       icon: 'account_balance',
     },
+    {
+      path: '/loan',
+      title: 'Loan Calculator',
+      description: 'Calculate monthly payments and amortization for any loan.',
+      icon: 'request_quote',
+    },
+    {
+      path: '/savings',
+      title: 'Savings Calculator',
+      description: 'Calculate how your savings will grow over time with regular deposits.',
+      icon: 'savings',
+    },
+    {
+      path: '/tax',
+      title: 'Tax Calculator',
+      description: 'Calculate sales tax, income tax, and after-tax amounts.',
+      icon: 'receipt_long',
+    },
+    {
+      path: '/inflation',
+      title: 'Inflation Calculator',
+      description: 'Calculate the future value of money adjusted for inflation.',
+      icon: 'trending_down',
+    },
+    {
+      path: '/salary-hourly',
+      title: 'Salary to Hourly',
+      description: 'Convert between annual salary and hourly wage rates.',
+      icon: 'payments',
+    },
+    {
+      path: '/bmi',
+      title: 'BMI Calculator',
+      description: 'Calculate your body mass index and health category.',
+      icon: 'monitor_weight',
+    },
+    {
+      path: '/age',
+      title: 'Age Calculator',
+      description: 'Calculate exact age from date of birth to any date.',
+      icon: 'cake',
+    },
+    {
+      path: '/tip',
+      title: 'Tip Calculator',
+      description: 'Calculate tip amount and total bill with split options.',
+      icon: 'restaurant',
+    },
+    {
+      path: '/time-duration',
+      title: 'Time Duration Calculator',
+      description: 'Calculate duration between two times or add/subtract time.',
+      icon: 'hourglass_empty',
+    },
   ];
 
   const converters = [

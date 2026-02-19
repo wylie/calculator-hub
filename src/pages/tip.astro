@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import TipPage from '../react-pages/Tip/TipPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What\'s a standard tip percentage?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'In the US, 15-20% is typical for table service. 18% is often a safe middle ground.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I tip on pre-tax or post-tax amount?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Either is acceptable, though many people tip on the pre-tax amount for simplicity.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'When should I tip more than 20%?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Consider 20%+ for exceptional service, difficult orders, or during busy times.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Tip Calculator - Calculate Tip and Split Bill"
+  description="Free tip calculator. Calculate tip amount and total bill. Split between multiple people easily. Quick buttons for 15%, 18%, 20%, and more."
+  jsonLd={faqSchema}
+>
+  <TipPage client:load />
+</MainLayout>

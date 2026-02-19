@@ -219,3 +219,134 @@ export interface NetWorthOutput {
   totalLiabilities: number;
   netWorth: number;
 }
+
+// BMI Calculator
+export interface BMIInput {
+  weight: number;
+  height: number;
+  unit: 'metric' | 'imperial';
+}
+
+export interface BMIOutput {
+  bmi: number;
+  category: string;
+  healthyWeightMin: number;
+  healthyWeightMax: number;
+}
+
+// Age Calculator
+export interface AgeInput {
+  birthDate: Date;
+  targetDate?: Date;
+}
+
+export interface AgeOutput {
+  years: number;
+  months: number;
+  days: number;
+  totalDays: number;
+  nextBirthday: number;
+}
+
+// Tip Calculator
+export interface TipInput {
+  billAmount: number;
+  tipPercentage: number;
+  splitCount: number;
+}
+
+export interface TipOutput {
+  tipAmount: number;
+  totalAmount: number;
+  perPersonAmount: number;
+  perPersonTip: number;
+}
+
+// Salary/Hourly Converter
+export interface SalaryHourlyInput {
+  amount: number;
+  type: 'salary' | 'hourly';
+  hoursPerWeek: number;
+  weeksPerYear: number;
+}
+
+export interface SalaryHourlyOutput {
+  annualSalary: number;
+  hourlyRate: number;
+  monthlyIncome: number;
+  weeklyIncome: number;
+}
+
+// Loan Calculator
+export interface LoanInput {
+  loanAmount: number;
+  interestRate: number;
+  loanTerm: number;
+}
+
+export interface LoanOutput {
+  monthlyPayment: number;
+  totalInterest: number;
+  totalCost: number;
+}
+
+// Time Duration Calculator
+export interface TimeDurationInput {
+  startTime: string;
+  endTime: string;
+  includeDate?: boolean;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface TimeDurationOutput {
+  hours: number;
+  minutes: number;
+  totalMinutes: number;
+  totalHours: number;
+  formatted: string;
+}
+
+// Tax Calculator
+export interface TaxInput {
+  amount: number;
+  taxRate: number;
+  includeTax: boolean;
+}
+
+export interface TaxOutput {
+  beforeTax: number;
+  taxAmount: number;
+  afterTax: number;
+}
+
+// Inflation Calculator
+export interface InflationInput {
+  amount: number;
+  startYear: number;
+  endYear: number;
+  inflationRate: number;
+}
+
+export interface InflationOutput {
+  futureValue: number;
+  totalInflation: number;
+  years: number;
+  purchasingPowerChange: number;
+}
+
+// Savings Calculator
+export interface SavingsInput {
+  goalAmount: number;
+  currentSavings: number;
+  monthlyContribution: number;
+  interestRate: number;
+}
+
+export interface SavingsOutput {
+  monthsToGoal: number;
+  yearsToGoal: number;
+  totalContributions: number;
+  totalInterest: number;
+  finalAmount: number;
+}

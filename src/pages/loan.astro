@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import LoanPage from '../react-pages/Loan/LoanPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What types of loans can I calculate?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'This works for any fixed-rate loan: personal loans, student loans, business loans, etc.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does loan term affect total interest?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Longer terms lower monthly payments but increase total interest paid over the life of the loan.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are fees included in these calculations?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Add origination fees, closing costs, or other charges separately to total cost.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Loan Calculator - Calculate Monthly Payment and Interest"
+  description="Free loan calculator for any fixed-rate loan. Calculate monthly payment, total interest, and total cost for personal loans, student loans, and more."
+  jsonLd={faqSchema}
+>
+  <LoanPage client:load />
+</MainLayout>

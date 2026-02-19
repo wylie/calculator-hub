@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SalaryHourlyPage from '../react-pages/SalaryHourly/SalaryHourlyPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many hours are in a standard work year?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '2,080 hours (40 hours/week × 52 weeks). For part-time, adjust hours per week accordingly.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I account for unpaid time off?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. If you have 2 weeks unpaid vacation, set weeks per year to 50 instead of 52.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are taxes included in these calculations?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. These show gross amounts before taxes, insurance, or other deductions.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Salary to Hourly Converter - Annual Salary and Hourly Rate Calculator"
+  description="Free salary to hourly converter. Convert between annual salary and hourly rate. See monthly and weekly income breakdowns."
+  jsonLd={faqSchema}
+>
+  <SalaryHourlyPage client:load />
+</MainLayout>

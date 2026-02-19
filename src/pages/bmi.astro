@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import BMIPage from '../react-pages/BMI/BMIPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Is BMI accurate for everyone?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'BMI doesn\'t distinguish muscle from fat, so athletes or very muscular people may have high BMI but be healthy.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What\'s a healthy BMI range?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For most adults, a BMI between 18.5 and 24.9 is considered healthy, though individual needs may vary.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I use BMI alone to assess health?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. BMI is one metric. Consider body composition, activity level, and overall health markers with your doctor.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="BMI Calculator - Calculate Your Body Mass Index"
+  description="Free BMI calculator. Calculate your Body Mass Index, find your health category, and see your healthy weight range using metric or imperial units."
+  jsonLd={faqSchema}
+>
+  <BMIPage client:load />
+</MainLayout>

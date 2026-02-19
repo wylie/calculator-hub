@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import AgePage from '../react-pages/Age/AgePage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Does this account for leap years?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. The calculator automatically handles leap years when computing exact age and total days.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I calculate age on a future date?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Set "Calculate Age On" to any future date to see how old you\'ll be on that date.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why are total days important?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Total days lived can be useful for milestone celebrations or scientific age tracking.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Age Calculator - Calculate Exact Age from Birthday"
+  description="Free age calculator. Calculate your exact age in years, months, and days. Find total days lived and days until your next birthday."
+  jsonLd={faqSchema}
+>
+  <AgePage client:load />
+</MainLayout>

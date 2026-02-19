@@ -1,0 +1,43 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SavingsPage from '../react-pages/Savings/SavingsPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What if I can\'t reach my goal?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Increase monthly contributions, choose a higher-yield account, or extend your timeline.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Where can I get 4-5% interest?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'High-yield savings accounts from online banks often offer competitive rates above 4% APY.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does interest accelerate savings?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Earned interest grows your balance faster than contributions alone, compounding over time.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout
+  title="Savings Calculator - Calculate Time to Reach Savings Goal"
+  description="Free savings calculator. Find out how long it takes to reach your savings goal with regular contributions and compound interest."
+  jsonLd={faqSchema}
+>
+  <SavingsPage client:load />
+</MainLayout>
