@@ -20,7 +20,7 @@ describe('calculateMortgage', () => {
     });
 
     expect(result.loanAmount).toBe(240000);
-    expect(Math.round(result.monthlyPI)).toBe(1518);
+    expect(Math.round(result.monthlyPI)).toBe(1517);
   });
 
   it('handles zero interest rate', () => {

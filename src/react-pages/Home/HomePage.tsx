@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Card from '../../components/Card';
 import AdSlot from '../../components/AdSlot';
 
@@ -162,7 +161,7 @@ export default function HomePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {calculators.slice(0, 2).map((calc) => (
-          <Link key={calc.path} to={calc.path}>
+          <a key={calc.path} href={calc.path}>
             <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
               <div className="flex items-start gap-4">
                 <span className="material-symbols-outlined text-3xl text-blue-600 flex-shrink-0">
@@ -174,7 +173,7 @@ export default function HomePage() {
                 </div>
               </div>
             </Card>
-          </Link>
+          </a>
         ))}
       </div>
 
@@ -182,7 +181,7 @@ export default function HomePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {calculators.slice(2).map((calc) => (
-          <Link key={calc.path} to={calc.path}>
+          <a key={calc.path} href={calc.path}>
             <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
               <div className="flex flex-col items-center text-center">
                 <span className="material-symbols-outlined text-3xl text-blue-600 mb-3">
@@ -192,7 +191,7 @@ export default function HomePage() {
                 <p className="text-xs text-slate-600">{calc.description}</p>
               </div>
             </Card>
-          </Link>
+          </a>
         ))}
       </div>
 
@@ -203,7 +202,7 @@ export default function HomePage() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {converters.map((converter) => (
-            <Link key={converter.path} to={converter.path}>
+            <a key={converter.path} href={converter.path}>
               <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
                 <div className="flex items-start gap-4">
                   <span className="material-symbols-outlined text-3xl text-blue-600 flex-shrink-0">
@@ -215,7 +214,7 @@ export default function HomePage() {
                   </div>
                 </div>
               </Card>
-            </Link>
+            </a>
           ))}
         </div>
       </div>

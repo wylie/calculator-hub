@@ -1,0 +1,8 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import WeatherPage from '../react-pages/Weather/WeatherPage';
+---
+
+<MainLayout title="Weather Converter">
+  <WeatherPage client:load />
+</MainLayout>

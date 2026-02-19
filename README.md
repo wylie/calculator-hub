@@ -1,6 +1,6 @@
 # Simple Calculators
 
-A clean, responsive multi-calculator web app featuring mortgage, budget, weather, calorie, and bike gear calculators. Built with React, TypeScript, Vite, and Tailwind CSS.
+A clean, responsive multi-calculator web app featuring mortgage, budget, weather, calorie, and bike gear calculators. Built with Astro, React islands, TypeScript, and Tailwind CSS.
 
 ## Features
 
@@ -14,10 +14,10 @@ A clean, responsive multi-calculator web app featuring mortgage, budget, weather
 
 ## Tech Stack
 
-- **Framework**: React 19 + TypeScript
-- **Build Tool**: Vite
+- **Framework**: Astro 5 + React islands + TypeScript
+- **Build Tool**: Astro (Vite under the hood)
 - **Styling**: Tailwind CSS
-- **Routing**: React Router
+- **Routing**: Astro file-based routing
 - **Testing**: Vitest
 - **Icons**: Google Material Symbols
 - **Font**: Inter (Google Fonts)
@@ -26,7 +26,7 @@ A clean, responsive multi-calculator web app featuring mortgage, budget, weather
 
 ### Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 20+ and npm
 
 ### Installation
 
@@ -40,7 +40,7 @@ npm install
 npm run dev
 ```
 
-This will start the dev server at `http://localhost:5173/`.
+This will start the Astro dev server (typically `http://localhost:4321/`, or the next open port).
 
 ### Build
 
@@ -67,23 +67,24 @@ src/
 │   ├── Toggle.tsx        # Toggle switch
 │   ├── AdSlot.tsx        # AdSense placeholder
 │   ├── AffiliateBox.tsx  # Affiliate link component
-│   ├── Nav.tsx           # Navigation bar
-│   └── Layout.tsx        # Main layout wrapper
+│   └── NavAstro.tsx      # Hydrated navigation island
+├── layouts/
+│   └── MainLayout.astro  # Shared Astro layout
 ├── pages/
-│   ├── Home/
+│   ├── index.astro
+│   ├── mortgage.astro
+│   └── ... (route wrappers)
+├── react-pages/
 │   ├── Mortgage/
 │   ├── Budget/
-│   ├── Weather/
-│   ├── Calories/
-│   └── BikeGear/
+│   └── ... (calculator React islands)
 ├── utils/
 │   ├── calculators.ts         # All calculator functions
 │   ├── calculators.test.ts    # Unit tests
 │   └── formatting.ts          # Currency, percentage formatting
 ├── types/
 │   └── index.ts              # TypeScript interfaces
-├── App.tsx                   # Main app with routing
-└── main.tsx                  # Entry point
+└── index.css                 # Tailwind entry styles
 ```
 
 ## Calculator Details

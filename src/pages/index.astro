@@ -1,0 +1,223 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import AdSlot from '../components/AdSlot';
+
+const calculators = [
+  {
+    path: '/mortgage',
+    title: 'Mortgage Calculator',
+    description: 'Calculate monthly payments, total interest, and amortization summary.',
+    icon: 'home',
+  },
+  {
+    path: '/budget',
+    title: 'Budget Calculator',
+    description: 'Plan your monthly budget with income and expense tracking.',
+    icon: 'wallet',
+  },
+  {
+    path: '/interest',
+    title: 'Interest Calculator',
+    description: 'Calculate simple interest on your principal amount.',
+    icon: 'percent',
+  },
+  {
+    path: '/compound-interest',
+    title: 'Compound Interest Calculator',
+    description: 'Watch your money grow with compound interest over time.',
+    icon: 'trending_up',
+  },
+  {
+    path: '/auto-loan',
+    title: 'Auto Loan Calculator',
+    description: 'Calculate car payment and total interest costs.',
+    icon: 'directions_car',
+  },
+  {
+    path: '/credit-card-payoff',
+    title: 'Credit Card Payoff',
+    description: 'Find how long to pay off credit card debt.',
+    icon: 'credit_card',
+  },
+  {
+    path: '/retirement',
+    title: 'Retirement Calculator',
+    description: 'Plan your retirement and check if you\'re on track.',
+    icon: 'savings',
+  },
+  {
+    path: '/investment-growth',
+    title: 'Investment Growth',
+    description: 'Project your investment growth with regular contributions.',
+    icon: 'show_chart',
+  },
+  {
+    path: '/refinance',
+    title: 'Refinance Calculator',
+    description: 'Calculate savings from refinancing your loan.',
+    icon: 'gavel',
+  },
+  {
+    path: '/down-payment',
+    title: 'Down Payment Calculator',
+    description: 'Calculate down payment and monthly payment estimates.',
+    icon: 'attach_money',
+  },
+  {
+    path: '/weather',
+    title: 'Weather Converter',
+    description: 'Convert temperatures between Celsius and Fahrenheit instantly.',
+    icon: 'thermostat',
+  },
+  {
+    path: '/calories',
+    title: 'Calorie Calculator',
+    description: 'Calculate BMR and daily calorie targets based on your goals.',
+    icon: 'nutrition',
+  },
+  {
+    path: '/bike-gear',
+    title: 'Bike Gear Calculator',
+    description: 'Compute gear inches and speed estimates for your bike setup.',
+    icon: 'two_wheeler',
+  },
+  {
+    path: '/net-worth',
+    title: 'Net Worth Calculator',
+    description: 'Track your assets and liabilities to calculate your net worth.',
+    icon: 'account_balance',
+  },
+];
+
+const converters = [
+  {
+    path: '/weather',
+    title: 'Temperature Converter',
+    description: 'Convert Celsius and Fahrenheit instantly.',
+    icon: 'thermostat',
+  },
+  {
+    path: '/weight',
+    title: 'Weight Converter',
+    description: 'Convert pounds and kilograms.',
+    icon: 'fitness_center',
+  },
+  {
+    path: '/length',
+    title: 'Length Converter',
+    description: 'Convert inches, centimeters, feet, and meters.',
+    icon: 'straighten',
+  },
+  {
+    path: '/speed',
+    title: 'Speed Converter',
+    description: 'Convert mph and km/h.',
+    icon: 'speed',
+  },
+  {
+    path: '/volume',
+    title: 'Volume Converter',
+    description: 'Convert gallons and liters.',
+    icon: 'water_drop',
+  },
+  {
+    path: '/area',
+    title: 'Area Converter',
+    description: 'Convert square feet and square meters.',
+    icon: 'crop_square',
+  },
+  {
+    path: '/time',
+    title: 'Time Converter',
+    description: 'Convert hours and minutes.',
+    icon: 'schedule',
+  },
+  {
+    path: '/file-size',
+    title: 'File Size Converter',
+    description: 'Convert KB, MB, and GB.',
+    icon: 'storage',
+  },
+  {
+    path: '/percentage',
+    title: 'Percentage Converter',
+    description: 'Convert percent and decimal values.',
+    icon: 'percent',
+  },
+  {
+    path: '/date-difference',
+    title: 'Date Difference',
+    description: 'Calculate the difference between dates.',
+    icon: 'event',
+  },
+];
+---
+
+<MainLayout title="Home" description="Free online calculators and converters for mortgage, budget, weather, calories, and more. Simple, accurate, and easy to use.">
+  <div>
+    <h2 class="text-3xl font-bold text-slate-900 mb-4">Welcome to Simple Calculators</h2>
+    <p class="text-slate-600 mb-8">
+      A collection of fast, lightweight calculators to help you with everyday calculations.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      {calculators.slice(0, 2).map((calc) => (
+        <a href={calc.path}>
+          <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm h-full hover:shadow-md transition-shadow cursor-pointer">
+            <div class="flex items-start gap-4">
+              <span class="material-symbols-outlined text-3xl text-blue-600 flex-shrink-0">
+                {calc.icon}
+              </span>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-900 mb-2">{calc.title}</h3>
+                <p class="text-sm text-slate-600">{calc.description}</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <AdSlot client:load />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {calculators.slice(2).map((calc) => (
+        <a href={calc.path}>
+          <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm h-full hover:shadow-md transition-shadow cursor-pointer">
+            <div class="flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-3xl text-blue-600 mb-3">
+                {calc.icon}
+              </span>
+              <h3 class="text-base font-semibold text-slate-900 mb-2">{calc.title}</h3>
+              <p class="text-xs text-slate-600">{calc.description}</p>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-12">
+      <h3 class="text-2xl font-bold text-slate-900 mb-4">Quick Converters</h3>
+      <p class="text-slate-600 mb-6">
+        Jump straight to unit converters for common everyday tasks.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {converters.map((converter) => (
+          <a href={converter.path}>
+            <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm h-full hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-start gap-4">
+                <span class="material-symbols-outlined text-3xl text-blue-600 flex-shrink-0">
+                  {converter.icon}
+                </span>
+                <div>
+                  <h3 class="text-base font-semibold text-slate-900 mb-1">{converter.title}</h3>
+                  <p class="text-xs text-slate-600">{converter.description}</p>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</MainLayout>

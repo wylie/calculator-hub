@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import Card from './Card'
 
 interface RelatedTool {
@@ -19,13 +18,13 @@ export default function RelatedTools({ tools }: RelatedToolsProps) {
       <h3 className="text-lg font-semibold text-slate-900 mb-4">Related Tools</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {tools.map((tool) => (
-          <Link
+          <a
             key={tool.path}
-            to={tool.path}
+            href={tool.path}
             className="hover:opacity-75 transition-opacity"
           >
             <Card className="flex items-center gap-3">
-              <span 
+              <span
                 className="material-symbols-outlined text-blue-600"
                 style={{ fontSize: '24px', fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}
               >
@@ -33,7 +32,7 @@ export default function RelatedTools({ tools }: RelatedToolsProps) {
               </span>
               <span className="text-sm font-medium text-slate-700">{tool.title}</span>
             </Card>
-          </Link>
+          </a>
         ))}
       </div>
     </div>
