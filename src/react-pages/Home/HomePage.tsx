@@ -255,6 +255,36 @@ export default function HomePage() {
       description: 'Calculate percent change for gains or losses.',
       icon: 'show_chart',
     },
+    {
+      path: '/roi',
+      title: 'ROI Calculator',
+      description: 'Calculate return on investment percentage and gain amount.',
+      icon: 'trending_up',
+    },
+    {
+      path: '/fuel-efficiency',
+      title: 'Fuel Efficiency',
+      description: 'Calculate MPG, fuel costs, and trip expenses.',
+      icon: 'local_gas_station',
+    },
+    {
+      path: '/discount',
+      title: 'Discount Calculator',
+      description: 'Calculate discount amounts and final prices.',
+      icon: 'local_offer',
+    },
+    {
+      path: '/cost-of-living-calculator',
+      title: 'Cost of Living',
+      description: 'Track monthly and yearly living expenses by category.',
+      icon: 'apartment',
+    },
+    {
+      path: '/gpa',
+      title: 'GPA Calculator',
+      description: 'Calculate weighted GPA and letter grade.',
+      icon: 'grade',
+    },
   ];
 
   const converters = [

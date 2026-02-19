@@ -1,0 +1,46 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import CostOfLivingPage from '../react-pages/CostOfLiving/CostOfLivingPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How does cost of living compare between cities?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Major metropolitan areas typically have higher costs for housing, transportation, and food. Rural areas may have lower costs but fewer services and job opportunities.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What should I do if my lifestyle exceeds my income?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Review each category and identify areas to reduce. Start with entertainment and discretionary spending, then tackle larger categories like housing if needed.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How should I adjust for inflation?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Cost of living increases over time due to inflation. Review and update your expenses annually to account for price increases across categories.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout 
+  title="Cost of Living Calculator | Monthly & Yearly Expenses"
+  description="Estimate your monthly and yearly cost of living across different expense categories."
+  keywords="cost of living calculator, expense calculator, budget calculator"
+  ogTitle="Cost of Living Calculator"
+  ogDescription="Calculate your cost of living by category"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <CostOfLivingPage client:load />
+</MainLayout>

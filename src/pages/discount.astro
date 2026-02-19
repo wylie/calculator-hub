@@ -1,0 +1,46 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import DiscountPage from '../react-pages/Discount/DiscountPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I calculate stacked discounts?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Apply the first discount to get a new price, then apply the second discount to that new price. Don\'t add them together.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How is discount different from markup?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Discount reduces the price from the original amount. Markup increases the cost to create the selling price. They use different base amounts in the calculation.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I buy during big sales?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Compare the final discounted price to other retailers and consider if you actually need the item. A discount on something you don\'t need isn\'t savings.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout 
+  title="Discount Calculator | Calculate Save Amount & Final Price"
+  description="Calculate discount amounts and final prices to understand your savings on purchases."
+  keywords="discount calculator, percentage off, sale price calculator"
+  ogTitle="Discount Calculator"
+  ogDescription="Calculate discounts and final prices instantly"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <DiscountPage client:load />
+</MainLayout>

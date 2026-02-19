@@ -1,0 +1,46 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import GPAPage from '../react-pages/GPA/GPAPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What\'s the difference between weighted and unweighted GPA?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Unweighted GPA treats all courses equally. Weighted GPA accounts for course difficulty or credit hours, so harder courses contribute more to your final GPA.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I improve my GPA?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Focus on getting better grades in upcoming classes. Since GPA is cumulative, your recent grades have more impact than old ones. Perfect future grades will slowly raise your overall GPA.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does my GPA matter after college?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'GPA matters for graduate school admissions, some entry-level jobs, and scholarships. After several years of work experience, GPA becomes less important than your resume and accomplishments.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout 
+  title="GPA Calculator | Weighted Grade Point Average"
+  description="Calculate your weighted GPA based on course grades and credit weights."
+  keywords="GPA calculator, weighted GPA, grade calculator, academic calculator"
+  ogTitle="GPA Calculator"
+  ogDescription="Calculate your GPA with custom weights"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <GPAPage client:load />
+</MainLayout>

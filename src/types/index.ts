@@ -610,3 +610,81 @@ export interface PercentChangeOutput {
   change: number;
   isIncrease: boolean;
 }
+
+// ROI Calculator
+export interface ROIInput {
+  initialInvestment: number;
+  finalValue: number;
+}
+
+export interface ROIOutput {
+  roi: number;
+  gain: number;
+  roiPercent: string;
+}
+
+// Fuel Efficiency Calculator
+export interface FuelEfficiencyInput {
+  distance: number;
+  distanceUnit: 'miles' | 'km';
+  fuelUsed: number;
+  fuelUnit: 'gallons' | 'liters';
+}
+
+export interface FuelEfficiencyOutput {
+  mpg: number;
+  kmpl: number;
+  costPerMile: number;
+  costPer100km: number;
+}
+
+// Discount/Markup Calculator
+export interface DiscountInput {
+  originalPrice: number;
+  discountPercent: number;
+}
+
+export interface DiscountOutput {
+  discountAmount: number;
+  finalPrice: number;
+  savings: string;
+}
+
+// Cost of Living Calculator
+export interface CostOfLivingInput {
+  housing: number;
+  food: number;
+  transportation: number;
+  utilities: number;
+  healthcare: number;
+  entertainment: number;
+  other: number;
+}
+
+export interface CostOfLivingOutput {
+  monthlyTotal: number;
+  yearlyTotal: number;
+  byCategory: {
+    name: string;
+    monthly: number;
+    percent: number;
+  }[];
+}
+
+// GPA Calculator
+export interface GradeItem {
+  id: string;
+  name: string;
+  grade: number;
+  weight: number;
+}
+
+export interface GradeInput {
+  grades: GradeItem[];
+}
+
+export interface GradeOutput {
+  gpa: number;
+  letterGrade: string;
+  description: string;
+}

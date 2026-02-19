@@ -82,6 +82,16 @@ import type {
   PercentageDecreaseOutput,
   PercentChangeInput,
   PercentChangeOutput,
+  ROIInput,
+  ROIOutput,
+  FuelEfficiencyInput,
+  FuelEfficiencyOutput,
+  DiscountInput,
+  DiscountOutput,
+  CostOfLivingInput,
+  CostOfLivingOutput,
+  GradeInput,
+  GradeOutput,
 } from '../types';
 
 // Mortgage Calculator
@@ -1159,6 +1169,153 @@ export function calculatePercentChange(input: PercentChangeInput): PercentChange
     percentChange: Math.round(Math.abs(percentChange) * 100) / 100,
     change: Math.round(change * 100) / 100,
     isIncrease,
+  };
+}
+
+// ROI Calculator
+export function calculateROI(input: ROIInput): ROIOutput {
+  const gain = input.finalValue - input.initialInvestment;
+  const roi = gain / input.initialInvestment;
+  const roiPercent = (roi * 100).toFixed(2);
+
+  return {
+    roi: Math.round(roi * 100) / 100,
+    gain: Math.round(gain * 100) / 100,
+    roiPercent: roiPercent + '%',
+  };
+}
+
+// Fuel Efficiency Calculator
+export function calculateFuelEfficiency(input: FuelEfficiencyInput): FuelEfficiencyOutput {
+  let mpg = 0;
+  let kmpl = 0;
+
+  if (input.distanceUnit === 'miles' && input.fuelUnit === 'gallons') {
+    mpg = input.distance / input.fuelUsed;
+    kmpl = (input.distance * 1.60934) / (input.fuelUsed * 3.78541);
+  } else if (input.distanceUnit === 'km' && input.fuelUnit === 'liters') {
+    kmpl = input.distance / input.fuelUsed;
+    mpg = (input.distance / 1.60934) / (input.fuelUsed / 3.78541);
+  } else if (input.distanceUnit === 'miles' && input.fuelUnit === 'liters') {
+    mpg = (input.distance * 3.78541) / input.fuelUsed;
+    kmpl = input.distance / (input.fuelUsed / 3.78541);
+  } else {
+    kmpl = (input.distance / 1.60934) / input.fuelUsed;
+    mpg = input.distance / (input.fuelUsed * 3.78541);
+  }
+
+  const avgGasPricePerGallon = 3.5;
+  const costPerMile = (avgGasPricePerGallon / mpg);
+  const costPer100km = ((avgGasPricePerGallon * 3.78541) / kmpl) * 100;
+
+  return {
+    mpg: Math.round(mpg * 100) / 100,
+    kmpl: Math.round(kmpl * 100) / 100,
+    costPerMile: Math.round(costPerMile * 100) / 100,
+    costPer100km: Math.round(costPer100km * 100) / 100,
+  };
+}
+
+// Discount Calculator
+export function calculateDiscount(input: DiscountInput): DiscountOutput {
+  const discountAmount = (input.originalPrice * input.discountPercent) / 100;
+  const finalPrice = input.originalPrice - discountAmount;
+  const savings = (discountAmount / input.originalPrice * 100).toFixed(1);
+
+  return {
+    discountAmount: Math.round(discountAmount * 100) / 100,
+    finalPrice: Math.round(finalPrice * 100) / 100,
+    savings: savings + '% off',
+  };
+}
+
+// Cost of Living Calculator
+export function calculateCostOfLiving(input: CostOfLivingInput): CostOfLivingOutput {
+  const monthlyTotal = 
+    input.housing + 
+    input.food + 
+    input.transportation + 
+    input.utilities + 
+    input.healthcare + 
+    input.entertainment + 
+    input.other;
+
+  const yearlyTotal = monthlyTotal * 12;
+
+  const categories = [
+    { name: 'Housing', amount: input.housing },
+    { name: 'Food', amount: input.food },
+    { name: 'Transportation', amount: input.transportation },
+    { name: 'Utilities', amount: input.utilities },
+    { name: 'Healthcare', amount: input.healthcare },
+    { name: 'Entertainment', amount: input.entertainment },
+    { name: 'Other', amount: input.other },
+  ];
+
+  const byCategory = categories.map(cat => ({
+    name: cat.name,
+    monthly: Math.round(cat.amount * 100) / 100,
+    percent: monthlyTotal > 0 ? Math.round((cat.amount / monthlyTotal) * 10000) / 100 : 0,
+  }));
+
+  return {
+    monthlyTotal: Math.round(monthlyTotal * 100) / 100,
+    yearlyTotal: Math.round(yearlyTotal * 100) / 100,
+    byCategory,
+  };
+}
+
+// GPA Calculator
+export function calculateGPA(input: GradeInput): GradeOutput {
+  if (input.grades.length === 0) {
+    return {
+      gpa: 0,
+      letterGrade: 'N/A',
+      description: 'No grades entered',
+    };
+  }
+
+  const totalWeight = input.grades.reduce((sum, g) => sum + g.weight, 0);
+  if (totalWeight === 0) {
+    return {
+      gpa: 0,
+      letterGrade: 'N/A',
+      description: 'No weights assigned',
+    };
+  }
+
+  const weightedSum = input.grades.reduce((sum, g) => sum + g.grade * g.weight, 0);
+  const gpa = weightedSum / totalWeight;
+
+  let letterGrade = 'F';
+  if (gpa >= 3.7) letterGrade = 'A';
+  else if (gpa >= 3.3) letterGrade = 'A-';
+  else if (gpa >= 3.0) letterGrade = 'B+';
+  else if (gpa >= 2.7) letterGrade = 'B';
+  else if (gpa >= 2.3) letterGrade = 'B-';
+  else if (gpa >= 2.0) letterGrade = 'C+';
+  else if (gpa >= 1.7) letterGrade = 'C';
+  else if (gpa >= 1.3) letterGrade = 'C-';
+  else if (gpa >= 1.0) letterGrade = 'D';
+  else letterGrade = 'F';
+
+  const descriptions: Record<string, string> = {
+    'A': 'Excellent',
+    'A-': 'Excellent',
+    'B+': 'Very Good',
+    'B': 'Good',
+    'B-': 'Good',
+    'C+': 'Satisfactory',
+    'C': 'Satisfactory',
+    'C-': 'Satisfactory',
+    'D': 'Passing',
+    'F': 'Failing',
+  };
+
+  return {
+    gpa: Math.round(gpa * 100) / 100,
+    letterGrade,
+    description: descriptions[letterGrade] || 'Unknown',
   };
 }
 

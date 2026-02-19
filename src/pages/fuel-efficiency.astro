@@ -1,0 +1,46 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import FuelEfficiencyPage from '../react-pages/FuelEfficiency/FuelEfficiencyPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Why does my actual MPG differ from EPA estimates?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Driving habits, traffic conditions, terrain, weather, and vehicle loads all affect fuel efficiency. Highway driving is typically more efficient than city driving.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How can I improve my fuel efficiency?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Maintain proper tire pressure, change air filters regularly, reduce weight, accelerate smoothly, and avoid excessive idling. Proper maintenance is key.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is premium gas more efficient?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Premium fuel provides better performance in high-compression engines, but won\'t improve efficiency in regular engines. Use the fuel grade your manufacturer recommends.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout 
+  title="Fuel Efficiency Calculator | MPG & KM/L"
+  description="Calculate your vehicle's fuel efficiency in MPG, KM/L, and cost per distance traveled."
+  keywords="fuel efficiency calculator, MPG calculator, KM/L, gas mileage"
+  ogTitle="Fuel Efficiency Calculator"
+  ogDescription="Calculate your vehicle's MPG and fuel costs in seconds"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <FuelEfficiencyPage client:load />
+</MainLayout>

@@ -1,0 +1,46 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import ROIPage from '../react-pages/ROI/ROIPage';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is a good ROI?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It depends on the investment type and time period. Stock market averages around 10% annually, while real estate and bonds vary. Compare against benchmarks in your category.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does ROI differ from profit?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Profit is the absolute dollar gain, while ROI is the percentage return relative to your investment. ROI allows better comparison across different investment sizes.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I include fees and taxes in ROI?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For accurate ROI, subtract fees and taxes from the final value to get your net proceeds before calculating.',
+      },
+    },
+  ],
+};
+---
+
+<MainLayout 
+  title="ROI Calculator | Calculate Return on Investment"
+  description="Calculate your return on investment (ROI) to measure the profitability of an investment."
+  keywords="ROI calculator, return on investment, investment calculator, profit calculator"
+  ogTitle="ROI Calculator"
+  ogDescription="Calculate your return on investment quickly and easily"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <ROIPage client:load />
+</MainLayout>
