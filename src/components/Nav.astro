@@ -177,7 +177,7 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
         <li>
           <a
             href="/"
-            class={`px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-1 ${
+            class={`px-4 py-2 h-10 rounded-md font-medium text-sm transition-colors flex items-center gap-1 whitespace-nowrap ${
               currentPath === '/'
                 ? 'bg-blue-100 text-blue-700'
                 : 'text-slate-600 hover:bg-slate-100'
@@ -190,7 +190,7 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
           <li class="relative group">
             <a
               href={category.path}
-              class={`px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-1 whitespace-nowrap ${
+              class={`px-4 py-2 h-10 rounded-md font-medium text-sm transition-colors flex items-center gap-1 whitespace-nowrap ${
                 isActive(category.path) || isCategoryActive(category.items)
                   ? 'bg-blue-100 text-blue-700'
                   : 'text-slate-600 hover:bg-slate-100'
