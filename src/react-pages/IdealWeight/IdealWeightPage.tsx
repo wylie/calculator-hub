@@ -6,15 +6,31 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateIdealWeight } from '../../utils/calculators';
 
+interface IdealWeightFormInput {
+  heightUnit: 'cm' | 'imperial';
+  heightCm: number | '';
+  heightFt: number | '';
+  heightIn: number | '';
+  sex: 'male' | 'female';
+  formula: 'devine' | 'robinson' | 'miller' | 'bmi';
+}
+
 export default function IdealWeightPage() {
-  const [input, setInput] = useStickyState<any>('idealWeight-input', {
+  const [input, setInput] = useStickyState<IdealWeightFormInput>('idealWeight-input', {
+    heightUnit: 'cm',
     heightCm: 175,
+    heightFt: 5,
+    heightIn: 9,
     sex: 'male',
     formula: 'devine',
   });
 
+  const normalizedHeightCm = input.heightUnit === 'imperial'
+    ? (((Number(input.heightFt) || 0) * 12) + (Number(input.heightIn) || 0)) * 2.54
+    : Number(input.heightCm) || 0;
+
   const result = calculateIdealWeight({
-    heightCm: Number(input.heightCm) || 0,
+    heightCm: normalizedHeightCm,
     sex: input.sex,
     formula: input.formula,
   });
@@ -31,19 +47,56 @@ export default function IdealWeightPage() {
         <Card>
           <h2 className="text-xl font-semibold mb-4">Your Information</h2>
           <div className="space-y-4">
-            <Input
-              label="Height (cm)"
-              type="number"
-              value={input.heightCm}
-              onChange={(value) => setInput({ ...input, heightCm: value === '' ? '' : parseFloat(value) })}
-              min="80"
-              max="250"
-              step="1"
+            <Select
+              label="Height Unit"
+              value={input.heightUnit}
+              onChange={(value) => setInput({ ...input, heightUnit: value as IdealWeightFormInput['heightUnit'] })}
+              options={[
+                { value: 'cm', label: 'Centimeters (cm)' },
+                { value: 'imperial', label: 'Feet & Inches (ft/in)' },
+              ]}
             />
+            {input.heightUnit === 'imperial' ? (
+              <>
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    label="Height (ft)"
+                    type="number"
+                    value={input.heightFt}
+                    onChange={(value) => setInput({ ...input, heightFt: value === '' ? '' : parseFloat(value) })}
+                    min="3"
+                    max="8"
+                    step="1"
+                  />
+                  <Input
+                    label="Height (in)"
+                    type="number"
+                    value={input.heightIn}
+                    onChange={(value) => setInput({ ...input, heightIn: value === '' ? '' : parseFloat(value) })}
+                    min="0"
+                    max="11"
+                    step="1"
+                  />
+                </div>
+                <p className="text-xs text-slate-500 -mt-2">
+                  Height in cm: {normalizedHeightCm.toFixed(1)} cm
+                </p>
+              </>
+            ) : (
+              <Input
+                label="Height (cm)"
+                type="number"
+                value={input.heightCm}
+                onChange={(value) => setInput({ ...input, heightCm: value === '' ? '' : parseFloat(value) })}
+                min="80"
+                max="250"
+                step="1"
+              />
+            )}
             <Select
               label="Sex"
               value={input.sex}
-              onChange={(value) => setInput({ ...input, sex: value })}
+              onChange={(value) => setInput({ ...input, sex: value as IdealWeightFormInput['sex'] })}
               options={[
                 { value: 'male', label: 'Male' },
                 { value: 'female', label: 'Female' },
@@ -52,7 +105,7 @@ export default function IdealWeightPage() {
             <Select
               label="Calculation Formula"
               value={input.formula}
-              onChange={(value) => setInput({ ...input, formula: value })}
+              onChange={(value) => setInput({ ...input, formula: value as IdealWeightFormInput['formula'] })}
               options={[
                 { value: 'devine', label: 'Devine Formula' },
                 { value: 'robinson', label: 'Robinson Formula' },

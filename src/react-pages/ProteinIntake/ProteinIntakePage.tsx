@@ -6,14 +6,27 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateProteinIntake } from '../../utils/calculators';
 
+interface ProteinIntakeFormInput {
+  weightUnit: 'kg' | 'lbs';
+  weightKg: number | '';
+  weightLbs: number | '';
+  goal: 'maintain' | 'muscle' | 'loss';
+}
+
 export default function ProteinIntakePage() {
-  const [input, setInput] = useStickyState<any>('proteinIntake-input', {
+  const [input, setInput] = useStickyState<ProteinIntakeFormInput>('proteinIntake-input', {
+    weightUnit: 'kg',
     weightKg: 75,
+    weightLbs: 165,
     goal: 'maintain',
   });
 
+  const normalizedWeightKg = input.weightUnit === 'lbs'
+    ? (Number(input.weightLbs) || 0) * 0.45359237
+    : Number(input.weightKg) || 0;
+
   const result = calculateProteinIntake({
-    weightKg: Number(input.weightKg) || 0,
+    weightKg: normalizedWeightKg,
     goal: input.goal,
   });
 
@@ -29,19 +42,45 @@ export default function ProteinIntakePage() {
         <Card>
           <h2 className="text-xl font-semibold mb-4">Your Information</h2>
           <div className="space-y-4">
-            <Input
-              label="Body Weight (kg)"
-              type="number"
-              value={input.weightKg}
-              onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
-              min="20"
-              max="300"
-              step="0.5"
+            <Select
+              label="Weight Unit"
+              value={input.weightUnit}
+              onChange={(value) => setInput({ ...input, weightUnit: value as ProteinIntakeFormInput['weightUnit'] })}
+              options={[
+                { value: 'kg', label: 'Kilograms (kg)' },
+                { value: 'lbs', label: 'Pounds (lbs)' },
+              ]}
             />
+            {input.weightUnit === 'lbs' ? (
+              <Input
+                label="Body Weight (lbs)"
+                type="number"
+                value={input.weightLbs}
+                onChange={(value) => setInput({ ...input, weightLbs: value === '' ? '' : parseFloat(value) })}
+                min="44"
+                max="660"
+                step="1"
+              />
+            ) : (
+              <Input
+                label="Body Weight (kg)"
+                type="number"
+                value={input.weightKg}
+                onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
+                min="20"
+                max="300"
+                step="0.5"
+              />
+            )}
+            {input.weightUnit === 'lbs' && (
+              <p className="-mt-2 text-xs text-slate-500">
+                Weight in kg: {normalizedWeightKg.toFixed(1)} kg
+              </p>
+            )}
             <Select
               label="Fitness Goal"
               value={input.goal}
-              onChange={(value) => setInput({ ...input, goal: value })}
+              onChange={(value) => setInput({ ...input, goal: value as ProteinIntakeFormInput['goal'] })}
               options={[
                 { value: 'maintain', label: 'Maintain Weight' },
                 { value: 'muscle', label: 'Build Muscle' },

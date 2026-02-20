@@ -1,19 +1,33 @@
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
+import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateCyclingPowerToWeight } from '../../utils/calculators';
 
+interface CyclingPowerToWeightFormInput {
+  powerWatts: number | '';
+  weightUnit: 'kg' | 'lbs';
+  weightKg: number | '';
+  weightLbs: number | '';
+}
+
 export default function CyclingPowerToWeightPage() {
-  const [input, setInput] = useStickyState<any>('cyclingPowerToWeight-input', {
+  const [input, setInput] = useStickyState<CyclingPowerToWeightFormInput>('cyclingPowerToWeight-input', {
     powerWatts: 300,
+    weightUnit: 'kg',
     weightKg: 75,
+    weightLbs: 165,
   });
+
+  const normalizedWeightKg = input.weightUnit === 'lbs'
+    ? (Number(input.weightLbs) || 0) * 0.45359237
+    : Number(input.weightKg) || 0;
 
   const result = calculateCyclingPowerToWeight({
     powerWatts: Number(input.powerWatts) || 0,
-    weightKg: Number(input.weightKg) || 0,
+    weightKg: normalizedWeightKg,
   });
 
   return (
@@ -36,14 +50,39 @@ export default function CyclingPowerToWeightPage() {
               min="0"
               step="10"
             />
-            <Input
-              label="Body Weight (kg)"
-              type="number"
-              value={input.weightKg}
-              onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
-              min="20"
-              step="0.5"
+            <Select
+              label="Weight Unit"
+              value={input.weightUnit}
+              onChange={(value) => setInput({ ...input, weightUnit: value as CyclingPowerToWeightFormInput['weightUnit'] })}
+              options={[
+                { value: 'kg', label: 'Kilograms (kg)' },
+                { value: 'lbs', label: 'Pounds (lbs)' },
+              ]}
             />
+            {input.weightUnit === 'lbs' ? (
+              <Input
+                label="Body Weight (lbs)"
+                type="number"
+                value={input.weightLbs}
+                onChange={(value) => setInput({ ...input, weightLbs: value === '' ? '' : parseFloat(value) })}
+                min="44"
+                step="1"
+              />
+            ) : (
+              <Input
+                label="Body Weight (kg)"
+                type="number"
+                value={input.weightKg}
+                onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
+                min="20"
+                step="0.5"
+              />
+            )}
+            {input.weightUnit === 'lbs' && (
+              <p className="-mt-2 text-xs text-slate-500">
+                Weight in kg: {normalizedWeightKg.toFixed(1)} kg
+              </p>
+            )}
           </div>
         </Card>
 

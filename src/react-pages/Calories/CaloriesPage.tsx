@@ -10,16 +10,29 @@ import { calculateCalories } from '../../utils/calculators';
 export default function CaloriesPage() {
   const [sex, setSex] = useStickyState<'male' | 'female'>('calories-sex', 'male');
   const [age, setAge] = useStickyState('calories-age', '30');
+  const [heightUnit, setHeightUnit] = useStickyState<'metric' | 'imperial'>('calories-height-unit', 'metric');
   const [heightCm, setHeightCm] = useStickyState('calories-height', '178');
+  const [heightFt, setHeightFt] = useStickyState('calories-height-ft', '5');
+  const [heightIn, setHeightIn] = useStickyState('calories-height-in', '10');
+  const [weightUnit, setWeightUnit] = useStickyState<'kg' | 'lbs'>('calories-weight-unit', 'kg');
   const [weightKg, setWeightKg] = useStickyState('calories-weight', '80');
+  const [weightLbs, setWeightLbs] = useStickyState('calories-weight-lbs', '176');
   const [activityLevel, setActivityLevel] = useStickyState<'sedentary' | 'light' | 'moderate' | 'very' | 'athlete'>('calories-activity', 'moderate');
   const [goal, setGoal] = useStickyState<'maintain' | 'lose' | 'gain'>('calories-goal', 'maintain');
+
+  const normalizedHeightCm = heightUnit === 'imperial'
+    ? ((((parseFloat(heightFt) || 0) * 12) + (parseFloat(heightIn) || 0)) * 2.54)
+    : (parseFloat(heightCm) || 0);
+
+  const normalizedWeightKg = weightUnit === 'lbs'
+    ? ((parseFloat(weightLbs) || 0) * 0.45359237)
+    : (parseFloat(weightKg) || 0);
 
   const result = calculateCalories({
     sex,
     age: parseFloat(age) || 0,
-    heightCm: parseFloat(heightCm) || 0,
-    weightKg: parseFloat(weightKg) || 0,
+    heightCm: normalizedHeightCm,
+    weightKg: normalizedWeightKg,
     activityLevel,
     goal,
   });
@@ -27,8 +40,13 @@ export default function CaloriesPage() {
   const handleReset = () => {
     setSex('male');
     setAge('30');
+    setHeightUnit('metric');
     setHeightCm('178');
+    setHeightFt('5');
+    setHeightIn('10');
+    setWeightUnit('kg');
     setWeightKg('80');
+    setWeightLbs('176');
     setActivityLevel('moderate');
     setGoal('maintain');
   };
@@ -65,23 +83,85 @@ export default function CaloriesPage() {
                 max="120"
               />
 
-              <Input
-                label="Height (cm)"
-                value={heightCm}
-                onChange={setHeightCm}
-                type="number"
-                min="100"
-                max="250"
+              <Select
+                label="Height Unit"
+                value={heightUnit}
+                onChange={(val) => setHeightUnit(val as 'metric' | 'imperial')}
+                options={[
+                  { value: 'metric', label: 'Centimeters (cm)' },
+                  { value: 'imperial', label: 'Feet & Inches (ft/in)' },
+                ]}
               />
 
-              <Input
-                label="Weight (kg)"
-                value={weightKg}
-                onChange={setWeightKg}
-                type="number"
-                min="20"
-                max="500"
+              {heightUnit === 'imperial' ? (
+                <>
+                  <Input
+                    label="Height (ft)"
+                    value={heightFt}
+                    onChange={setHeightFt}
+                    type="number"
+                    min="3"
+                    max="8"
+                  />
+                  <Input
+                    label="Height (in)"
+                    value={heightIn}
+                    onChange={setHeightIn}
+                    type="number"
+                    min="0"
+                    max="11"
+                  />
+                </>
+              ) : (
+                <Input
+                  label="Height (cm)"
+                  value={heightCm}
+                  onChange={setHeightCm}
+                  type="number"
+                  min="100"
+                  max="250"
+                />
+              )}
+              {heightUnit === 'imperial' && (
+                <p className="col-span-2 -mt-2 text-xs text-slate-500">
+                  Height in cm: {normalizedHeightCm.toFixed(1)} cm
+                </p>
+              )}
+
+              <Select
+                label="Weight Unit"
+                value={weightUnit}
+                onChange={(val) => setWeightUnit(val as 'kg' | 'lbs')}
+                options={[
+                  { value: 'kg', label: 'Kilograms (kg)' },
+                  { value: 'lbs', label: 'Pounds (lbs)' },
+                ]}
               />
+
+              {weightUnit === 'lbs' ? (
+                <Input
+                  label="Weight (lbs)"
+                  value={weightLbs}
+                  onChange={setWeightLbs}
+                  type="number"
+                  min="44"
+                  max="1100"
+                />
+              ) : (
+                <Input
+                  label="Weight (kg)"
+                  value={weightKg}
+                  onChange={setWeightKg}
+                  type="number"
+                  min="20"
+                  max="500"
+                />
+              )}
+              {weightUnit === 'lbs' && (
+                <p className="col-span-2 -mt-2 text-xs text-slate-500">
+                  Weight in kg: {normalizedWeightKg.toFixed(1)} kg
+                </p>
+              )}
             </div>
           </Card>
 

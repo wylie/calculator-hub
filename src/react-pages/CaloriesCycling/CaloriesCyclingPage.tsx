@@ -7,14 +7,26 @@ import RelatedTools from '../../components/RelatedTools';
 import { calculateCaloriesCycling } from '../../utils/calculators';
 
 export default function CaloriesCyclingPage() {
-  const [input, setInput] = useStickyState<{weightKg: string | number; duration: string | number; intensity: string}>('caloriescycling-input', {
+  const [input, setInput] = useStickyState<{
+    weightUnit: 'kg' | 'lbs';
+    weightKg: string | number;
+    weightLbs: string | number;
+    duration: string | number;
+    intensity: string;
+  }>('caloriescycling-input', {
+    weightUnit: 'kg',
     weightKg: 75,
+    weightLbs: 165,
     duration: 60,
     intensity: 'moderate',
   });
 
+  const normalizedWeightKg = input.weightUnit === 'lbs'
+    ? (Number(input.weightLbs) || 0) * 0.45359237
+    : Number(input.weightKg) || 0;
+
   const result = calculateCaloriesCycling({
-    weightKg: Number(input.weightKg) || 0,
+    weightKg: normalizedWeightKg,
     duration: Number(input.duration) || 0,
     intensity: input.intensity as 'easy' | 'moderate' | 'vigorous' | 'race',
   });
@@ -33,14 +45,39 @@ export default function CaloriesCyclingPage() {
         <Card>
           <h2 className="text-xl font-semibold mb-4">Your Session</h2>
           <div className="space-y-4">
-            <Input
-              label="Body Weight (kg)"
-              type="number"
-              value={input.weightKg}
-              onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
-              min="0"
-              step="0.5"
+            <Select
+              label="Weight Unit"
+              value={input.weightUnit}
+              onChange={(value) => setInput({ ...input, weightUnit: value as 'kg' | 'lbs' })}
+              options={[
+                { value: 'kg', label: 'Kilograms (kg)' },
+                { value: 'lbs', label: 'Pounds (lbs)' },
+              ]}
             />
+            {input.weightUnit === 'lbs' ? (
+              <Input
+                label="Body Weight (lbs)"
+                type="number"
+                value={input.weightLbs}
+                onChange={(value) => setInput({ ...input, weightLbs: value === '' ? '' : parseFloat(value) })}
+                min="0"
+                step="1"
+              />
+            ) : (
+              <Input
+                label="Body Weight (kg)"
+                type="number"
+                value={input.weightKg}
+                onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
+                min="0"
+                step="0.5"
+              />
+            )}
+            {input.weightUnit === 'lbs' && (
+              <p className="-mt-2 text-xs text-slate-500">
+                Weight in kg: {normalizedWeightKg.toFixed(1)} kg
+              </p>
+            )}
             <Input
               label="Duration (minutes)"
               type="number"

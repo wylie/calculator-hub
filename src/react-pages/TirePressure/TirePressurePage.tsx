@@ -6,18 +6,40 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTirePressure } from '../../utils/calculators';
 
+interface TirePressureFormInput {
+  weightUnit: 'kg' | 'lbs';
+  riderWeightKg: number | '';
+  riderWeightLbs: number | '';
+  bikeWeightKg: number | '';
+  bikeWeightLbs: number | '';
+  tireWidth: number | '';
+  rimDiameter: number | '';
+  riderPosition: 'road' | 'gravel' | 'mtb';
+}
+
 export default function TirePressurePage() {
-  const [input, setInput] = useStickyState<any>('tirePressure-input', {
+  const [input, setInput] = useStickyState<TirePressureFormInput>('tirePressure-input', {
+    weightUnit: 'kg',
     riderWeightKg: 75,
+    riderWeightLbs: 165,
     bikeWeightKg: 8,
+    bikeWeightLbs: 17.6,
     tireWidth: 28,
     rimDiameter: 700,
     riderPosition: 'road',
   });
 
+  const normalizedRiderWeightKg = input.weightUnit === 'lbs'
+    ? (Number(input.riderWeightLbs) || 0) * 0.45359237
+    : Number(input.riderWeightKg) || 0;
+
+  const normalizedBikeWeightKg = input.weightUnit === 'lbs'
+    ? (Number(input.bikeWeightLbs) || 0) * 0.45359237
+    : Number(input.bikeWeightKg) || 0;
+
   const result = calculateTirePressure({
-    riderWeightKg: Number(input.riderWeightKg) || 0,
-    bikeWeightKg: Number(input.bikeWeightKg) || 0,
+    riderWeightKg: normalizedRiderWeightKg,
+    bikeWeightKg: normalizedBikeWeightKg,
     tireWidth: Number(input.tireWidth) || 0,
     rimDiameter: Number(input.rimDiameter) || 0,
     riderPosition: input.riderPosition,
@@ -35,24 +57,61 @@ export default function TirePressurePage() {
         <Card>
           <h2 className="text-xl font-semibold mb-4">Your Information</h2>
           <div className="space-y-4">
-            <Input
-              label="Rider Weight (kg)"
-              type="number"
-              value={input.riderWeightKg}
-              onChange={(value) => setInput({ ...input, riderWeightKg: value === '' ? '' : parseFloat(value) })}
-              min="30"
-              max="150"
-              step="0.5"
+            <Select
+              label="Weight Unit"
+              value={input.weightUnit}
+              onChange={(value) => setInput({ ...input, weightUnit: value as TirePressureFormInput['weightUnit'] })}
+              options={[
+                { value: 'kg', label: 'Kilograms (kg)' },
+                { value: 'lbs', label: 'Pounds (lbs)' },
+              ]}
             />
-            <Input
-              label="Bike Weight (kg)"
-              type="number"
-              value={input.bikeWeightKg}
-              onChange={(value) => setInput({ ...input, bikeWeightKg: value === '' ? '' : parseFloat(value) })}
-              min="4"
-              max="20"
-              step="0.1"
-            />
+            {input.weightUnit === 'lbs' ? (
+              <>
+                <Input
+                  label="Rider Weight (lbs)"
+                  type="number"
+                  value={input.riderWeightLbs}
+                  onChange={(value) => setInput({ ...input, riderWeightLbs: value === '' ? '' : parseFloat(value) })}
+                  min="66"
+                  max="330"
+                  step="1"
+                />
+                <Input
+                  label="Bike Weight (lbs)"
+                  type="number"
+                  value={input.bikeWeightLbs}
+                  onChange={(value) => setInput({ ...input, bikeWeightLbs: value === '' ? '' : parseFloat(value) })}
+                  min="9"
+                  max="44"
+                  step="0.5"
+                />
+                <p className="-mt-2 text-xs text-slate-500">
+                  Rider in kg: {normalizedRiderWeightKg.toFixed(1)} kg • Bike in kg: {normalizedBikeWeightKg.toFixed(1)} kg
+                </p>
+              </>
+            ) : (
+              <>
+                <Input
+                  label="Rider Weight (kg)"
+                  type="number"
+                  value={input.riderWeightKg}
+                  onChange={(value) => setInput({ ...input, riderWeightKg: value === '' ? '' : parseFloat(value) })}
+                  min="30"
+                  max="150"
+                  step="0.5"
+                />
+                <Input
+                  label="Bike Weight (kg)"
+                  type="number"
+                  value={input.bikeWeightKg}
+                  onChange={(value) => setInput({ ...input, bikeWeightKg: value === '' ? '' : parseFloat(value) })}
+                  min="4"
+                  max="20"
+                  step="0.1"
+                />
+              </>
+            )}
             <Input
               label="Tire Width (mm)"
               type="number"
@@ -74,7 +133,7 @@ export default function TirePressurePage() {
             <Select
               label="Riding Style"
               value={input.riderPosition}
-              onChange={(value) => setInput({ ...input, riderPosition: value })}
+              onChange={(value) => setInput({ ...input, riderPosition: value as TirePressureFormInput['riderPosition'] })}
               options={[
                 { value: 'road', label: 'Road (drop bars)' },
                 { value: 'gravel', label: 'Gravel/Mixed' },

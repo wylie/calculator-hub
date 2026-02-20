@@ -6,14 +6,27 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateWaterIntake } from '../../utils/calculators';
 
+interface WaterIntakeFormInput {
+  weightUnit: 'kg' | 'lbs';
+  weightKg: number | '';
+  weightLbs: number | '';
+  activityLevel: 'sedentary' | 'light' | 'moderate' | 'active' | 'veryactive';
+}
+
 export default function WaterIntakePage() {
-  const [input, setInput] = useStickyState<any>('waterIntake-input', {
+  const [input, setInput] = useStickyState<WaterIntakeFormInput>('waterIntake-input', {
+    weightUnit: 'kg',
     weightKg: 75,
+    weightLbs: 165,
     activityLevel: 'moderate',
   });
 
+  const normalizedWeightKg = input.weightUnit === 'lbs'
+    ? (Number(input.weightLbs) || 0) * 0.45359237
+    : Number(input.weightKg) || 0;
+
   const result = calculateWaterIntake({
-    weightKg: Number(input.weightKg) || 0,
+    weightKg: normalizedWeightKg,
     activityLevel: input.activityLevel,
   });
 
@@ -29,19 +42,45 @@ export default function WaterIntakePage() {
         <Card>
           <h2 className="text-xl font-semibold mb-4">Your Information</h2>
           <div className="space-y-4">
-            <Input
-              label="Body Weight (kg)"
-              type="number"
-              value={input.weightKg}
-              onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
-              min="20"
-              max="300"
-              step="0.5"
+            <Select
+              label="Weight Unit"
+              value={input.weightUnit}
+              onChange={(value) => setInput({ ...input, weightUnit: value as WaterIntakeFormInput['weightUnit'] })}
+              options={[
+                { value: 'kg', label: 'Kilograms (kg)' },
+                { value: 'lbs', label: 'Pounds (lbs)' },
+              ]}
             />
+            {input.weightUnit === 'lbs' ? (
+              <Input
+                label="Body Weight (lbs)"
+                type="number"
+                value={input.weightLbs}
+                onChange={(value) => setInput({ ...input, weightLbs: value === '' ? '' : parseFloat(value) })}
+                min="44"
+                max="660"
+                step="1"
+              />
+            ) : (
+              <Input
+                label="Body Weight (kg)"
+                type="number"
+                value={input.weightKg}
+                onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
+                min="20"
+                max="300"
+                step="0.5"
+              />
+            )}
+            {input.weightUnit === 'lbs' && (
+              <p className="-mt-2 text-xs text-slate-500">
+                Weight in kg: {normalizedWeightKg.toFixed(1)} kg
+              </p>
+            )}
             <Select
               label="Activity Level"
               value={input.activityLevel}
-              onChange={(value) => setInput({ ...input, activityLevel: value })}
+              onChange={(value) => setInput({ ...input, activityLevel: value as WaterIntakeFormInput['activityLevel'] })}
               options={[
                 { value: 'sedentary', label: 'Sedentary (little exercise)' },
                 { value: 'light', label: 'Light (exercise 1-3 days/week)' },

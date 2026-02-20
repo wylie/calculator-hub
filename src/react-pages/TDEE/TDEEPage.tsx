@@ -6,20 +6,46 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTDEE } from '../../utils/calculators';
 
+interface TDEEFormInput {
+  age: number | '';
+  sex: 'male' | 'female';
+  heightUnit: 'metric' | 'imperial';
+  heightCm: number | '';
+  heightFt: number | '';
+  heightIn: number | '';
+  weightUnit: 'kg' | 'lbs';
+  weightKg: number | '';
+  weightLbs: number | '';
+  activityLevel: 'sedentary' | 'light' | 'moderate' | 'active' | 'veryactive';
+}
+
 export default function TDEEPage() {
-  const [input, setInput] = useStickyState<any>('tdee-input', {
+  const [input, setInput] = useStickyState<TDEEFormInput>('tdee-input', {
     age: 30,
     sex: 'male',
+    heightUnit: 'metric',
     heightCm: 180,
+    heightFt: 5,
+    heightIn: 11,
+    weightUnit: 'kg',
     weightKg: 80,
+    weightLbs: 176,
     activityLevel: 'moderate',
   });
+
+  const normalizedHeightCm = input.heightUnit === 'imperial'
+    ? (((Number(input.heightFt) || 0) * 12) + (Number(input.heightIn) || 0)) * 2.54
+    : Number(input.heightCm) || 0;
+
+  const normalizedWeightKg = input.weightUnit === 'lbs'
+    ? (Number(input.weightLbs) || 0) * 0.45359237
+    : Number(input.weightKg) || 0;
 
   const result = calculateTDEE({
     age: Number(input.age) || 0,
     sex: input.sex,
-    heightCm: Number(input.heightCm) || 0,
-    weightKg: Number(input.weightKg) || 0,
+    heightCm: normalizedHeightCm,
+    weightKg: normalizedWeightKg,
     activityLevel: input.activityLevel,
   });
 
@@ -47,34 +73,97 @@ export default function TDEEPage() {
             <Select
               label="Sex"
               value={input.sex}
-              onChange={(value) => setInput({ ...input, sex: value })}
+              onChange={(value) => setInput({ ...input, sex: value as TDEEFormInput['sex'] })}
               options={[
                 { value: 'male', label: 'Male' },
                 { value: 'female', label: 'Female' },
               ]}
             />
-            <Input
-              label="Height (cm)"
-              type="number"
-              value={input.heightCm}
-              onChange={(value) => setInput({ ...input, heightCm: value === '' ? '' : parseFloat(value) })}
-              min="100"
-              max="250"
-              step="1"
+            <Select
+              label="Height Unit"
+              value={input.heightUnit}
+              onChange={(value) => setInput({ ...input, heightUnit: value as TDEEFormInput['heightUnit'] })}
+              options={[
+                { value: 'metric', label: 'Centimeters (cm)' },
+                { value: 'imperial', label: 'Feet & Inches (ft/in)' },
+              ]}
             />
-            <Input
-              label="Weight (kg)"
-              type="number"
-              value={input.weightKg}
-              onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
-              min="20"
-              max="300"
-              step="0.5"
+            {input.heightUnit === 'imperial' ? (
+              <div className="grid grid-cols-2 gap-4">
+                <Input
+                  label="Height (ft)"
+                  type="number"
+                  value={input.heightFt}
+                  onChange={(value) => setInput({ ...input, heightFt: value === '' ? '' : parseFloat(value) })}
+                  min="3"
+                  max="8"
+                  step="1"
+                />
+                <Input
+                  label="Height (in)"
+                  type="number"
+                  value={input.heightIn}
+                  onChange={(value) => setInput({ ...input, heightIn: value === '' ? '' : parseFloat(value) })}
+                  min="0"
+                  max="11"
+                  step="1"
+                />
+              </div>
+            ) : (
+              <Input
+                label="Height (cm)"
+                type="number"
+                value={input.heightCm}
+                onChange={(value) => setInput({ ...input, heightCm: value === '' ? '' : parseFloat(value) })}
+                min="100"
+                max="250"
+                step="1"
+              />
+            )}
+            {input.heightUnit === 'imperial' && (
+              <p className="-mt-2 text-xs text-slate-500">
+                Height in cm: {normalizedHeightCm.toFixed(1)} cm
+              </p>
+            )}
+            <Select
+              label="Weight Unit"
+              value={input.weightUnit}
+              onChange={(value) => setInput({ ...input, weightUnit: value as TDEEFormInput['weightUnit'] })}
+              options={[
+                { value: 'kg', label: 'Kilograms (kg)' },
+                { value: 'lbs', label: 'Pounds (lbs)' },
+              ]}
             />
+            {input.weightUnit === 'lbs' ? (
+              <Input
+                label="Weight (lbs)"
+                type="number"
+                value={input.weightLbs}
+                onChange={(value) => setInput({ ...input, weightLbs: value === '' ? '' : parseFloat(value) })}
+                min="44"
+                max="660"
+                step="1"
+              />
+            ) : (
+              <Input
+                label="Weight (kg)"
+                type="number"
+                value={input.weightKg}
+                onChange={(value) => setInput({ ...input, weightKg: value === '' ? '' : parseFloat(value) })}
+                min="20"
+                max="300"
+                step="0.5"
+              />
+            )}
+            {input.weightUnit === 'lbs' && (
+              <p className="-mt-2 text-xs text-slate-500">
+                Weight in kg: {normalizedWeightKg.toFixed(1)} kg
+              </p>
+            )}
             <Select
               label="Activity Level"
               value={input.activityLevel}
-              onChange={(value) => setInput({ ...input, activityLevel: value })}
+              onChange={(value) => setInput({ ...input, activityLevel: value as TDEEFormInput['activityLevel'] })}
               options={[
                 { value: 'sedentary', label: 'Sedentary (little exercise)' },
                 { value: 'light', label: 'Light (exercise 1-3 days/week)' },
