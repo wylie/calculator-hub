@@ -101,7 +101,7 @@ export default function InflationPage() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="mt-6 grid md:grid-cols-3 gap-4">
         <Card>
           <h3 className="font-semibold mb-2 text-sm">Inflation Tips</h3>
           <p className="text-sm text-gray-600">

@@ -77,7 +77,7 @@ export default function NetWorthPage() {
       </div>
 
       {/* Summary */}
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="mt-6 grid md:grid-cols-3 gap-4">
         <Card className="bg-blue-50">
           <p className="text-sm text-gray-600">Total Assets</p>
           <p className="text-2xl font-bold text-blue-600">{formatCurrency(result.totalAssets)}</p>
@@ -178,7 +178,7 @@ export default function NetWorthPage() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="mt-6 grid md:grid-cols-3 gap-4">
         <Card>
           <h3 className="font-semibold mb-2 text-sm">Net Worth Tips</h3>
           <p className="text-sm text-gray-600">
