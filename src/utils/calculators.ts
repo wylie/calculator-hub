@@ -844,35 +844,37 @@ export function calculateTDEE(input: TDEEInput): TDEEOutput {
 // Ideal Weight Calculator
 export function calculateIdealWeight(input: IdealWeightInput): IdealWeightOutput {
   const heightInches = input.heightCm / 2.54;
-  let idealWeightLbs: number;
+  const heightMeters = input.heightCm / 100;
+  const bmiLowKg = 18.5 * (heightMeters ** 2);
+  const bmiHighKg = 24.9 * (heightMeters ** 2);
+  let idealWeightKg: number;
 
   switch (input.formula) {
     case 'devine':
-      idealWeightLbs = input.sex === 'male' ? 50 + 2.3 * (heightInches - 60) : 45.5 + 2.3 * (heightInches - 60);
+      idealWeightKg = input.sex === 'male' ? 50 + 2.3 * (heightInches - 60) : 45.5 + 2.3 * (heightInches - 60);
       break;
     case 'robinson':
-      idealWeightLbs = input.sex === 'male' ? 52 + 1.9 * (heightInches - 60) : 49 + 1.7 * (heightInches - 60);
+      idealWeightKg = input.sex === 'male' ? 52 + 1.9 * (heightInches - 60) : 49 + 1.7 * (heightInches - 60);
       break;
     case 'miller':
-      idealWeightLbs = input.sex === 'male' ? 56.2 + 1.41 * (heightInches - 60) : 53.1 + 1.36 * (heightInches - 60);
+      idealWeightKg = input.sex === 'male' ? 56.2 + 1.41 * (heightInches - 60) : 53.1 + 1.36 * (heightInches - 60);
       break;
     case 'bmi':
     default:
-      const bmiLow = 18.5 * ((input.heightCm / 100) ** 2);
-      const bmiHigh = 24.9 * ((input.heightCm / 100) ** 2);
-      return {
-        idealWeightLbs: Math.round((bmiLow + bmiHigh) / 2 / 0.453592 * 10) / 10,
-        idealWeightKg: Math.round((bmiLow + bmiHigh) / 2 * 10) / 10,
-        bmiRangeLow: Math.round(bmiLow * 10) / 10,
-        bmiRangeHigh: Math.round(bmiHigh * 10) / 10,
-      };
+      idealWeightKg = (bmiLowKg + bmiHighKg) / 2;
+      break;
   }
+
+  const safeIdealWeightKg = Math.max(0, idealWeightKg);
+  const idealWeightLbs = safeIdealWeightKg / 0.45359237;
+  const bmiRangeLowLbs = bmiLowKg / 0.45359237;
+  const bmiRangeHighLbs = bmiHighKg / 0.45359237;
 
   return {
     idealWeightLbs: Math.round(idealWeightLbs * 10) / 10,
-    idealWeightKg: Math.round(idealWeightLbs * 0.453592 * 10) / 10,
-    bmiRangeLow: 18.5,
-    bmiRangeHigh: 24.9,
+    idealWeightKg: Math.round(safeIdealWeightKg * 10) / 10,
+    bmiRangeLow: Math.round(bmiRangeLowLbs * 10) / 10,
+    bmiRangeHigh: Math.round(bmiRangeHighLbs * 10) / 10,
   };
 }
 
