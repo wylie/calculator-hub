@@ -18,7 +18,7 @@ export default function AdSlot({ slotId = '1569767653' }: AdSlotProps) {
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
-        data-ad-client="ca-pub-6736467803282205"
+        data-ad-client="ca-pub-1766867001144344"
         data-ad-slot={slotId}
         data-ad-format="auto"
         data-full-width-responsive="true"
