@@ -21,7 +21,7 @@ export default function Select({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3 py-2.5 border border-slate-300 rounded-md text-base font-medium bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer"
+        className="w-full h-10 px-3 py-2.5 border border-slate-300 rounded-md text-base font-medium bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer"
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
