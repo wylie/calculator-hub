@@ -20,7 +20,7 @@ const defaultDescription = 'Free online calculators and converters for mortgage,
 const pageDescription = description || defaultDescription;
 const pageTitle = `${title} | ${siteName}`;
 const ogSlug = Astro.url.pathname === '/' ? 'home' : Astro.url.pathname.replace(/^\//, '').replace(/\/$/, '');
-const ogImage = image || `${siteUrl}/og/${ogSlug}.svg`;
+const ogImage = image || (Astro.url.pathname === '/' ? `${siteUrl}/og-image.svg` : `${siteUrl}/og/${ogSlug}.svg`);
 const isToolPage = /calculator|converter/i.test(title);
 const breadcrumbItems = Astro.url.pathname === '/'
   ? [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` }]
