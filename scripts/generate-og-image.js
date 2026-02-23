@@ -15,8 +15,6 @@ const svg = Buffer.from(`
   
   <rect width="${width}" height="${height}" fill="url(#bg)"/>
   
-  <rect x="0" y="0" width="400" height="8" fill="#3b82f6"/>
-  
   <text x="600" y="140" font-family="Arial, sans-serif" font-size="88" font-weight="800" text-anchor="middle" fill="#0f172a">
     Calculator Hub
   </text>
@@ -25,31 +23,48 @@ const svg = Buffer.from(`
     Free Tools for Your Calculations
   </text>
   
-  <rect x="100" y="300" width="80" height="80" rx="12" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
-  <text x="140" y="355" font-size="48" text-anchor="middle">🏠</text>
-  <text x="140" y="420" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#1e293b" font-weight="600">Mortgage</text>
+  <!-- Mortgage Icon (House outline) -->
+  <rect x="70" y="270" width="140" height="140" rx="16" fill="#dbeafe" stroke="#3b82f6" stroke-width="3"/>
+  <g transform="translate(140, 325)">
+    <path d="M -30 15 L 0 -15 L 30 15 M -20 5 L -20 25 L 20 25 L 20 5 M -10 5 L -10 15 L 10 15 L 10 5" stroke="#3b82f6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="140" y="450" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#1e293b" font-weight="600">Mortgage</text>
   
-  <rect x="320" y="300" width="80" height="80" rx="12" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
-  <text x="360" y="355" font-size="48" text-anchor="middle">💰</text>
-  <text x="360" y="420" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#1e293b" font-weight="600">Budget</text>
+  <!-- Budget Icon (Wallet outline) -->
+  <rect x="290" y="270" width="140" height="140" rx="16" fill="#fce7f3" stroke="#ec4899" stroke-width="3"/>
+  <g transform="translate(360, 325)">
+    <rect x="-25" y="-10" width="50" height="30" rx="3" stroke="#ec4899" stroke-width="3" fill="none"/>
+    <circle cx="10" cy="5" r="4" stroke="#ec4899" stroke-width="3" fill="none"/>
+  </g>
+  <text x="360" y="450" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#1e293b" font-weight="600">Budget</text>
   
-  <rect x="540" y="300" width="80" height="80" rx="12" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
-  <text x="580" y="355" font-size="48" text-anchor="middle">📈</text>
-  <text x="580" y="425" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1e293b" font-weight="600">Interest</text>
+  <!-- Interest Icon (Chart outline) -->
+  <rect x="510" y="270" width="140" height="140" rx="16" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/>
+  <g transform="translate(580, 325)">
+    <path d="M -20 20 L -20 -5 M -5 20 L -5 0 M 10 20 L 10 -10 M 25 20 L 25 5" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -20 -5 L -5 0 L 10 -10 L 25 5" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="580" y="450" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#1e293b" font-weight="600">Interest</text>
   
-  <rect x="760" y="300" width="80" height="80" rx="12" fill="#fef08a" stroke="#eab308" stroke-width="2"/>
-  <text x="800" y="355" font-size="48" text-anchor="middle">🔥</text>
-  <text x="800" y="420" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#1e293b" font-weight="600">Calories</text>
+  <!-- Calories Icon (Flame outline) -->
+  <rect x="730" y="270" width="140" height="140" rx="16" fill="#fef08a" stroke="#eab308" stroke-width="3"/>
+  <g transform="translate(800, 330)">
+    <path d="M 0 -15 Q -8 -5 -8 5 Q -8 15 0 20 Q 8 15 8 5 Q 8 -5 0 -15 Z" stroke="#eab308" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="800" y="450" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#1e293b" font-weight="600">Calories</text>
   
-  <rect x="980" y="300" width="80" height="80" rx="12" fill="#e9d5ff" stroke="#a855f7" stroke-width="2"/>
-  <text x="1020" y="355" font-size="48" text-anchor="middle">🚴</text>
-  <text x="1020" y="420" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#1e293b" font-weight="600">Cycling</text>
+  <!-- Cycling Icon (Bike outline) -->
+  <rect x="950" y="270" width="140" height="140" rx="16" fill="#e9d5ff" stroke="#a855f7" stroke-width="3"/>
+  <g transform="translate(1020, 330)">
+    <circle cx="-12" cy="8" r="8" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+    <circle cx="12" cy="8" r="8" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+    <path d="M -12 8 L 0 -5 L 0 5 L 12 8" stroke="#a855f7" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="1020" y="450" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#1e293b" font-weight="600">Cycling</text>
   
-  <text x="600" y="580" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#64748b" font-weight="500">
+  <text x="600" y="530" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#64748b" font-weight="500">
     50+ calculators for finance, health, conversions and more
   </text>
-  
-  <rect x="800" y="625" width="400" height="5" fill="#3b82f6"/>
 </svg>
 `);
 
