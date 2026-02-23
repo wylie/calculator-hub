@@ -11,6 +11,26 @@ import { formatCurrency } from '../../utils/formatting';
 import analytics from '../../utils/analytics';
 
 export default function MortgagePage() {
+  const [homePrice, setHomePrice] = useStickyState('mortgage-home-price', '300000');
+  const [downPayment, setDownPayment] = useStickyState('mortgage-down-payment', '60000');
+  const [downPaymentIsDollar, setDownPaymentIsDollar] = useStickyState('mortgage-down-payment-dollar', true);
+  const [loanTerm, setLoanTerm] = useStickyState('mortgage-loan-term', '30');
+  const [interestRate, setInterestRate] = useStickyState('mortgage-interest-rate', '6.5');
+  const [propertyTax, setPropertyTax] = useStickyState('mortgage-property-tax', '3600');
+  const [homeInsurance, setHomeInsurance] = useStickyState('mortgage-home-insurance', '1200');
+  const [pmi, setPmi] = useStickyState('mortgage-pmi', '0');
+
+  const result = calculateMortgage({
+    homePrice: parseFloat(homePrice) || 0,
+    downPayment: parseFloat(downPayment) || 0,
+    downPaymentType: downPaymentIsDollar ? 'dollar' : 'percent',
+    loanTerm: parseFloat(loanTerm) || 0,
+    interestRate: parseFloat(interestRate) || 0,
+    propertyTax: parseFloat(propertyTax) || 0,
+    homeInsurance: parseFloat(homeInsurance) || 0,
+    pmi: parseFloat(pmi) || 0,
+  });
+
   // Track calculator view on mount
   useEffect(() => {
     analytics.trackCalculatorView('mortgage');
@@ -22,14 +42,6 @@ export default function MortgagePage() {
       analytics.trackCalculatorResult('mortgage');
     }
   }, [result]);
-  const [homePrice, setHomePrice] = useStickyState('mortgage-home-price', '300000');
-  const [downPayment, setDownPayment] = useStickyState('mortgage-down-payment', '60000');
-  const [downPaymentIsDollar, setDownPaymentIsDollar] = useStickyState('mortgage-down-payment-dollar', true);
-  const [loanTerm, setLoanTerm] = useStickyState('mortgage-loan-term', '30');
-  const [interestRate, setInterestRate] = useStickyState('mortgage-interest-rate', '6.5');
-  const [propertyTax, setPropertyTax] = useStickyState('mortgage-property-tax', '3600');
-  const [homeInsurance, setHomeInsurance] = useStickyState('mortgage-home-insurance', '1200');
-  const [pmi, setPmi] = useStickyState('mortgage-pmi', '0');
 
   const handleHomePriceChange = (value: string) => {
     setHomePrice(value);
@@ -65,17 +77,6 @@ export default function MortgagePage() {
     setPmi(value);
     analytics.trackInputChange('mortgage', 'pmi');
   };
-
-  const result = calculateMortgage({
-    homePrice: parseFloat(homePrice) || 0,
-    downPayment: parseFloat(downPayment) || 0,
-    downPaymentType: downPaymentIsDollar ? 'dollar' : 'percent',
-    loanTerm: parseFloat(loanTerm) || 0,
-    interestRate: parseFloat(interestRate) || 0,
-    propertyTax: parseFloat(propertyTax) || 0,
-    homeInsurance: parseFloat(homeInsurance) || 0,
-    pmi: parseFloat(pmi) || 0,
-  });
 
   const handleReset = () => {
     setHomePrice('300000');
