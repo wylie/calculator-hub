@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -7,8 +8,20 @@ import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateMortgage } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function MortgagePage() {
+  // Track calculator view on mount
+  useEffect(() => {
+    analytics.trackCalculatorView('mortgage');
+  }, []);
+
+  // Track when results are displayed (after calculation)
+  useEffect(() => {
+    if (result.monthlyTotal > 0) {
+      analytics.trackCalculatorResult('mortgage');
+    }
+  }, [result]);
   const [homePrice, setHomePrice] = useStickyState('mortgage-home-price', '300000');
   const [downPayment, setDownPayment] = useStickyState('mortgage-down-payment', '60000');
   const [downPaymentIsDollar, setDownPaymentIsDollar] = useStickyState('mortgage-down-payment-dollar', true);
@@ -17,6 +30,41 @@ export default function MortgagePage() {
   const [propertyTax, setPropertyTax] = useStickyState('mortgage-property-tax', '3600');
   const [homeInsurance, setHomeInsurance] = useStickyState('mortgage-home-insurance', '1200');
   const [pmi, setPmi] = useStickyState('mortgage-pmi', '0');
+
+  const handleHomePriceChange = (value: string) => {
+    setHomePrice(value);
+    analytics.trackInputChange('mortgage', 'home_price');
+  };
+
+  const handleDownPaymentChange = (value: string) => {
+    setDownPayment(value);
+    analytics.trackInputChange('mortgage', 'down_payment');
+  };
+
+  const handleLoanTermChange = (value: string) => {
+    setLoanTerm(value);
+    analytics.trackInputChange('mortgage', 'loan_term');
+  };
+
+  const handleInterestRateChange = (value: string) => {
+    setInterestRate(value);
+    analytics.trackInputChange('mortgage', 'interest_rate');
+  };
+
+  const handlePropertyTaxChange = (value: string) => {
+    setPropertyTax(value);
+    analytics.trackInputChange('mortgage', 'property_tax');
+  };
+
+  const handleHomeInsuranceChange = (value: string) => {
+    setHomeInsurance(value);
+    analytics.trackInputChange('mortgage', 'home_insurance');
+  };
+
+  const handlePmiChange = (value: string) => {
+    setPmi(value);
+    analytics.trackInputChange('mortgage', 'pmi');
+  };
 
   const result = calculateMortgage({
     homePrice: parseFloat(homePrice) || 0,
@@ -38,6 +86,7 @@ export default function MortgagePage() {
     setPropertyTax('3600');
     setHomeInsurance('1200');
     setPmi('0');
+    analytics.trackCalculatorReset('mortgage');
   };
 
   return (
@@ -55,7 +104,7 @@ export default function MortgagePage() {
             <Input
               label="Home Price ($)"
               value={homePrice}
-              onChange={setHomePrice}
+              onChange={handleHomePriceChange}
               type="number"
               min="0"
             />
@@ -68,7 +117,7 @@ export default function MortgagePage() {
                 <input
                   type="number"
                   value={downPayment}
-                  onChange={(e) => setDownPayment(e.target.value)}
+                  onChange={(e) => handleDownPaymentChange(e.target.value)}
                   min="0"
                   className="flex-1 px-3 py-2 border border-slate-300 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -84,7 +133,7 @@ export default function MortgagePage() {
             <Select
               label="Loan Term (years)"
               value={loanTerm}
-              onChange={setLoanTerm}
+              onChange={handleLoanTermChange}
               options={[
                 { value: '15', label: '15 years' },
                 { value: '20', label: '20 years' },
@@ -95,7 +144,7 @@ export default function MortgagePage() {
             <Input
               label="Interest Rate (APR %)"
               value={interestRate}
-              onChange={setInterestRate}
+              onChange={handleInterestRateChange}
               type="number"
               min="0"
               step="0.1"
@@ -106,7 +155,7 @@ export default function MortgagePage() {
             <Input
               label="Annual Property Tax ($)"
               value={propertyTax}
-              onChange={setPropertyTax}
+              onChange={handlePropertyTaxChange}
               type="number"
               min="0"
             />
@@ -114,7 +163,7 @@ export default function MortgagePage() {
             <Input
               label="Annual Home Insurance ($)"
               value={homeInsurance}
-              onChange={setHomeInsurance}
+              onChange={handleHomeInsuranceChange}
               type="number"
               min="0"
             />
@@ -122,7 +171,7 @@ export default function MortgagePage() {
             <Input
               label="Monthly PMI ($)"
               value={pmi}
-              onChange={setPmi}
+              onChange={handlePmiChange}
               type="number"
               min="0"
             />
