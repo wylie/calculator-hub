@@ -15,7 +15,7 @@ interface ProteinIntakeFormInput {
   goal: 'maintain' | 'muscle' | 'loss';
 }
 
-const ProteinIntakePage = () => {
+export default function ProteinIntakePage() {
   useEffect(() => {
     analytics.trackCalculatorView('protein-intake');
   }, []);

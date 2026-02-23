@@ -15,7 +15,7 @@ interface WaterIntakeFormInput {
   activityLevel: 'sedentary' | 'light' | 'moderate' | 'active' | 'veryactive';
 }
 
-const WaterIntakePage = () => {
+export default function WaterIntakePage() {
   useEffect(() => {
     analytics.trackCalculatorView('water-intake');
   }, []);

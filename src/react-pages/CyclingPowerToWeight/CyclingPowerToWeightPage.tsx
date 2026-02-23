@@ -15,7 +15,7 @@ interface CyclingPowerToWeightFormInput {
   weightLbs: number | '';
 }
 
-const CyclingPowerToWeightPage = () => {
+export default function CyclingPowerToWeightPage() {
   useEffect(() => {
     analytics.trackCalculatorView('cycling-power-to-weight');
   }, []);

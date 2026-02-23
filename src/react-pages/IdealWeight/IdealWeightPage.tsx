@@ -17,13 +17,10 @@ interface IdealWeightFormInput {
   formula: 'devine' | 'robinson' | 'miller' | 'bmi';
 }
 
-const IdealWeightPage = () => {
+export default function IdealWeightPage() {
   useEffect(() => {
     analytics.trackCalculatorView('ideal-weight');
   }, []);
-}
-
-export default function IdealWeightPage() {
   const [input, setInput] = useStickyState<IdealWeightFormInput>('idealWeight-input', {
     heightUnit: 'cm',
     heightCm: 175,
