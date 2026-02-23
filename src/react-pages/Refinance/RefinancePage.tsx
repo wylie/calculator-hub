@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
@@ -5,8 +6,12 @@ import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateRefinance } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
+import analytics from '../../utils/analytics';
 
 export default function RefinancePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('refinance');
+  }, []);
   const [input, setInput] = useStickyState<{remainingBalance: string | number; currentRate: string | number; newRate: string | number; originalTerm: string | number; yearsElapsed: string | number; newTerm: string | number; refinanceCost: string | number}>(
     'refinance-input',
     {

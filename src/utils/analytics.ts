@@ -36,7 +36,8 @@ class AnalyticsManager {
       calculatorName: undefined,
     };
 
-    this.gtag = (window as any).gtag;
+    // Only access gtag on client side (SSR safe)
+    this.gtag = typeof window !== 'undefined' ? (window as any).gtag : undefined;
 
     if (this.config.debug && this.config.enabled) {
       console.log('[GA4 Analytics] Debug mode enabled. All events will be logged.');

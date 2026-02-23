@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
@@ -5,8 +6,12 @@ import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateInvestmentGrowth } from '../../utils/calculators'
 import { formatCurrency, formatPercentage } from '../../utils/formatting'
+import analytics from '../../utils/analytics';
 
 export default function InvestmentGrowthPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('investment-growth');
+  }, []);
   const [input, setInput] = useStickyState<{initialAmount: string | number; monthlyContribution: string | number; annualReturn: string | number; years: string | number}>(
     'investment-growth-input',
     {

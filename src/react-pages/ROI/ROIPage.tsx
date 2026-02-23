@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateROI } from '../../utils/calculators';
 import { formatCurrency, formatPercentage } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function ROIPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('roi');
+  }, []);
   const [initialInvestment, setInitialInvestment] = useStickyState('roi-initial-investment', '10000');
   const [finalValue, setFinalValue] = useStickyState('roi-final-value', '15000');
 

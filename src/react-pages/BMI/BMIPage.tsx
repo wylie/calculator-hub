@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateBMI } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function BMIPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('bmi');
+  }, []);
   const [input, setInput] = useStickyState<{weight: string | number; height: string | number; unit: 'metric' | 'imperial'}>(
     'bmi-input',
     {

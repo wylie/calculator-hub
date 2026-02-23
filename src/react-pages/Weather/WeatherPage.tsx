@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { convertTemperature } from '../../utils/calculators';
 import { formatNumber } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function WeatherPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('weather');
+  }, []);
   const [value, setValue] = useStickyState('weather-value', '20');
   const [fromUnit, setFromUnit] = useStickyState<'C' | 'F'>('weather-from-unit', 'C');
 

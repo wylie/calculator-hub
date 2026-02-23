@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function TimePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('time');
+  }, []);
   const [value, setValue] = useStickyState('time-value', '2');
   const [fromUnit, setFromUnit] = useStickyState<'hours' | 'minutes'>('time-from', 'hours');
 

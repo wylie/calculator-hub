@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import Card from '../../components/Card';
+import analytics from '../../utils/analytics';
 
 export default function LoansPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('loans');
+  }, []);
   const tools = [
     {
       path: '/mortgage',

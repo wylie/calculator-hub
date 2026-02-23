@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,6 +6,7 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTDEE } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 interface TDEEFormInput {
   age: number | '';
@@ -20,6 +22,9 @@ interface TDEEFormInput {
 }
 
 export default function TDEEPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('tdee');
+  }, []);
   const [input, setInput] = useStickyState<TDEEFormInput>('tdee-input', {
     age: 30,
     sex: 'male',

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateSalaryHourly } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function SalaryHourlyPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('salary-hourly');
+  }, []);
   const [input, setInput] = useStickyState<{amount: string | number; type: 'salary' | 'hourly'; hoursPerWeek: string | number; weeksPerYear: string | number}>(
     'salary-hourly-input',
     {

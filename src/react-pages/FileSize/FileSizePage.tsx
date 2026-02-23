@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,6 +6,7 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 const sizeUnits = ['KB', 'MB', 'GB'] as const;
 
@@ -17,6 +19,9 @@ const unitFactor: Record<SizeUnit, number> = {
 };
 
 export default function FileSizePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('file-size');
+  }, []);
   const [value, setValue] = useStickyState('file-size-value', '50');
   const [fromUnit, setFromUnit] = useStickyState<SizeUnit>('file-size-from', 'MB');
   const [toUnit, setToUnit] = useStickyState<SizeUnit>('file-size-to', 'GB');

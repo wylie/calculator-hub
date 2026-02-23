@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,6 +6,7 @@ import AdSlot from '../../components/AdSlot';
 import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { formatCurrency, formatPercentage } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 interface ExpenseItem {
   id: string;
@@ -13,6 +15,9 @@ interface ExpenseItem {
 }
 
 export default function BudgetPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('budget');
+  }, []);
   const [income, setIncome] = useStickyState('budget-income', '5000');
   const [expenses, setExpenses] = useStickyState<ExpenseItem[]>('budget-expenses', [
     { id: '1', name: 'Rent', amount: 1500 },

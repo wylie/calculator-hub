@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function PercentagePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('percentage');
+  }, []);
   const [baseValue, setBaseValue] = useStickyState('percent-base', '200');
   const [percent, setPercent] = useStickyState('percent-value', '15');
   const [decimal, setDecimal] = useStickyState('percent-decimal', '0.15');

@@ -1,9 +1,11 @@
+import { useEffect } from 'react'
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateNetWorth } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
+import analytics from '../../utils/analytics'
 
 interface AssetItem {
   id: string
@@ -20,6 +22,9 @@ interface LiabilityItem {
 const generateId = () => Math.random().toString(36).substring(2, 11)
 
 export default function NetWorthPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('net-worth');
+  }, []);
   const [assets, setAssets] = useStickyState<AssetItem[]>('net-worth-assets', [
     { id: generateId(), name: 'Checking Account', value: 5000 },
     { id: generateId(), name: 'Savings Account', value: 25000 },

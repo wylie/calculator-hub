@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { convertPower } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function PowerConverterPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('power-converter');
+  }, []);
   const [value, setValue] = useStickyState('powerConverter-value', '100');
   const [fromUnit, setFromUnit] = useStickyState<'watts' | 'hp'>('powerConverter-unit', 'watts');
 

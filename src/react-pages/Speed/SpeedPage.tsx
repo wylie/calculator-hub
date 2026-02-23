@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function SpeedPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('speed');
+  }, []);
   const [value, setValue] = useStickyState('speed-value', '55');
   const [fromUnit, setFromUnit] = useStickyState<'mph' | 'kmh'>('speed-from', 'mph');
 

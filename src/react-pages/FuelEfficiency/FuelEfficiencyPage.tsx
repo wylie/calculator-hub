@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -7,8 +8,12 @@ import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateFuelEfficiency } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function FuelEfficiencyPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('fuel-efficiency');
+  }, []);
   const [distance, setDistance] = useStickyState('fuel-distance', '300');
   const [distanceUnit, setDistanceUnit] = useStickyState('fuel-distance-unit', 'miles');
   const [fuelUsed, setFuelUsed] = useStickyState('fuel-used', '10');

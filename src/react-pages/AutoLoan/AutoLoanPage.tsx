@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
@@ -6,8 +7,12 @@ import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateAutoLoan } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
+import analytics from '../../utils/analytics'
 
 export default function AutoLoanPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('auto-loan');
+  }, []);
   const [input, setInput] = useStickyState<{carPrice: string | number; downPayment: string | number; downPaymentType: 'percent' | 'dollar'; loanTerm: string | number; interestRate: string | number}>(
     'auto-loan-input',
     {

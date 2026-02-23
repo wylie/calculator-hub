@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateCostOfLiving } from '../../utils/calculators';
 import { formatCurrency, formatPercentage } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function CostOfLivingPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('cost-of-living');
+  }, []);
   const [housing, setHousing] = useStickyState('col-housing', '1500');
   const [food, setFood] = useStickyState('col-food', '600');
   const [transportation, setTransportation] = useStickyState('col-transportation', '300');

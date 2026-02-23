@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,6 +6,7 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateCyclingPowerToWeight } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 interface CyclingPowerToWeightFormInput {
   powerWatts: number | '';
@@ -13,7 +15,10 @@ interface CyclingPowerToWeightFormInput {
   weightLbs: number | '';
 }
 
-export default function CyclingPowerToWeightPage() {
+const CyclingPowerToWeightPage = () => {
+  useEffect(() => {
+    analytics.trackCalculatorView('cycling-power-to-weight');
+  }, []);
   const [input, setInput] = useStickyState<CyclingPowerToWeightFormInput>('cyclingPowerToWeight-input', {
     powerWatts: 300,
     weightUnit: 'kg',

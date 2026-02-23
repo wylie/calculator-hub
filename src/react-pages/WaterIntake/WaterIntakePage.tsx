@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,6 +6,7 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateWaterIntake } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 interface WaterIntakeFormInput {
   weightUnit: 'kg' | 'lbs';
@@ -13,7 +15,10 @@ interface WaterIntakeFormInput {
   activityLevel: 'sedentary' | 'light' | 'moderate' | 'active' | 'veryactive';
 }
 
-export default function WaterIntakePage() {
+const WaterIntakePage = () => {
+  useEffect(() => {
+    analytics.trackCalculatorView('water-intake');
+  }, []);
   const [input, setInput] = useStickyState<WaterIntakeFormInput>('waterIntake-input', {
     weightUnit: 'kg',
     weightKg: 75,

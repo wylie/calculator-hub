@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTax } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function TaxPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('tax');
+  }, []);
   const [input, setInput] = useStickyState<{amount: string | number; taxRate: string | number; includeTax: boolean}>(
     'tax-input',
     {

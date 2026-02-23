@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateGPA } from '../../utils/calculators';
 import type { GradeItem } from '../../types';
+import analytics from '../../utils/analytics';
 
 export default function GPAPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('gpa');
+  }, []);
   const [grades, setGrades] = useStickyState<GradeItem[]>('gpa-grades', [
     { id: '1', name: 'Math', grade: 3.5, weight: 1 },
     { id: '2', name: 'English', grade: 3.8, weight: 1 },

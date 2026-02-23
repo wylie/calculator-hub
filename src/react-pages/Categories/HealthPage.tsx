@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import Card from '../../components/Card';
+import analytics from '../../utils/analytics';
 
 export default function HealthPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('health');
+  }, []);
   const tools = [
     {
       path: '/calories',

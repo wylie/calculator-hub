@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '../../components/Card';
 import Toggle from '../../components/Toggle';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTimeDuration } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function TimeDurationPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('time-duration');
+  }, []);
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('17:00');
   const [includeDate, setIncludeDate] = useState(false);

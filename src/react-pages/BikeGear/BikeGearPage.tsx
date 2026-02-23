@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AdSlot from '../../components/AdSlot';
 import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateBikeGear, calculateBikeGearCombos } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function BikeGearPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('bike-gear');
+  }, []);
   const [chainring, setChainring] = useStickyState('bike-gear-chainring', '32');
   const [cog, setCog] = useStickyState('bike-gear-cog', '28');
   const [wheelDiameter, setWheelDiameter] = useStickyState('bike-gear-wheel', '29');

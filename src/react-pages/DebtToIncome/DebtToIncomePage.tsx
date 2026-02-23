@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateDebtToIncomeRatio } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function DebtToIncomePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('debt-to-income');
+  }, []);
   const [input, setInput] = useStickyState<any>('debtToIncome-input', {
     monthlyIncome: 5000,
     monthlyDebts: 1000,

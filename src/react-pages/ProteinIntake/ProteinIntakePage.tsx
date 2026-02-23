@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,6 +6,7 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateProteinIntake } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 interface ProteinIntakeFormInput {
   weightUnit: 'kg' | 'lbs';
@@ -13,7 +15,10 @@ interface ProteinIntakeFormInput {
   goal: 'maintain' | 'muscle' | 'loss';
 }
 
-export default function ProteinIntakePage() {
+const ProteinIntakePage = () => {
+  useEffect(() => {
+    analytics.trackCalculatorView('protein-intake');
+  }, []);
   const [input, setInput] = useStickyState<ProteinIntakeFormInput>('proteinIntake-input', {
     weightUnit: 'kg',
     weightKg: 75,

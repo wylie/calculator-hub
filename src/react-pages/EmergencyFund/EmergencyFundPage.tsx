@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateEmergencyFund } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function EmergencyFundPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('emergency-fund');
+  }, []);
   const [input, setInput] = useStickyState<any>('emergencyFund-input', {
     monthlyExpenses: 3000,
     monthsOfExpenses: 6,

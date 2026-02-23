@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,6 +6,7 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateIdealWeight } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 interface IdealWeightFormInput {
   heightUnit: 'cm' | 'imperial';
@@ -13,6 +15,12 @@ interface IdealWeightFormInput {
   heightIn: number | '';
   sex: 'male' | 'female';
   formula: 'devine' | 'robinson' | 'miller' | 'bmi';
+}
+
+const IdealWeightPage = () => {
+  useEffect(() => {
+    analytics.trackCalculatorView('ideal-weight');
+  }, []);
 }
 
 export default function IdealWeightPage() {

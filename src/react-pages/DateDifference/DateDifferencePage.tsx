@@ -1,12 +1,17 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 const todayIso = new Date().toISOString().slice(0, 10);
 
 export default function DateDifferencePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('date-difference');
+  }, []);
   const [startDate, setStartDate] = useStickyState('date-diff-start', todayIso);
   const [endDate, setEndDate] = useStickyState('date-diff-end', todayIso);
 

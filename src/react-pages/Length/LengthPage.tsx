@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { formatNumber } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function LengthPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('length');
+  }, []);
   const [shortValue, setShortValue] = useStickyState('length-short-value', '12');
   const [shortUnit, setShortUnit] = useStickyState<'in' | 'cm'>('length-short-unit', 'in');
   const [longValue, setLongValue] = useStickyState('length-long-value', '6');

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AdSlot from '../../components/AdSlot';
 import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateCalories } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function CaloriesPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('calories');
+  }, []);
   const [sex, setSex] = useStickyState<'male' | 'female'>('calories-sex', 'male');
   const [age, setAge] = useStickyState('calories-age', '30');
   const [heightUnit, setHeightUnit] = useStickyState<'metric' | 'imperial'>('calories-height-unit', 'metric');

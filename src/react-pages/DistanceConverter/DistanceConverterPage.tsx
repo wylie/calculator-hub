@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { convertDistance } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function DistanceConverterPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('distance-converter');
+  }, []);
   const [value, setValue] = useStickyState('distanceConverter-value', '10');
   const [fromUnit, setFromUnit] = useStickyState<'miles' | 'km'>('distanceConverter-unit', 'km');
 

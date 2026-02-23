@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateRentVsBuy } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function RentVsBuyPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('rent-vs-buy');
+  }, []);
   const [input, setInput] = useStickyState<any>('rentVsBuy-input', {
     homePrice: 350000,
     downPaymentPercent: 20,

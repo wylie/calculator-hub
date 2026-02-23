@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTip } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function TipPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('tip');
+  }, []);
   const [input, setInput] = useStickyState<{billAmount: string | number; tipPercentage: string | number; splitCount: string | number}>(
     'tip-input',
     {

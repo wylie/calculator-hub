@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateHikingPace } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function HikingPacePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('hiking-pace');
+  }, []);
   const [input, setInput] = useStickyState<any>('hikingPace-input', {
     distance: 10,
     elevation: 500,

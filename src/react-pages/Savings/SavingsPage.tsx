@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateSavings } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function SavingsPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('savings');
+  }, []);
   const [input, setInput] = useStickyState<{goalAmount: string | number; currentSavings: string | number; monthlyContribution: string | number; interestRate: string | number}>(
     'savings-input',
     {

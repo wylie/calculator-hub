@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,6 +6,7 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateTirePressure } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 interface TirePressureFormInput {
   weightUnit: 'kg' | 'lbs';
@@ -18,6 +20,9 @@ interface TirePressureFormInput {
 }
 
 export default function TirePressurePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('tire-pressure');
+  }, []);
   const [input, setInput] = useStickyState<TirePressureFormInput>('tirePressure-input', {
     weightUnit: 'kg',
     riderWeightKg: 75,

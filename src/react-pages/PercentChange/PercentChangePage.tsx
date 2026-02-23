@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculatePercentChange } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function PercentChangePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('percent-change');
+  }, []);
   const [input, setInput] = useStickyState<{startValue: string | number; endValue: string | number}>('percentchange-input', {
     startValue: 100,
     endValue: 120,

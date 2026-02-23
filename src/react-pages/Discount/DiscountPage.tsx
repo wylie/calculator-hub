@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -6,8 +7,12 @@ import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateDiscount } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
+import analytics from '../../utils/analytics';
 
 export default function DiscountPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('discount');
+  }, []);
   const [originalPrice, setOriginalPrice] = useStickyState('discount-original-price', '100');
   const [discountPercent, setDiscountPercent] = useStickyState('discount-percent', '20');
 

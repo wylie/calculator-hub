@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
@@ -5,8 +6,12 @@ import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateRetirement } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
+import analytics from '../../utils/analytics';
 
 export default function RetirementPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('retirement');
+  }, []);
   const [input, setInput] = useStickyState<{currentAge: string | number; retirementAge: string | number; currentSavings: string | number; annualContribution: string | number; annualExpense: string | number; annualReturn: string | number; inflationRate: string | number}>(
     'retirement-input',
     {

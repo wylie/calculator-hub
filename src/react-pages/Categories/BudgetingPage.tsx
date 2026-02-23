@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import Card from '../../components/Card';
+import analytics from '../../utils/analytics';
 
 export default function BudgetingPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('budgeting');
+  }, []);
   const tools = [
     {
       path: '/budget',

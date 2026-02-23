@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -5,8 +6,12 @@ import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { convertCooking } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function CookingConverterPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('cooking-converter');
+  }, []);
   const [value, setValue] = useStickyState('cookingConverter-value', '1');
   const [fromUnit, setFromUnit] = useStickyState<'cups' | 'grams' | 'ml' | 'oz'>('cookingConverter-unit', 'cups');
   const [ingredient, setIngredient] = useStickyState('cookingConverter-ingredient', 'all-purpose flour');

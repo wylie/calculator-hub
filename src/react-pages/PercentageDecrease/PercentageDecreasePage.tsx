@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculatePercentageDecrease } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function PercentageDecreasePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('percentage-decrease');
+  }, []);
   const [input, setInput] = useStickyState<{originalValue: string | number; newValue: string | number}>('percentagedecrease-input', {
     originalValue: 100,
     newValue: 75,

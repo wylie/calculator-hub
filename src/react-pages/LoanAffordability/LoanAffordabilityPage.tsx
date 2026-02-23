@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateLoanAffordability } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function LoanAffordabilityPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('loan-affordability');
+  }, []);
   const [input, setInput] = useStickyState<{monthlyIncome: string | number; monthlyDebts: string | number; desiredLoanTerm: string | number; interestRate: string | number}>('loanaffordability-input', {
     monthlyIncome: 5000,
     monthlyDebts: 500,

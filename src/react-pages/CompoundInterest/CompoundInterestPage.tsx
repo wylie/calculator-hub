@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useStickyState from '../../utils/useStickyState'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
@@ -6,8 +7,12 @@ import AdSlot from '../../components/AdSlot'
 import RelatedTools from '../../components/RelatedTools'
 import { calculateCompoundInterest } from '../../utils/calculators'
 import { formatCurrency } from '../../utils/formatting'
+import analytics from '../../utils/analytics';
 
 export default function CompoundInterestPage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('compound-interest');
+  }, []);
   const [input, setInput] = useStickyState<{principal: string | number; rate: string | number; time: string | number; compounding: string | number}>(
     'compound-interest-input',
     {

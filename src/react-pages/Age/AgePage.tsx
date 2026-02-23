@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '../../components/Card';
 import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateAge } from '../../utils/calculators';
+import analytics from '../../utils/analytics';
 
 export default function AgePage() {
+  useEffect(() => {
+    analytics.trackCalculatorView('age');
+  }, []);
   const [birthDate, setBirthDate] = useState<string>('1990-01-01');
   const [targetDate, setTargetDate] = useState<string>(new Date().toISOString().split('T')[0]);
 
