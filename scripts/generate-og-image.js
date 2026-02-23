@@ -23,81 +23,61 @@ const svg = Buffer.from(`
     Free Tools for Your Calculations
   </text>
   
-  <!-- Mortgage Icon: Simple House -->
+  <!-- Mortgage Icon: Home (Material Symbols) -->
   <g transform="translate(60, 280)">
     <rect x="0" y="0" width="160" height="160" rx="20" fill="#dbeafe" stroke="#3b82f6" stroke-width="4"/>
-    <g transform="translate(80, 55)">
-      <!-- Roof -->
-      <path d="M -35 30 L 0 -15 L 35 30 Z" stroke="#3b82f6" stroke-width="5" fill="none" stroke-linejoin="round"/>
-      <!-- House body -->
-      <rect x="-30" y="25" width="60" height="45" stroke="#3b82f6" stroke-width="5" fill="none" stroke-linejoin="round"/>
-      <!-- Door -->
-      <rect x="-8" y="45" width="16" height="25" stroke="#3b82f6" stroke-width="4" fill="none" stroke-linejoin="round"/>
-      <!-- Door knob -->
-      <circle cx="6" cy="58" r="2" fill="#3b82f6"/>
+    <g transform="translate(60, 50)">
+      <path d="M10,20 L10,30 Q10,35 15,35 L45,35 Q50,35 50,30 L50,20 L30,-10 L10,20 Z" stroke="#3b82f6" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+      <line x1="20" y1="20" x2="20" y2="35" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+      <line x1="40" y1="20" x2="40" y2="35" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="25" cy="26" r="2" fill="#3b82f6"/>
+      <circle cx="35" cy="26" r="2" fill="#3b82f6"/>
     </g>
   </g>
   <text x="140" y="480" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#1e293b" font-weight="700">Mortgage</text>
   
-  <!-- Budget Icon: Simple Piggy Bank -->
+  <!-- Budget Icon: Wallet (Material Symbols) -->
   <g transform="translate(280, 280)">
     <rect x="0" y="0" width="160" height="160" rx="20" fill="#fce7f3" stroke="#ec4899" stroke-width="4"/>
-    <g transform="translate(80, 55)">
-      <!-- Main body -->
-      <circle cx="0" cy="15" r="20" stroke="#ec4899" stroke-width="5" fill="none"/>
-      <!-- Snout -->
-      <circle cx="20" cy="18" r="7" stroke="#ec4899" stroke-width="5" fill="none"/>
-      <!-- Ear -->
-      <rect x="-8" y="-10" width="6" height="12" stroke="#ec4899" stroke-width="4" fill="none" stroke-linejoin="round"/>
-      <!-- Coin slot on top -->
-      <line x1="-6" y1="-8" x2="6" y2="-8" stroke="#ec4899" stroke-width="4" stroke-linecap="round"/>
+    <g transform="translate(60, 50)">
+      <rect x="5" y="10" width="50" height="35" rx="3" stroke="#ec4899" stroke-width="3" fill="none" stroke-linejoin="round"/>
+      <line x1="5" y1="25" x2="55" y2="25" stroke="#ec4899" stroke-width="3"/>
+      <circle cx="50" cy="32" r="4" stroke="#ec4899" stroke-width="2" fill="none"/>
+      <rect x="8" y="12" width="30" height="8" stroke="#ec4899" stroke-width="2" fill="none" stroke-linejoin="round"/>
     </g>
   </g>
   <text x="360" y="480" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#1e293b" font-weight="700">Budget</text>
   
-  <!-- Interest Icon: Simple Upward Arrow -->
+  <!-- Interest Icon: Percent (Material Symbols) -->
   <g transform="translate(500, 280)">
     <rect x="0" y="0" width="160" height="160" rx="20" fill="#dcfce7" stroke="#22c55e" stroke-width="4"/>
-    <g transform="translate(80, 50)">
-      <!-- Arrow shaft -->
-      <line x1="0" y1="40" x2="0" y2="0" stroke="#22c55e" stroke-width="6" stroke-linecap="round"/>
-      <!-- Arrow head -->
-      <path d="M 0 0 L -15 20 L 0 10 L 15 20 Z" fill="#22c55e" stroke="none"/>
-      <!-- Percentage symbol -->
-      <circle cx="-15" cy="35" r="4" fill="#22c55e"/>
-      <circle cx="15" cy="35" r="4" fill="#22c55e"/>
+    <g transform="translate(60, 40)">
+      <circle cx="12" cy="12" r="5" stroke="#22c55e" stroke-width="3" fill="none"/>
+      <circle cx="38" cy="38" r="5" stroke="#22c55e" stroke-width="3" fill="none"/>
+      <line x1="40" y1="10" x2="10" y2="40" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
     </g>
   </g>
   <text x="580" y="480" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#1e293b" font-weight="700">Interest</text>
   
-  <!-- Calories Icon: Simple Flame -->
+  <!-- Calories Icon: Nutrition (Material Symbols) -->
   <g transform="translate(720, 280)">
     <rect x="0" y="0" width="160" height="160" rx="20" fill="#fef08a" stroke="#eab308" stroke-width="4"/>
-    <g transform="translate(80, 50)">
-      <!-- Flame -->
-      <path d="M 0 -20 Q -15 -5 -12 15 Q -10 30 0 35 Q 10 30 12 15 Q 15 -5 0 -20 Z" stroke="#eab308" stroke-width="5" fill="none" stroke-linejoin="round"/>
-      <!-- Inner flame highlight -->
-      <path d="M 0 0 Q -8 5 -6 18" stroke="#eab308" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(60, 50)">
+      <path d="M30,5 Q25,15 25,23 Q25,33 30,33 Q35,33 35,23 Q35,15 30,5 Z" stroke="#eab308" stroke-width="3" fill="none" stroke-linejoin="round"/>
+      <path d="M20,28 Q15,35 15,40 Q15,45 20,45 L40,45 Q45,45 45,40 Q45,35 40,28" stroke="#eab308" stroke-width="3" fill="none" stroke-linejoin="round"/>
     </g>
   </g>
   <text x="800" y="480" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#1e293b" font-weight="700">Calories</text>
   
-  <!-- Cycling Icon: Simple Bicycle -->
+  <!-- Cycling Icon: Two Wheeler (Material Symbols) -->
   <g transform="translate(940, 280)">
     <rect x="0" y="0" width="160" height="160" rx="20" fill="#e9d5ff" stroke="#a855f7" stroke-width="4"/>
-    <g transform="translate(80, 60)">
-      <!-- Left wheel -->
-      <circle cx="-18" cy="18" r="13" stroke="#a855f7" stroke-width="4" fill="none"/>
-      <circle cx="-18" cy="18" r="8" stroke="#a855f7" stroke-width="2" fill="none"/>
-      <!-- Right wheel -->
-      <circle cx="18" cy="18" r="13" stroke="#a855f7" stroke-width="4" fill="none"/>
-      <circle cx="18" cy="18" r="8" stroke="#a855f7" stroke-width="2" fill="none"/>
-      <!-- Frame -->
-      <line x1="-18" y1="18" x2="0" y2="-5" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
-      <line x1="18" y1="18" x2="0" y2="-5" stroke="#a855f7" stroke-width="4" stroke-linecap="round"/>
-      <line x1="0" y1="-5" x2="8" y2="-8" stroke="#a855f7" stroke-width="3" stroke-linecap="round"/>
-      <!-- Seat -->
-      <line x1="-5" y1="-10" x2="5" y2="-10" stroke="#a855f7" stroke-width="3" stroke-linecap="round"/>
+    <g transform="translate(60, 50)">
+      <circle cx="12" cy="35" r="10" stroke="#a855f7" stroke-width="3" fill="none"/>
+      <circle cx="48" cy="35" r="10" stroke="#a855f7" stroke-width="3" fill="none"/>
+      <path d="M30,15 L12,35 M30,15 L48,35 M30,15 L30,28" stroke="#a855f7" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="30" cy="15" r="3" fill="#a855f7"/>
+      <line x1="32" y1="15" x2="40" y2="10" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round"/>
     </g>
   </g>
   <text x="1020" y="480" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#1e293b" font-weight="700">Cycling</text>
