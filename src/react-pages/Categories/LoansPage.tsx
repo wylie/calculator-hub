@@ -49,6 +49,84 @@ export default function LoansPage() {
       description: 'Compare the financial impact of renting versus buying a home.',
       icon: 'real_estate_agent',
     },
+    {
+      path: '/personal-loan',
+      title: 'Personal Loan Calculator',
+      description: 'Estimate monthly payment, total interest, and total repayment costs.',
+      icon: 'request_quote',
+    },
+    {
+      path: '/student-loan',
+      title: 'Student Loan Calculator',
+      description: 'Project student loan payoff timeline with optional extra monthly payments.',
+      icon: 'school',
+    },
+    {
+      path: '/debt-snowball',
+      title: 'Debt Snowball Calculator',
+      description: 'Estimate payoff timeline using a snowball-style debt strategy.',
+      icon: 'snowing',
+    },
+    {
+      path: '/debt-avalanche',
+      title: 'Debt Avalanche Calculator',
+      description: 'Estimate payoff timeline by prioritizing highest APR debts first.',
+      icon: 'landslide',
+    },
+    {
+      path: '/heloc',
+      title: 'HELOC Calculator',
+      description: 'Estimate interest-only and repayment-phase payments for a HELOC.',
+      icon: 'home_work',
+    },
+    {
+      path: '/amortization-calculator',
+      title: 'Amortization Calculator',
+      description: 'View a full month-by-month amortization schedule for your loan.',
+      icon: 'table_chart',
+    },
+    {
+      path: '/loan-payment-calculator',
+      title: 'Loan Payment Calculator',
+      description: 'Calculate monthly payment and total cost for any standard installment loan.',
+      icon: 'payments',
+    },
+    {
+      path: '/property-tax',
+      title: 'Property Tax Calculator',
+      description: 'Estimate annual and monthly property tax from value and tax rate.',
+      icon: 'holiday_village',
+    },
+    {
+      path: '/closing-cost',
+      title: 'Closing Cost Calculator',
+      description: 'Estimate home-buying closing costs using percentage and fixed fees.',
+      icon: 'real_estate_agent',
+    },
+    {
+      path: '/pmi',
+      title: 'PMI Calculator',
+      description: 'Estimate private mortgage insurance based on LTV and PMI rate.',
+      icon: 'shield',
+    },
+    {
+      path: '/home-equity',
+      title: 'Home Equity Calculator',
+      description: 'Calculate your current home equity and equity percentage.',
+      icon: 'home',
+    },
+    {
+      path: '/rent-increase',
+      title: 'Rent Increase Calculator',
+      description: 'Measure monthly and annual impact of a rent increase.',
+      icon: 'apartment',
+    },
+    {
+      path: '/rental-yield',
+      title: 'Rental Yield Calculator',
+      description: 'Estimate gross and net rental yield for investment properties.',
+      icon: 'home_work',
+    },
   ];
 
   return (

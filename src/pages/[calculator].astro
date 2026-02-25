@@ -1,0 +1,41 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import GeneratedCalculatorPage from '../react-pages/Generated/GeneratedCalculatorPage';
+import { generatedCalculators, generatedCalculatorBySlug } from '../react-pages/Generated/generatedCalculatorData';
+
+export function getStaticPaths() {
+  return generatedCalculators.map((calculator) => ({
+    params: {
+      calculator: calculator.slug,
+    },
+    props: {
+      calculator,
+    },
+  }));
+}
+
+const { calculator } = Astro.params;
+const fallbackCalculator = calculator ? generatedCalculatorBySlug[calculator] : undefined;
+const resolvedCalculator = Astro.props.calculator ?? fallbackCalculator;
+
+if (!resolvedCalculator) {
+  return Astro.redirect('/404');
+}
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: resolvedCalculator.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<MainLayout title={resolvedCalculator.title} description={resolvedCalculator.description} jsonLd={faqSchema}>
+  <GeneratedCalculatorPage calculator={resolvedCalculator} client:load />
+</MainLayout>

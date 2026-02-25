@@ -40,6 +40,58 @@ const routes = [
   { path: '/contact', priority: 0.6, changefreq: 'yearly' },
 ];
 
+const newCalculatorRoutes = [
+  '/hourly-to-salary',
+  '/overtime-pay',
+  '/take-home-pay',
+  '/after-tax-salary',
+  '/pay-raise',
+  '/annual-income',
+  '/biweekly-pay',
+  '/monthly-income',
+  '/self-employment-tax',
+  '/1099-vs-w2',
+  '/personal-loan',
+  '/student-loan',
+  '/debt-snowball',
+  '/debt-avalanche',
+  '/heloc',
+  '/amortization-calculator',
+  '/loan-payment-calculator',
+  '/percentage-of-a-number',
+  '/what-percent-of-x-is-y',
+  '/fraction-to-percent',
+  '/percent-to-fraction',
+  '/margin-calculator',
+  '/markup-calculator',
+  '/body-fat',
+  '/lean-body-mass',
+  '/macro-calculator',
+  '/calories-burned',
+  '/one-rep-max',
+  '/target-heart-rate',
+  '/property-tax',
+  '/closing-cost',
+  '/pmi',
+  '/home-equity',
+  '/rent-increase',
+  '/rental-yield',
+  '/work-hours',
+  '/business-days',
+  '/countdown',
+  '/week-number',
+  '/time-zone-converter',
+  '/climbing-grade-converter',
+  '/trail-elevation-gain',
+  '/pace-per-mile',
+  '/cycling-ftp',
+  '/vo2-max',
+];
+
+for (const path of newCalculatorRoutes) {
+  routes.push({ path, priority: 0.75, changefreq: 'monthly' });
+}
+
 // Generate sitemap XML
 function generateSitemap() {
   const xmlHeader = '<?xml version="1.0" encoding="UTF-8"?>\n';

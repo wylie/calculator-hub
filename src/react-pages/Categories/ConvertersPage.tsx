@@ -115,6 +115,78 @@ export default function ConvertersPage() {
       description: 'Calculate the difference between two dates in days, weeks, or years.',
       icon: 'event',
     },
+    {
+      path: '/percentage-of-a-number',
+      title: 'Percentage of a Number Calculator',
+      description: 'Find a percentage value of any number instantly.',
+      icon: 'percent',
+    },
+    {
+      path: '/what-percent-of-x-is-y',
+      title: 'What Percent of X is Y Calculator',
+      description: 'Calculate what percentage one value is of another value.',
+      icon: 'help',
+    },
+    {
+      path: '/fraction-to-percent',
+      title: 'Fraction to Percent Calculator',
+      description: 'Convert fractions into percentages and decimals.',
+      icon: 'function',
+    },
+    {
+      path: '/percent-to-fraction',
+      title: 'Percent to Fraction Calculator',
+      description: 'Convert percentage values into simplified fractions.',
+      icon: 'exposure',
+    },
+    {
+      path: '/margin-calculator',
+      title: 'Margin Calculator',
+      description: 'Calculate gross margin and markup from revenue and cost.',
+      icon: 'bar_chart',
+    },
+    {
+      path: '/markup-calculator',
+      title: 'Markup Calculator',
+      description: 'Calculate selling price and margin from cost and markup.',
+      icon: 'sell',
+    },
+    {
+      path: '/work-hours',
+      title: 'Work Hours Calculator',
+      description: 'Calculate daily and weekly work hours from time inputs.',
+      icon: 'work_history',
+    },
+    {
+      path: '/business-days',
+      title: 'Business Days Calculator',
+      description: 'Count weekdays between two dates, excluding weekends.',
+      icon: 'calendar_today',
+    },
+    {
+      path: '/countdown',
+      title: 'Countdown Calculator',
+      description: 'Show remaining time to a target date and time.',
+      icon: 'timer',
+    },
+    {
+      path: '/week-number',
+      title: 'Week Number Calculator',
+      description: 'Find ISO week number and week-year values for any date.',
+      icon: 'view_week',
+    },
+    {
+      path: '/time-zone-converter',
+      title: 'Time Zone Converter',
+      description: 'Convert date/time values between UTC offsets.',
+      icon: 'public',
+    },
+    {
+      path: '/climbing-grade-converter',
+      title: 'Climbing Grade Converter',
+      description: 'Convert climbing grades between common rating scales.',
+      icon: 'landscape',
+    },
   ];
 
   return (

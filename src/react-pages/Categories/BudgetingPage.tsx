@@ -55,6 +55,66 @@ export default function BudgetingPage() {
       description: 'Track and analyze your monthly and yearly living expenses by category.',
       icon: 'apartment',
     },
+    {
+      path: '/hourly-to-salary',
+      title: 'Hourly to Salary Calculator',
+      description: 'Convert hourly wages to annual, monthly, and weekly income estimates.',
+      icon: 'schedule',
+    },
+    {
+      path: '/overtime-pay',
+      title: 'Overtime Pay Calculator',
+      description: 'Estimate overtime earnings and total pay for a given period.',
+      icon: 'payments',
+    },
+    {
+      path: '/take-home-pay',
+      title: 'Take-Home Pay Calculator',
+      description: 'Estimate net pay after taxes and common deductions.',
+      icon: 'account_balance_wallet',
+    },
+    {
+      path: '/after-tax-salary',
+      title: 'After-Tax Salary Calculator',
+      description: 'Convert gross annual salary into estimated after-tax income.',
+      icon: 'receipt_long',
+    },
+    {
+      path: '/pay-raise',
+      title: 'Pay Raise Calculator',
+      description: 'Calculate the value of a raise in annual, monthly, and hourly terms.',
+      icon: 'trending_up',
+    },
+    {
+      path: '/annual-income',
+      title: 'Annual Income Calculator',
+      description: 'Estimate yearly income from hourly pay, schedule, and bonuses.',
+      icon: 'calendar_month',
+    },
+    {
+      path: '/biweekly-pay',
+      title: 'Biweekly Pay Calculator',
+      description: 'Estimate gross and net biweekly paycheck amounts.',
+      icon: 'event_repeat',
+    },
+    {
+      path: '/monthly-income',
+      title: 'Monthly Income Calculator',
+      description: 'Estimate gross and net monthly income from annual compensation.',
+      icon: 'calendar_view_month',
+    },
+    {
+      path: '/self-employment-tax',
+      title: 'Self-Employment Tax Calculator',
+      description: 'Estimate self-employment tax and deductible tax amounts.',
+      icon: 'work',
+    },
+    {
+      path: '/1099-vs-w2',
+      title: '1099 vs W2 Calculator',
+      description: 'Compare estimated net outcomes between contractor and employee pay structures.',
+      icon: 'compare',
+    },
   ];
 
   return (

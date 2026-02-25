@@ -97,6 +97,66 @@ export default function HealthPage() {
       description: 'Calculate your weighted GPA and letter grade from course grades.',
       icon: 'grade',
     },
+    {
+      path: '/body-fat',
+      title: 'Body Fat Calculator',
+      description: 'Estimate body fat percentage using circumference-based formulas.',
+      icon: 'monitor_weight',
+    },
+    {
+      path: '/lean-body-mass',
+      title: 'Lean Body Mass Calculator',
+      description: 'Calculate lean body mass from total weight and body fat percentage.',
+      icon: 'fitness_center',
+    },
+    {
+      path: '/macro-calculator',
+      title: 'Macro Calculator',
+      description: 'Estimate daily protein, carbs, and fat targets from calorie goals.',
+      icon: 'nutrition',
+    },
+    {
+      path: '/calories-burned',
+      title: 'Calories Burned Calculator',
+      description: 'Estimate calories burned from MET, weight, and workout duration.',
+      icon: 'local_fire_department',
+    },
+    {
+      path: '/one-rep-max',
+      title: 'One Rep Max Calculator',
+      description: 'Estimate one-rep max strength from training weight and reps.',
+      icon: 'sports_gymnastics',
+    },
+    {
+      path: '/target-heart-rate',
+      title: 'Target Heart Rate Calculator',
+      description: 'Estimate your target training heart-rate zone by intensity.',
+      icon: 'favorite',
+    },
+    {
+      path: '/trail-elevation-gain',
+      title: 'Trail Elevation Gain Calculator',
+      description: 'Estimate average trail grade and vertical climbing speed.',
+      icon: 'terrain',
+    },
+    {
+      path: '/pace-per-mile',
+      title: 'Pace Per Mile Calculator',
+      description: 'Calculate running pace per mile and per kilometer.',
+      icon: 'directions_run',
+    },
+    {
+      path: '/cycling-ftp',
+      title: 'Cycling FTP Calculator',
+      description: 'Estimate FTP and power zones from a 20-minute cycling test.',
+      icon: 'directions_bike',
+    },
+    {
+      path: '/vo2-max',
+      title: 'VO2 Max Calculator',
+      description: 'Estimate VO2 max from resting and max heart-rate values.',
+      icon: 'monitor_heart',
+    },
   ];
 
   return (
