@@ -14,6 +14,10 @@ interface GeneratedCalculatorPageProps {
   calculatorSlug: string;
 }
 
+const isRecord = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+};
+
 const formatPercent = (value: number): string => `${value.toFixed(2).replace(/\.00$/, '')}%`;
 
 const formatNumber = (value: number): string => value.toLocaleString(undefined, { maximumFractionDigits: 4 });
@@ -67,11 +71,51 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
     getDefaultFieldState(calculator)
   );
 
+  const safeInputValues = useMemo<Record<string, string>>(() => {
+    const defaults = getDefaultFieldState(calculator);
+
+    if (!isRecord(inputValues)) {
+      return defaults;
+    }
+
+    const merged: Record<string, string> = { ...defaults };
+    calculator.fields.forEach((field) => {
+      const raw = inputValues[field.key];
+      if (typeof raw === 'string') {
+        merged[field.key] = raw;
+      } else if (typeof raw === 'number' && Number.isFinite(raw)) {
+        merged[field.key] = String(raw);
+      }
+    });
+
+    return merged;
+  }, [calculator, inputValues]);
+
   useEffect(() => {
     analytics.trackCalculatorView(calculator.slug);
   }, [calculator.slug]);
 
-  const output = useMemo(() => calculator.calculate(inputValues), [calculator, inputValues]);
+  const output = useMemo(() => {
+    try {
+      const calculated = calculator.calculate(safeInputValues);
+      const safeResults = Array.isArray(calculated?.results) ? calculated.results : [];
+      const safeTable = calculated?.table
+        ? {
+            title: calculated.table.title,
+            columns: Array.isArray(calculated.table.columns) ? calculated.table.columns : [],
+            rows: Array.isArray(calculated.table.rows) ? calculated.table.rows : [],
+          }
+        : undefined;
+
+      return {
+        results: safeResults,
+        table: safeTable,
+      };
+    } catch {
+      analytics.trackError(calculator.slug, 'generated_calculation_error');
+      return { results: [] as Array<{ key: string; label: string; value: number | string; format: ResultFormat }> };
+    }
+  }, [calculator, safeInputValues]);
 
   useEffect(() => {
     if (output.results.length > 0) {
@@ -81,7 +125,7 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
 
   const handleInputChange = (fieldKey: string, value: string) => {
     setInputValues((previous) => ({
-      ...previous,
+      ...(isRecord(previous) ? previous : getDefaultFieldState(calculator)),
       [fieldKey]: value,
     }));
     analytics.trackInputChange(calculator.slug, fieldKey);
@@ -116,7 +160,7 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
                   <Select
                     key={field.key}
                     label={field.label}
-                    value={inputValues[field.key] ?? field.defaultValue}
+                    value={safeInputValues[field.key] ?? field.defaultValue}
                     onChange={(value) => handleInputChange(field.key, value)}
                     options={field.options}
                     helpText={field.helpText}
@@ -128,7 +172,7 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
                 <Input
                   key={field.key}
                   label={field.label}
-                  value={inputValues[field.key] ?? field.defaultValue}
+                  value={safeInputValues[field.key] ?? field.defaultValue}
                   onChange={(value) => handleInputChange(field.key, value)}
                   type={field.type}
                   min={field.min}
@@ -154,12 +198,12 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
           <Card>
             <h2 className="text-lg font-semibold text-slate-900 mb-4">Results</h2>
             <div className="space-y-3">
-              {output.results.map((result) => (
+              {output.results.length > 0 ? output.results.map((result) => (
                 <div key={result.key} className="border-t border-slate-200 pt-3 first:border-t-0 first:pt-0">
                   <p className="text-xs text-slate-600">{result.label}</p>
                   <p className="text-xl font-bold text-blue-600">{formatValue(result.value, result.format)}</p>
                 </div>
-              ))}
+              )) : <p className="text-sm text-slate-600">Results are temporarily unavailable for this input. Try adjusting values or resetting.</p>}
             </div>
           </Card>
           <AdSlot />
@@ -210,9 +254,9 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
       </section>
 
       <Card>
-        <h2 className="text-lg font-semibold text-slate-900 mb-3">How this calculator works</h2>
+          <h2 className="text-lg font-semibold text-slate-900 mb-3">How this calculator works</h2>
         <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
-          {calculator.howItWorks.map((step) => (
+          {(Array.isArray(calculator.howItWorks) ? calculator.howItWorks : []).map((step) => (
             <li key={step}>{step}</li>
           ))}
         </ul>
@@ -222,7 +266,7 @@ export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCal
       <Card>
         <h2 className="text-lg font-semibold text-slate-900 mb-3">FAQ</h2>
         <div className="space-y-3 text-sm text-slate-700">
-          {calculator.faqs.map((faq) => (
+          {(Array.isArray(calculator.faqs) ? calculator.faqs : []).map((faq) => (
             <details key={faq.question} className="rounded border border-slate-200 p-3 bg-white">
               <summary className="font-medium cursor-pointer">{faq.question}</summary>
               <p className="mt-2">{faq.answer}</p>
