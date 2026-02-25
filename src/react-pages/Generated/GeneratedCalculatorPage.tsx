@@ -7,11 +7,11 @@ import AdSlot from '../../components/AdSlot';
 import RelatedTools from '../../components/RelatedTools';
 import analytics from '../../utils/analytics';
 import type { GeneratedCalculatorConfig, ResultFormat } from './generatedCalculatorData';
-import { generatedCalculators } from './generatedCalculatorData';
+import { generatedCalculators, generatedCalculatorBySlug } from './generatedCalculatorData';
 import { formatCurrency } from '../../utils/formatting';
 
 interface GeneratedCalculatorPageProps {
-  calculator: GeneratedCalculatorConfig;
+  calculatorSlug: string;
 }
 
 const formatPercent = (value: number): string => `${value.toFixed(2).replace(/\.00$/, '')}%`;
@@ -50,7 +50,18 @@ const getDefaultFieldState = (calculator: GeneratedCalculatorConfig): Record<str
   }, {});
 };
 
-export default function GeneratedCalculatorPage({ calculator }: GeneratedCalculatorPageProps) {
+export default function GeneratedCalculatorPage({ calculatorSlug }: GeneratedCalculatorPageProps) {
+  const calculator: GeneratedCalculatorConfig | undefined = generatedCalculatorBySlug[calculatorSlug];
+
+  if (!calculator) {
+    return (
+      <Card>
+        <h1 className="text-xl font-semibold text-slate-900 mb-2">Calculator not found</h1>
+        <p className="text-slate-600">This calculator could not be loaded. Please return to the previous page and try again.</p>
+      </Card>
+    );
+  }
+
   const [inputValues, setInputValues] = useStickyState<Record<string, string>>(
     `generated-calculator-${calculator.slug}`,
     getDefaultFieldState(calculator)

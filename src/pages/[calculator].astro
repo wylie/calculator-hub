@@ -8,15 +8,12 @@ export function getStaticPaths() {
     params: {
       calculator: calculator.slug,
     },
-    props: {
-      calculator,
-    },
   }));
 }
 
 const { calculator } = Astro.params;
 const fallbackCalculator = calculator ? generatedCalculatorBySlug[calculator] : undefined;
-const resolvedCalculator = Astro.props.calculator ?? fallbackCalculator;
+const resolvedCalculator = fallbackCalculator;
 
 if (!resolvedCalculator) {
   return Astro.redirect('/404');
@@ -37,5 +34,5 @@ const faqSchema = {
 ---
 
 <MainLayout title={resolvedCalculator.title} description={resolvedCalculator.description} jsonLd={faqSchema}>
-  <GeneratedCalculatorPage calculator={resolvedCalculator} client:load />
+  <GeneratedCalculatorPage calculatorSlug={resolvedCalculator.slug} client:load />
 </MainLayout>
