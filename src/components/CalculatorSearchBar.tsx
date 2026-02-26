@@ -78,7 +78,7 @@ export default function CalculatorSearchBar() {
         aria-label="Search calculators"
       />
       {dropdownOpen && results.length > 0 && (
-        <ul ref={dropdownRef} className="absolute left-0 right-0 bg-white border border-slate-200 rounded-md shadow-lg mt-2 z-30 max-h-72 overflow-y-auto">
+        <ul ref={dropdownRef} className="absolute left-0 right-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg mt-2 z-30 max-h-72 overflow-y-auto">
           {results.map((calc, idx) => (
             <li
               key={calc.slug}
