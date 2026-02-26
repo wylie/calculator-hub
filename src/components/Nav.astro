@@ -220,7 +220,7 @@ const getDesktopDropdownStyle = (itemCount: number): string => {
   const columns = getDesktopDropdownColumns(itemCount);
   const columnWidth = 220;
   const width = columns * columnWidth;
-  return `column-count: ${columns}; column-gap: 0.5rem; width: ${width}px; max-width: calc(100vw - 2rem); max-height: min(80vh, 700px); overflow-y: auto; overflow-x: hidden;`;
+  return `display: grid; grid-template-columns: repeat(${columns}, ${columnWidth}px); gap: 0.5rem; width: ${width}px; max-width: calc(100vw - 2rem); max-height: min(80vh, 700px); overflow-y: auto; overflow-x: hidden;`;
 };
 ---
 
