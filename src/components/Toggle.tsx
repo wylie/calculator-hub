@@ -20,7 +20,7 @@ export default function Toggle({
           onChange={(e) => onChange(e.target.checked)}
           className="w-4 h-4 rounded border-slate-300 dark:border-slate-700 focus:ring-blue-500"
         />
-        <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{label}</span>
+        <span className="text-sm font-medium text-slate-700">{label}</span>
       </label>
       {helpText && <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{helpText}</p>}
     </div>

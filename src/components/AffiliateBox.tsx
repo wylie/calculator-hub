@@ -22,8 +22,8 @@ export default function AffiliateBox({
           </span>
         )}
         <div className="flex-1">
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">{title}</h3>
-          <p className="text-xs text-slate-600 dark:text-slate-300 mb-4">{description}</p>
+          <h3 className="text-sm font-semibold text-slate-900 mb-1">{title}</h3>
+          <p className="text-xs text-slate-600 mb-4">{description}</p>
           <a
             href={href}
             target="_blank"
