@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import Card from '../../components/Card';
 import analytics from '../../utils/analytics';
+import { generatedCalculators } from '../Generated/generatedCalculatorData';
 
 export default function ConvertersPage() {
   useEffect(() => {
     analytics.trackCalculatorView('converters');
   }, []);
-  const tools = [
+  const baseTools = [
     {
       path: '/weather',
       title: 'Temperature Converter',
@@ -188,6 +189,19 @@ export default function ConvertersPage() {
       icon: 'landscape',
     },
   ];
+
+  const generatedTools = generatedCalculators
+    .filter((calculator) => calculator.category === 'percentages' || calculator.category === 'time')
+    .map((calculator) => ({
+      path: `/${calculator.slug}`,
+      title: calculator.title,
+      description: calculator.description,
+      icon: calculator.icon,
+    }));
+
+  const tools = [...baseTools, ...generatedTools].filter(
+    (tool, index, arr) => arr.findIndex((item) => item.path === tool.path) === index
+  );
 
   return (
     <div>

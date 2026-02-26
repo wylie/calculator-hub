@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import Card from '../../components/Card';
 import analytics from '../../utils/analytics';
+import { generatedCalculators } from '../Generated/generatedCalculatorData';
 
 export default function BudgetingPage() {
   useEffect(() => {
     analytics.trackCalculatorView('budgeting');
   }, []);
-  const tools = [
+  const baseTools = [
     {
       path: '/budget',
       title: 'Budget Calculator',
@@ -116,6 +117,19 @@ export default function BudgetingPage() {
       icon: 'compare',
     },
   ];
+
+  const generatedTools = generatedCalculators
+    .filter((calculator) => calculator.category === 'income')
+    .map((calculator) => ({
+      path: `/${calculator.slug}`,
+      title: calculator.title,
+      description: calculator.description,
+      icon: calculator.icon,
+    }));
+
+  const tools = [...baseTools, ...generatedTools].filter(
+    (tool, index, arr) => arr.findIndex((item) => item.path === tool.path) === index
+  );
 
   return (
     <div>

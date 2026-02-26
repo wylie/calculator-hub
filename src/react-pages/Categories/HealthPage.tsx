@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import Card from '../../components/Card';
 import analytics from '../../utils/analytics';
+import { generatedCalculators } from '../Generated/generatedCalculatorData';
 
 export default function HealthPage() {
   useEffect(() => {
     analytics.trackCalculatorView('health');
   }, []);
-  const tools = [
+  const baseTools = [
     {
       path: '/calories',
       title: 'Calorie Calculator',
@@ -158,6 +159,19 @@ export default function HealthPage() {
       icon: 'monitor_heart',
     },
   ];
+
+  const generatedTools = generatedCalculators
+    .filter((calculator) => calculator.category === 'health' || calculator.category === 'outdoors')
+    .map((calculator) => ({
+      path: `/${calculator.slug}`,
+      title: calculator.title,
+      description: calculator.description,
+      icon: calculator.icon,
+    }));
+
+  const tools = [...baseTools, ...generatedTools].filter(
+    (tool, index, arr) => arr.findIndex((item) => item.path === tool.path) === index
+  );
 
   return (
     <div>

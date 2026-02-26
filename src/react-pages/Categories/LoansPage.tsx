@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import Card from '../../components/Card';
 import analytics from '../../utils/analytics';
+import { generatedCalculators } from '../Generated/generatedCalculatorData';
 
 export default function LoansPage() {
   useEffect(() => {
     analytics.trackCalculatorView('loans');
   }, []);
-  const tools = [
+  const baseTools = [
     {
       path: '/mortgage',
       title: 'Mortgage Calculator',
@@ -128,6 +129,19 @@ export default function LoansPage() {
       icon: 'home_work',
     },
   ];
+
+  const generatedTools = generatedCalculators
+    .filter((calculator) => calculator.category === 'loans' || calculator.category === 'home')
+    .map((calculator) => ({
+      path: `/${calculator.slug}`,
+      title: calculator.title,
+      description: calculator.description,
+      icon: calculator.icon,
+    }));
+
+  const tools = [...baseTools, ...generatedTools].filter(
+    (tool, index, arr) => arr.findIndex((item) => item.path === tool.path) === index
+  );
 
   return (
     <div>
