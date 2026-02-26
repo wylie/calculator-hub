@@ -319,7 +319,9 @@ const getDesktopDropdownStyle = (itemCount: number): string => {
               <span class="material-symbols-outlined text-lg">expand_more</span>
             </a>
             <div
-              class={`absolute ${index >= navCategories.length - 2 ? 'right-0' : 'left-0'} top-full invisible opacity-0 group-hover:visible group-hover:opacity-100 bg-white border border-slate-200 rounded-md shadow-lg z-20 p-2 transition-opacity duration-150`}
+              class={`absolute top-full invisible opacity-0 group-hover:visible group-hover:opacity-100 bg-white border border-slate-200 rounded-md shadow-lg z-20 p-2 transition-opacity duration-150 ${
+                index === 0 ? 'left-0' : index === navCategories.length - 1 ? 'right-0' : 'left-1/2 -translate-x-1/2'
+              }`}
               style={getDesktopDropdownStyle(category.items.length)}
             >
               {category.items.map((item) => (
