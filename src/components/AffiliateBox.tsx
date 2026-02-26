@@ -14,7 +14,7 @@ export default function AffiliateBox({
   iconName = 'shopping_cart',
 }: AffiliateBoxProps) {
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-blue-50 dark:bg-slate-800 p-6 my-6">
+    <div className="rounded-lg border border-slate-200 bg-blue-50 p-6 my-6">
       <div className="flex items-start gap-4">
         {iconName && (
           <span className="material-symbols-outlined text-xl text-blue-600 flex-shrink-0 mt-1">

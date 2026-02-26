@@ -37,7 +37,7 @@ export default function BMIPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-2">BMI Calculator</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">BMI Calculator</h1>
         <p className="text-gray-600 dark:text-slate-300">Calculate your Body Mass Index and health category</p>
       </div>
 

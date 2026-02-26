@@ -29,7 +29,7 @@ export default function Select({
           </option>
         ))}
       </select>
-      {helpText && <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{helpText}</p>}
+      {helpText && <p className="text-xs text-slate-500 mt-1">{helpText}</p>}
     </div>
   );
 }
