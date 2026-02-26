@@ -37,8 +37,8 @@ export default function BMIPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">BMI Calculator</h1>
-        <p className="text-gray-600">Calculate your Body Mass Index and health category</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-2">BMI Calculator</h1>
+        <p className="text-gray-600 dark:text-slate-300">Calculate your Body Mass Index and health category</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -80,13 +80,13 @@ export default function BMIPage() {
             <h2 className="text-xl font-semibold mb-4 text-blue-900">Results</h2>
             <div className="space-y-3">
               <div className="bg-white p-4 rounded border border-blue-200">
-                <p className="text-sm text-gray-600">Your BMI</p>
+                <p className="text-sm text-gray-600 dark:text-slate-300">Your BMI</p>
                 <p className={`text-3xl font-bold ${getBMIColor(result.bmi)}`}>{result.bmi}</p>
-                <p className="text-lg font-semibold text-gray-700 mt-1">{result.category}</p>
+                <p className="text-lg font-semibold text-gray-700 dark:text-slate-200 mt-1">{result.category}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Healthy Weight Range</p>
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-slate-300">Healthy Weight Range</p>
+                <p className="text-lg font-semibold text-gray-900 dark:text-slate-100">
                   {result.healthyWeightMin.toFixed(1)} - {result.healthyWeightMax.toFixed(1)} {input.unit === 'metric' ? 'kg' : 'lbs'}
                 </p>
               </div>
@@ -100,19 +100,19 @@ export default function BMIPage() {
       <div className="mt-6 grid md:grid-cols-3 gap-4">
         <Card>
           <h3 className="font-semibold mb-2 text-sm">BMI Tips</h3>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-slate-300">
             BMI is a screening tool, not a diagnostic measure of body fatness or health
           </p>
         </Card>
         <Card>
           <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-slate-300">
             A healthy BMI typically ranges from 18.5 to 24.9 for most adults
           </p>
         </Card>
         <Card>
           <h3 className="font-semibold mb-2 text-sm">Note</h3>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-slate-300">
             Athletes with high muscle mass may have elevated BMI but low body fat
           </p>
         </Card>
@@ -120,11 +120,11 @@ export default function BMIPage() {
 
       <Card>
         <h2 className="text-lg font-semibold mb-3">How this BMI calculator works</h2>
-        <p className="text-sm text-gray-600 mb-3">
+        <p className="text-sm text-gray-600 dark:text-slate-300 mb-3">
           BMI is calculated by dividing weight by height squared. The result places you in a health category
           based on WHO standards for adults.
         </p>
-        <ul className="list-disc pl-5 text-sm text-gray-600 space-y-1">
+        <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-slate-300 space-y-1">
           <li>Underweight: BMI below 18.5</li>
           <li>Normal weight: BMI 18.5-24.9</li>
           <li>Overweight: BMI 25-29.9</li>
@@ -135,7 +135,7 @@ export default function BMIPage() {
 
       <Card>
         <h2 className="text-lg font-semibold mb-3">BMI calculator FAQ</h2>
-        <div className="space-y-3 text-sm text-gray-700">
+        <div className="space-y-3 text-sm text-gray-700 dark:text-slate-200">
           <details className="rounded border border-slate-200 p-3 bg-white">
             <summary className="font-medium cursor-pointer">Is BMI accurate for everyone?</summary>
             <p className="mt-2">BMI doesn't distinguish muscle from fat, so athletes or very muscular people may have high BMI but be healthy.</p>
