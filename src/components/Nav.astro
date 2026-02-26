@@ -220,7 +220,7 @@ const getDesktopDropdownStyle = (itemCount: number): string => {
   const columns = getDesktopDropdownColumns(itemCount);
   const columnWidth = 220;
   const width = columns * columnWidth;
-  return `column-count: ${columns}; column-gap: 0.5rem; width: min(${width}px, calc(100vw - 2rem)); max-height: min(80vh, 700px);`;
+  return `column-count: ${columns}; column-gap: 0.5rem; width: min(${width}px, calc(100vw - 2rem)); max-height: min(80vh, 700px); overflow-y: auto;`;
 };
 ---
 
@@ -320,7 +320,7 @@ const getDesktopDropdownStyle = (itemCount: number): string => {
             </a>
             {category.items.length > 10 ? (
               <div
-                class={`absolute ${index >= navCategories.length - 2 ? 'right-0' : 'left-0'} top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 p-2 overflow-y-auto`}
+                class={`absolute ${index >= navCategories.length - 2 ? 'right-0' : 'left-0'} top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 p-2`}
                 style={getDesktopDropdownStyle(category.items.length)}
               >
                 {category.items.map((item) => (
