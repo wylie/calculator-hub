@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { generatedCalculators } from '../react-pages/Generated/generatedCalculatorData';
-import { useNavigate } from 'react-router-dom';
 
 export default function CalculatorSearchBar() {
   const [query, setQuery] = useState('');
