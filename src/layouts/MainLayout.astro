@@ -156,7 +156,7 @@ const allJsonLd = [...baseJsonLd, ...pageJsonLd];
     ))}
   </head>
   <body>
-    <div class="flex flex-col min-h-screen bg-slate-50">
+    <div class="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-900">
       <header>
         <Nav />
       </header>
@@ -164,18 +164,18 @@ const allJsonLd = [...baseJsonLd, ...pageJsonLd];
         <slot />
       </main>
       <ConsentBanner />
-      <footer class="border-t border-slate-200 bg-white py-6 mt-12">
-        <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-600">
+      <footer class="border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-6 mt-12">
+        <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-600 dark:text-slate-300">
           <p class="mb-2">
             Disclaimer: These calculators provide estimates for educational purposes only. They are not
             financial or medical advice. Please consult with a qualified professional for
             personalized guidance.
           </p>
           <div class="flex flex-wrap items-center justify-center gap-3 mb-2">
-            <a href="/privacy" class="text-xs text-slate-600 hover:text-slate-900 underline">Privacy Policy</a>
-            <a href="/terms" class="text-xs text-slate-600 hover:text-slate-900 underline">Terms</a>
-            <a href="/accessibility" class="text-xs text-slate-600 hover:text-slate-900 underline">Accessibility</a>
-            <a href="/contact" class="text-xs text-slate-600 hover:text-slate-900 underline">Contact</a>
+            <a href="/privacy" class="text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white underline">Privacy Policy</a>
+            <a href="/terms" class="text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white underline">Terms</a>
+            <a href="/accessibility" class="text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white underline">Accessibility</a>
+            <a href="/contact" class="text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white underline">Contact</a>
           </div>
           <p>Simple Calculators 2026. All rights reserved.</p>
         </div>
