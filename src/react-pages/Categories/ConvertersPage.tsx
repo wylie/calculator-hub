@@ -191,7 +191,7 @@ export default function ConvertersPage() {
   ];
 
   const generatedTools = generatedCalculators
-    .filter((calculator) => calculator.category === 'percentages' || calculator.category === 'time')
+    .filter((calculator) => calculator.category === 'percentages' || calculator.category === 'time' || calculator.category === 'converters')
     .map((calculator) => ({
       path: `/${calculator.slug}`,
       title: calculator.title,

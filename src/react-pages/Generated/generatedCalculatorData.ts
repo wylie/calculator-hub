@@ -1,4 +1,4 @@
-export type GeneratedCalculatorCategory = 'income' | 'loans' | 'percentages' | 'health' | 'home' | 'time' | 'outdoors';
+export type GeneratedCalculatorCategory = 'income' | 'loans' | 'percentages' | 'health' | 'home' | 'time' | 'outdoors' | 'savings' | 'converters';
 
 export type FieldType = 'number' | 'select' | 'date' | 'datetime-local' | 'time';
 
@@ -219,6 +219,16 @@ const CATEGORY_RELATED: Record<GeneratedCalculatorCategory, Array<{ path: string
     { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
     { path: '/cycling-power-to-weight', title: 'Cycling Power-to-Weight', icon: 'speed' },
     { path: '/hiking-pace', title: 'Hiking Pace Calculator', icon: 'hiking' },
+  ],
+  savings: [
+    { path: '/compound-interest', title: 'Compound Interest Calculator', icon: 'trending_up' },
+    { path: '/investment-growth', title: 'Investment Growth Calculator', icon: 'show_chart' },
+    { path: '/retirement', title: 'Retirement Calculator', icon: 'savings' },
+  ],
+  converters: [
+    { path: '/weather', title: 'Temperature Converter', icon: 'thermostat' },
+    { path: '/speed', title: 'Speed Converter', icon: 'speed' },
+    { path: '/power-converter', title: 'Power Converter', icon: 'bolt' },
   ],
 };
 
@@ -2781,6 +2791,1124 @@ const baseGeneratedCalculators: Omit<GeneratedCalculatorConfig, 'relatedTools' |
   },
 ];
 
+const additionalGeneratedCalculators: Omit<GeneratedCalculatorConfig, 'relatedTools' | 'howItWorks' | 'tip' | 'fact' | 'note' | 'faqs'>[] = [
+  {
+    slug: 'net-pay-calculator',
+    title: 'Net Pay Calculator',
+    description: 'Estimate net pay after taxes and pre-tax deductions.',
+    category: 'income',
+    icon: 'account_balance_wallet',
+    fields: [
+      { key: 'grossPay', label: 'Gross Pay ($)', type: 'number', defaultValue: '3000', min: '0', step: '0.01' },
+      { key: 'taxRate', label: 'Tax Rate (%)', type: 'number', defaultValue: '24', min: '0', max: '70', step: '0.1' },
+      { key: 'preTaxDeductions', label: 'Pre-Tax Deductions ($)', type: 'number', defaultValue: '200', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const grossPay = parseNumber(values.grossPay);
+      const preTaxDeductions = parseNumber(values.preTaxDeductions);
+      const taxRate = clamp(parseNumber(values.taxRate), 0, 100);
+      const taxable = Math.max(0, grossPay - preTaxDeductions);
+      const taxes = taxable * (taxRate / 100);
+      return { results: [
+        { key: 'taxable', label: 'Taxable Pay', value: roundTo(taxable), format: 'currency' },
+        { key: 'taxes', label: 'Estimated Taxes', value: roundTo(taxes), format: 'currency' },
+        { key: 'net', label: 'Estimated Net Pay', value: roundTo(taxable - taxes), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'gross-pay-calculator',
+    title: 'Gross Pay Calculator',
+    description: 'Calculate gross pay from hourly rate and hours worked.',
+    category: 'income',
+    icon: 'payments',
+    fields: [
+      { key: 'hourlyRate', label: 'Hourly Rate ($)', type: 'number', defaultValue: '30', min: '0', step: '0.01' },
+      { key: 'hoursWorked', label: 'Hours Worked', type: 'number', defaultValue: '40', min: '0', step: '0.25' },
+      { key: 'overtimeMultiplier', label: 'Overtime Multiplier', type: 'number', defaultValue: '1.5', min: '1', step: '0.1' },
+      { key: 'regularHours', label: 'Regular Hours Threshold', type: 'number', defaultValue: '40', min: '0', step: '0.25' },
+    ],
+    calculate: (values) => {
+      const hourlyRate = parseNumber(values.hourlyRate);
+      const hoursWorked = parseNumber(values.hoursWorked);
+      const overtimeMultiplier = parseNumber(values.overtimeMultiplier, 1.5);
+      const regularHours = parseNumber(values.regularHours, 40);
+      const regular = Math.min(hoursWorked, regularHours);
+      const overtime = Math.max(0, hoursWorked - regularHours);
+      const gross = regular * hourlyRate + overtime * hourlyRate * overtimeMultiplier;
+      return { results: [
+        { key: 'regular', label: 'Regular Pay', value: roundTo(regular * hourlyRate), format: 'currency' },
+        { key: 'overtime', label: 'Overtime Pay', value: roundTo(overtime * hourlyRate * overtimeMultiplier), format: 'currency' },
+        { key: 'gross', label: 'Gross Pay', value: roundTo(gross), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'take-home-pay-after-401k-calculator',
+    title: 'Take Home Pay After 401k Calculator',
+    description: 'Estimate paycheck take-home after pre-tax 401(k) contributions.',
+    category: 'income',
+    icon: 'savings',
+    fields: [
+      { key: 'grossPay', label: 'Gross Pay Per Check ($)', type: 'number', defaultValue: '3500', min: '0', step: '0.01' },
+      { key: 'contributionPercent', label: '401(k) Contribution (%)', type: 'number', defaultValue: '8', min: '0', max: '100', step: '0.1' },
+      { key: 'taxRate', label: 'Tax Rate (%)', type: 'number', defaultValue: '24', min: '0', max: '70', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const grossPay = parseNumber(values.grossPay);
+      const contributionPercent = clamp(parseNumber(values.contributionPercent), 0, 100);
+      const taxRate = clamp(parseNumber(values.taxRate), 0, 100);
+      const contribution = grossPay * (contributionPercent / 100);
+      const taxable = Math.max(0, grossPay - contribution);
+      const taxes = taxable * (taxRate / 100);
+      return { results: [
+        { key: 'contribution', label: '401(k) Contribution', value: roundTo(contribution), format: 'currency' },
+        { key: 'taxes', label: 'Estimated Taxes', value: roundTo(taxes), format: 'currency' },
+        { key: 'takeHome', label: 'Take-Home Pay', value: roundTo(taxable - taxes), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: '401k-contribution-calculator',
+    title: '401k Contribution Calculator',
+    description: 'Estimate annual and monthly 401(k) contributions from salary and contribution rate.',
+    category: 'savings',
+    icon: 'savings',
+    fields: [
+      { key: 'salary', label: 'Annual Salary ($)', type: 'number', defaultValue: '90000', min: '0', step: '0.01' },
+      { key: 'contributionPercent', label: 'Contribution Rate (%)', type: 'number', defaultValue: '10', min: '0', max: '100', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const salary = parseNumber(values.salary);
+      const contributionPercent = clamp(parseNumber(values.contributionPercent), 0, 100);
+      const annual = salary * contributionPercent / 100;
+      return { results: [
+        { key: 'annual', label: 'Annual Contribution', value: roundTo(annual), format: 'currency' },
+        { key: 'monthly', label: 'Monthly Contribution', value: roundTo(annual / 12), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: '401k-match-calculator',
+    title: '401k Match Calculator',
+    description: 'Estimate employer match and total annual retirement contribution.',
+    category: 'savings',
+    icon: 'handshake',
+    fields: [
+      { key: 'salary', label: 'Annual Salary ($)', type: 'number', defaultValue: '90000', min: '0', step: '0.01' },
+      { key: 'employeeContributionPercent', label: 'Your Contribution (%)', type: 'number', defaultValue: '8', min: '0', max: '100', step: '0.1' },
+      { key: 'matchPercent', label: 'Employer Match (%)', type: 'number', defaultValue: '50', min: '0', max: '100', step: '0.1' },
+      { key: 'matchUpToPercent', label: 'Match Up To (%)', type: 'number', defaultValue: '6', min: '0', max: '100', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const salary = parseNumber(values.salary);
+      const employeePct = clamp(parseNumber(values.employeeContributionPercent), 0, 100);
+      const matchPct = clamp(parseNumber(values.matchPercent), 0, 100);
+      const matchUpTo = clamp(parseNumber(values.matchUpToPercent), 0, 100);
+      const employeeAnnual = salary * employeePct / 100;
+      const eligiblePct = Math.min(employeePct, matchUpTo);
+      const employerAnnual = salary * eligiblePct / 100 * (matchPct / 100);
+      return { results: [
+        { key: 'employeeAnnual', label: 'Your Annual Contribution', value: roundTo(employeeAnnual), format: 'currency' },
+        { key: 'employerAnnual', label: 'Employer Match', value: roundTo(employerAnnual), format: 'currency' },
+        { key: 'totalAnnual', label: 'Total Annual Contribution', value: roundTo(employeeAnnual + employerAnnual), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'roth-vs-traditional-ira-calculator',
+    title: 'Roth vs Traditional IRA Calculator',
+    description: 'Compare estimated after-tax retirement values between Roth and Traditional IRA.',
+    category: 'savings',
+    icon: 'compare_arrows',
+    fields: [
+      { key: 'annualContribution', label: 'Annual Contribution ($)', type: 'number', defaultValue: '7000', min: '0', step: '0.01' },
+      { key: 'years', label: 'Years to Grow', type: 'number', defaultValue: '25', min: '1', step: '1' },
+      { key: 'annualReturn', label: 'Annual Return (%)', type: 'number', defaultValue: '7', min: '0', step: '0.1' },
+      { key: 'retirementTaxRate', label: 'Retirement Tax Rate (%)', type: 'number', defaultValue: '22', min: '0', max: '70', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const contribution = parseNumber(values.annualContribution);
+      const years = parseNumber(values.years, 1);
+      const annualReturn = parseNumber(values.annualReturn);
+      const retirementTaxRate = clamp(parseNumber(values.retirementTaxRate), 0, 100);
+      const r = annualReturn / 100;
+      const fv = r > 0 ? contribution * (((1 + r) ** years - 1) / r) : contribution * years;
+      const traditionalAfterTax = fv * (1 - retirementTaxRate / 100);
+      return { results: [
+        { key: 'roth', label: 'Roth IRA (After-Tax)', value: roundTo(fv), format: 'currency' },
+        { key: 'traditional', label: 'Traditional IRA (After-Tax)', value: roundTo(traditionalAfterTax), format: 'currency' },
+        { key: 'difference', label: 'Roth Advantage', value: roundTo(fv - traditionalAfterTax), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'ira-contribution-calculator',
+    title: 'IRA Contribution Calculator',
+    description: 'Estimate annual and monthly IRA contribution amounts toward your savings goal.',
+    category: 'savings',
+    icon: 'account_balance',
+    fields: [
+      { key: 'targetContribution', label: 'Target Annual Contribution ($)', type: 'number', defaultValue: '7000', min: '0', step: '0.01' },
+      { key: 'monthsRemaining', label: 'Months Remaining This Year', type: 'number', defaultValue: '12', min: '1', max: '12', step: '1' },
+    ],
+    calculate: (values) => {
+      const target = parseNumber(values.targetContribution);
+      const months = Math.max(1, parseNumber(values.monthsRemaining, 12));
+      return { results: [
+        { key: 'annual', label: 'Annual Target', value: roundTo(target), format: 'currency' },
+        { key: 'monthlyNeeded', label: 'Monthly Contribution Needed', value: roundTo(target / months), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'required-minimum-distribution-calculator',
+    title: 'Required Minimum Distribution Calculator',
+    description: 'Estimate annual RMD using account balance and life expectancy factor.',
+    category: 'savings',
+    icon: 'event_available',
+    fields: [
+      { key: 'accountBalance', label: 'Retirement Account Balance ($)', type: 'number', defaultValue: '500000', min: '0', step: '0.01' },
+      { key: 'lifeExpectancyFactor', label: 'IRS Distribution Period', type: 'number', defaultValue: '27.4', min: '1', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const balance = parseNumber(values.accountBalance);
+      const factor = Math.max(1, parseNumber(values.lifeExpectancyFactor, 27.4));
+      const rmd = balance / factor;
+      return { results: [
+        { key: 'rmd', label: 'Estimated Annual RMD', value: roundTo(rmd), format: 'currency' },
+        { key: 'monthly', label: 'Equivalent Monthly Withdrawal', value: roundTo(rmd / 12), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'future-value-calculator',
+    title: 'Future Value Calculator',
+    description: 'Calculate future value from present amount, return rate, and time.',
+    category: 'savings',
+    icon: 'trending_up',
+    fields: [
+      { key: 'presentValue', label: 'Present Value ($)', type: 'number', defaultValue: '10000', min: '0', step: '0.01' },
+      { key: 'annualRate', label: 'Annual Return (%)', type: 'number', defaultValue: '7', step: '0.1' },
+      { key: 'years', label: 'Years', type: 'number', defaultValue: '10', min: '0', step: '1' },
+    ],
+    calculate: (values) => {
+      const pv = parseNumber(values.presentValue);
+      const r = parseNumber(values.annualRate) / 100;
+      const years = parseNumber(values.years);
+      const fv = pv * (1 + r) ** years;
+      return { results: [
+        { key: 'futureValue', label: 'Future Value', value: roundTo(fv), format: 'currency' },
+        { key: 'growth', label: 'Total Growth', value: roundTo(fv - pv), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'present-value-calculator',
+    title: 'Present Value Calculator',
+    description: 'Calculate present value needed to reach a future amount.',
+    category: 'savings',
+    icon: 'attach_money',
+    fields: [
+      { key: 'futureValue', label: 'Future Value ($)', type: 'number', defaultValue: '25000', min: '0', step: '0.01' },
+      { key: 'annualRate', label: 'Discount Rate (%)', type: 'number', defaultValue: '6', step: '0.1' },
+      { key: 'years', label: 'Years', type: 'number', defaultValue: '8', min: '0', step: '1' },
+    ],
+    calculate: (values) => {
+      const fv = parseNumber(values.futureValue);
+      const r = parseNumber(values.annualRate) / 100;
+      const years = parseNumber(values.years);
+      const pv = fv / ((1 + r) ** years || 1);
+      return { results: [
+        { key: 'presentValue', label: 'Present Value', value: roundTo(pv), format: 'currency' },
+        { key: 'discount', label: 'Discount Amount', value: roundTo(fv - pv), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'rule-of-72-calculator',
+    title: 'Rule of 72 Calculator',
+    description: 'Estimate years to double money using the Rule of 72.',
+    category: 'savings',
+    icon: 'speed',
+    fields: [
+      { key: 'rate', label: 'Annual Return (%)', type: 'number', defaultValue: '8', min: '0.1', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const rate = Math.max(0.1, parseNumber(values.rate, 8));
+      const years = 72 / rate;
+      return { results: [
+        { key: 'years', label: 'Years to Double (Rule of 72)', value: roundTo(years, 2), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'cd-calculator',
+    title: 'CD Calculator',
+    description: 'Estimate certificate of deposit maturity value and interest earned.',
+    category: 'savings',
+    icon: 'account_balance',
+    fields: [
+      { key: 'deposit', label: 'Initial Deposit ($)', type: 'number', defaultValue: '15000', min: '0', step: '0.01' },
+      { key: 'apy', label: 'APY (%)', type: 'number', defaultValue: '4.2', min: '0', step: '0.01' },
+      { key: 'months', label: 'Term (months)', type: 'number', defaultValue: '24', min: '1', step: '1' },
+    ],
+    calculate: (values) => {
+      const deposit = parseNumber(values.deposit);
+      const apy = parseNumber(values.apy) / 100;
+      const months = parseNumber(values.months, 12);
+      const maturity = deposit * (1 + apy / 12) ** months;
+      return { results: [
+        { key: 'maturity', label: 'Maturity Value', value: roundTo(maturity), format: 'currency' },
+        { key: 'interest', label: 'Interest Earned', value: roundTo(maturity - deposit), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'annuity-calculator',
+    title: 'Annuity Calculator',
+    description: 'Estimate future value of recurring contributions with compounding.',
+    category: 'savings',
+    icon: 'payments',
+    fields: [
+      { key: 'payment', label: 'Periodic Contribution ($)', type: 'number', defaultValue: '400', min: '0', step: '0.01' },
+      { key: 'annualRate', label: 'Annual Return (%)', type: 'number', defaultValue: '6.5', min: '0', step: '0.1' },
+      { key: 'years', label: 'Years', type: 'number', defaultValue: '20', min: '1', step: '1' },
+    ],
+    calculate: (values) => {
+      const payment = parseNumber(values.payment);
+      const annualRate = parseNumber(values.annualRate);
+      const years = parseNumber(values.years, 1);
+      const monthlyRate = annualRate / 100 / 12;
+      const periods = years * 12;
+      const fv = monthlyRate > 0 ? payment * (((1 + monthlyRate) ** periods - 1) / monthlyRate) : payment * periods;
+      return { results: [
+        { key: 'futureValue', label: 'Future Value', value: roundTo(fv), format: 'currency' },
+        { key: 'contributions', label: 'Total Contributions', value: roundTo(payment * periods), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'capital-gains-tax-calculator',
+    title: 'Capital Gains Tax Calculator',
+    description: 'Estimate capital gains tax and after-tax proceeds.',
+    category: 'savings',
+    icon: 'receipt_long',
+    fields: [
+      { key: 'salePrice', label: 'Sale Price ($)', type: 'number', defaultValue: '30000', min: '0', step: '0.01' },
+      { key: 'costBasis', label: 'Cost Basis ($)', type: 'number', defaultValue: '18000', min: '0', step: '0.01' },
+      { key: 'taxRate', label: 'Capital Gains Tax Rate (%)', type: 'number', defaultValue: '15', min: '0', max: '60', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const sale = parseNumber(values.salePrice);
+      const basis = parseNumber(values.costBasis);
+      const rate = clamp(parseNumber(values.taxRate), 0, 100);
+      const gain = Math.max(0, sale - basis);
+      const tax = gain * rate / 100;
+      return { results: [
+        { key: 'gain', label: 'Capital Gain', value: roundTo(gain), format: 'currency' },
+        { key: 'tax', label: 'Estimated Tax', value: roundTo(tax), format: 'currency' },
+        { key: 'afterTax', label: 'After-Tax Proceeds', value: roundTo(sale - tax), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'dividend-yield-calculator',
+    title: 'Dividend Yield Calculator',
+    description: 'Calculate dividend yield and annual dividend income.',
+    category: 'savings',
+    icon: 'show_chart',
+    fields: [
+      { key: 'annualDividend', label: 'Annual Dividend per Share ($)', type: 'number', defaultValue: '2.4', min: '0', step: '0.01' },
+      { key: 'sharePrice', label: 'Share Price ($)', type: 'number', defaultValue: '48', min: '0.01', step: '0.01' },
+      { key: 'shares', label: 'Shares Owned', type: 'number', defaultValue: '200', min: '0', step: '1' },
+    ],
+    calculate: (values) => {
+      const annualDividend = parseNumber(values.annualDividend);
+      const sharePrice = parseNumber(values.sharePrice, 1);
+      const shares = parseNumber(values.shares);
+      const yieldPct = sharePrice > 0 ? (annualDividend / sharePrice) * 100 : 0;
+      return { results: [
+        { key: 'yield', label: 'Dividend Yield', value: roundTo(yieldPct), format: 'percent' },
+        { key: 'annualIncome', label: 'Annual Dividend Income', value: roundTo(annualDividend * shares), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'stock-average-cost-calculator',
+    title: 'Stock Average Cost Calculator',
+    description: 'Compute average cost basis after multiple stock purchases.',
+    category: 'savings',
+    icon: 'query_stats',
+    fields: [
+      { key: 'shares1', label: 'Shares (Lot 1)', type: 'number', defaultValue: '100', min: '0', step: '1' },
+      { key: 'price1', label: 'Price (Lot 1) ($)', type: 'number', defaultValue: '45', min: '0', step: '0.01' },
+      { key: 'shares2', label: 'Shares (Lot 2)', type: 'number', defaultValue: '80', min: '0', step: '1' },
+      { key: 'price2', label: 'Price (Lot 2) ($)', type: 'number', defaultValue: '38', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const shares1 = parseNumber(values.shares1);
+      const price1 = parseNumber(values.price1);
+      const shares2 = parseNumber(values.shares2);
+      const price2 = parseNumber(values.price2);
+      const totalShares = shares1 + shares2;
+      const totalCost = shares1 * price1 + shares2 * price2;
+      const average = totalShares > 0 ? totalCost / totalShares : 0;
+      return { results: [
+        { key: 'totalShares', label: 'Total Shares', value: roundTo(totalShares), format: 'number' },
+        { key: 'totalCost', label: 'Total Cost Basis', value: roundTo(totalCost), format: 'currency' },
+        { key: 'average', label: 'Average Cost per Share', value: roundTo(average), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'stock-return-calculator',
+    title: 'Stock Return Calculator',
+    description: 'Calculate stock investment return including dividends.',
+    category: 'savings',
+    icon: 'trending_up',
+    fields: [
+      { key: 'buyPrice', label: 'Buy Price ($)', type: 'number', defaultValue: '40', min: '0', step: '0.01' },
+      { key: 'sellPrice', label: 'Sell Price ($)', type: 'number', defaultValue: '52', min: '0', step: '0.01' },
+      { key: 'shares', label: 'Shares', type: 'number', defaultValue: '150', min: '0', step: '1' },
+      { key: 'dividends', label: 'Total Dividends Received ($)', type: 'number', defaultValue: '300', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const buy = parseNumber(values.buyPrice);
+      const sell = parseNumber(values.sellPrice);
+      const shares = parseNumber(values.shares);
+      const dividends = parseNumber(values.dividends);
+      const cost = buy * shares;
+      const proceeds = sell * shares + dividends;
+      const gain = proceeds - cost;
+      const pct = cost > 0 ? gain / cost * 100 : 0;
+      return { results: [
+        { key: 'gain', label: 'Total Gain/Loss', value: roundTo(gain), format: 'currency' },
+        { key: 'returnPct', label: 'Total Return', value: roundTo(pct), format: 'percent' },
+      ] };
+    },
+  },
+  {
+    slug: 'portfolio-return-calculator',
+    title: 'Portfolio Return Calculator',
+    description: 'Estimate weighted portfolio return from asset allocations and returns.',
+    category: 'savings',
+    icon: 'donut_large',
+    fields: [
+      { key: 'weight1', label: 'Asset 1 Weight (%)', type: 'number', defaultValue: '50', min: '0', max: '100', step: '0.1' },
+      { key: 'return1', label: 'Asset 1 Return (%)', type: 'number', defaultValue: '8', step: '0.1' },
+      { key: 'weight2', label: 'Asset 2 Weight (%)', type: 'number', defaultValue: '30', min: '0', max: '100', step: '0.1' },
+      { key: 'return2', label: 'Asset 2 Return (%)', type: 'number', defaultValue: '4', step: '0.1' },
+      { key: 'weight3', label: 'Asset 3 Weight (%)', type: 'number', defaultValue: '20', min: '0', max: '100', step: '0.1' },
+      { key: 'return3', label: 'Asset 3 Return (%)', type: 'number', defaultValue: '12', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const w1 = parseNumber(values.weight1) / 100;
+      const r1 = parseNumber(values.return1);
+      const w2 = parseNumber(values.weight2) / 100;
+      const r2 = parseNumber(values.return2);
+      const w3 = parseNumber(values.weight3) / 100;
+      const r3 = parseNumber(values.return3);
+      const totalWeight = w1 + w2 + w3;
+      const weightedReturn = totalWeight > 0 ? (w1 * r1 + w2 * r2 + w3 * r3) / totalWeight : 0;
+      return { results: [
+        { key: 'return', label: 'Weighted Portfolio Return', value: roundTo(weightedReturn), format: 'percent' },
+        { key: 'weight', label: 'Total Weight', value: roundTo(totalWeight * 100), format: 'percent' },
+      ] };
+    },
+  },
+  {
+    slug: 'real-rate-of-return-calculator',
+    title: 'Real Rate of Return Calculator',
+    description: 'Calculate inflation-adjusted real return from nominal return.',
+    category: 'savings',
+    icon: 'price_change',
+    fields: [
+      { key: 'nominalRate', label: 'Nominal Return (%)', type: 'number', defaultValue: '8', step: '0.1' },
+      { key: 'inflationRate', label: 'Inflation Rate (%)', type: 'number', defaultValue: '3', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const nominal = parseNumber(values.nominalRate) / 100;
+      const inflation = parseNumber(values.inflationRate) / 100;
+      const real = ((1 + nominal) / (1 + inflation) - 1) * 100;
+      return { results: [
+        { key: 'real', label: 'Real Return', value: roundTo(real), format: 'percent' },
+      ] };
+    },
+  },
+  {
+    slug: 'debt-payoff-calculator',
+    title: 'Debt Payoff Calculator',
+    description: 'Estimate debt payoff timeline from balance, APR, and monthly payment.',
+    category: 'loans',
+    icon: 'credit_card',
+    fields: [
+      { key: 'balance', label: 'Debt Balance ($)', type: 'number', defaultValue: '12000', min: '0', step: '0.01' },
+      { key: 'apr', label: 'APR (%)', type: 'number', defaultValue: '18.9', min: '0', step: '0.01' },
+      { key: 'monthlyPayment', label: 'Monthly Payment ($)', type: 'number', defaultValue: '350', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const balance = parseNumber(values.balance);
+      const apr = parseNumber(values.apr);
+      const payment = parseNumber(values.monthlyPayment);
+      const monthlyRate = apr / 100 / 12;
+      let months = 0;
+      let current = balance;
+      let totalInterest = 0;
+      while (current > 0.01 && months < 1200 && payment > 0) {
+        const interest = current * monthlyRate;
+        const principal = Math.max(0, payment - interest);
+        if (principal <= 0) break;
+        current -= principal;
+        totalInterest += interest;
+        months += 1;
+      }
+      return { results: [
+        { key: 'months', label: 'Estimated Payoff Months', value: months, format: 'integer' },
+        { key: 'interest', label: 'Estimated Total Interest', value: roundTo(totalInterest), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'mortgage-interest-calculator',
+    title: 'Mortgage Interest Calculator',
+    description: 'Estimate total mortgage interest and total paid over the loan term.',
+    category: 'home',
+    icon: 'home',
+    fields: [
+      { key: 'loanAmount', label: 'Loan Amount ($)', type: 'number', defaultValue: '320000', min: '0', step: '0.01' },
+      { key: 'apr', label: 'APR (%)', type: 'number', defaultValue: '6.1', min: '0', step: '0.01' },
+      { key: 'years', label: 'Term (years)', type: 'number', defaultValue: '30', min: '1', step: '1' },
+    ],
+    calculate: (values) => {
+      const amount = parseNumber(values.loanAmount);
+      const apr = parseNumber(values.apr);
+      const years = parseNumber(values.years, 30);
+      const months = years * 12;
+      const payment = amortizedMonthlyPayment(amount, apr, months);
+      const totalPaid = payment * months;
+      return { results: [
+        { key: 'payment', label: 'Monthly Payment', value: roundTo(payment), format: 'currency' },
+        { key: 'interest', label: 'Total Interest', value: roundTo(totalPaid - amount), format: 'currency' },
+        { key: 'total', label: 'Total Paid', value: roundTo(totalPaid), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'loan-interest-calculator',
+    title: 'Loan Interest Calculator',
+    description: 'Estimate loan interest paid over the selected loan term.',
+    category: 'loans',
+    icon: 'request_quote',
+    fields: [
+      { key: 'principal', label: 'Principal ($)', type: 'number', defaultValue: '25000', min: '0', step: '0.01' },
+      { key: 'apr', label: 'APR (%)', type: 'number', defaultValue: '8.5', min: '0', step: '0.01' },
+      { key: 'months', label: 'Term (months)', type: 'number', defaultValue: '60', min: '1', step: '1' },
+    ],
+    calculate: (values) => {
+      const principal = parseNumber(values.principal);
+      const apr = parseNumber(values.apr);
+      const months = parseNumber(values.months, 60);
+      const payment = amortizedMonthlyPayment(principal, apr, months);
+      const total = payment * months;
+      return { results: [
+        { key: 'interest', label: 'Total Interest', value: roundTo(total - principal), format: 'currency' },
+        { key: 'payment', label: 'Monthly Payment', value: roundTo(payment), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'car-affordability-calculator',
+    title: 'Car Affordability Calculator',
+    description: 'Estimate affordable car price from budget, down payment, and financing terms.',
+    category: 'loans',
+    icon: 'directions_car',
+    fields: [
+      { key: 'monthlyBudget', label: 'Monthly Car Budget ($)', type: 'number', defaultValue: '550', min: '0', step: '0.01' },
+      { key: 'apr', label: 'APR (%)', type: 'number', defaultValue: '7.2', min: '0', step: '0.01' },
+      { key: 'termMonths', label: 'Loan Term (months)', type: 'number', defaultValue: '60', min: '1', step: '1' },
+      { key: 'downPayment', label: 'Down Payment ($)', type: 'number', defaultValue: '5000', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const budget = parseNumber(values.monthlyBudget);
+      const apr = parseNumber(values.apr);
+      const months = parseNumber(values.termMonths, 60);
+      const down = parseNumber(values.downPayment);
+      const monthlyRate = apr / 100 / 12;
+      const loan = monthlyRate > 0 ? budget * ((1 - (1 + monthlyRate) ** -months) / monthlyRate) : budget * months;
+      return { results: [
+        { key: 'loan', label: 'Estimated Loan Amount', value: roundTo(loan), format: 'currency' },
+        { key: 'price', label: 'Estimated Car Price', value: roundTo(loan + down), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'home-affordability-calculator',
+    title: 'Home Affordability Calculator',
+    description: 'Estimate affordable home purchase price from monthly payment budget.',
+    category: 'home',
+    icon: 'house',
+    fields: [
+      { key: 'monthlyBudget', label: 'Monthly Housing Budget ($)', type: 'number', defaultValue: '2800', min: '0', step: '0.01' },
+      { key: 'apr', label: 'APR (%)', type: 'number', defaultValue: '6.4', min: '0', step: '0.01' },
+      { key: 'years', label: 'Term (years)', type: 'number', defaultValue: '30', min: '1', step: '1' },
+      { key: 'downPayment', label: 'Down Payment ($)', type: 'number', defaultValue: '70000', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const budget = parseNumber(values.monthlyBudget);
+      const apr = parseNumber(values.apr);
+      const years = parseNumber(values.years, 30);
+      const down = parseNumber(values.downPayment);
+      const months = years * 12;
+      const monthlyRate = apr / 100 / 12;
+      const loan = monthlyRate > 0 ? budget * ((1 - (1 + monthlyRate) ** -months) / monthlyRate) : budget * months;
+      return { results: [
+        { key: 'loan', label: 'Estimated Mortgage Amount', value: roundTo(loan), format: 'currency' },
+        { key: 'price', label: 'Estimated Home Price', value: roundTo(loan + down), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'rent-affordability-calculator',
+    title: 'Rent Affordability Calculator',
+    description: 'Estimate affordable monthly rent using income and target rent ratio.',
+    category: 'home',
+    icon: 'apartment',
+    fields: [
+      { key: 'annualIncome', label: 'Annual Income ($)', type: 'number', defaultValue: '96000', min: '0', step: '0.01' },
+      { key: 'rentRatio', label: 'Target Rent Ratio (%)', type: 'number', defaultValue: '30', min: '10', max: '60', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const income = parseNumber(values.annualIncome);
+      const ratio = clamp(parseNumber(values.rentRatio), 0, 100);
+      const monthlyIncome = income / 12;
+      const affordableRent = monthlyIncome * ratio / 100;
+      return { results: [
+        { key: 'monthlyIncome', label: 'Monthly Income', value: roundTo(monthlyIncome), format: 'currency' },
+        { key: 'affordableRent', label: 'Affordable Monthly Rent', value: roundTo(affordableRent), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'budget-percentage-calculator',
+    title: 'Budget Percentage Calculator',
+    description: 'Compare budget categories against income as percentages.',
+    category: 'income',
+    icon: 'pie_chart',
+    fields: [
+      { key: 'monthlyIncome', label: 'Monthly Income ($)', type: 'number', defaultValue: '6000', min: '0', step: '0.01' },
+      { key: 'housing', label: 'Housing Expense ($)', type: 'number', defaultValue: '1800', min: '0', step: '0.01' },
+      { key: 'transportation', label: 'Transportation Expense ($)', type: 'number', defaultValue: '650', min: '0', step: '0.01' },
+      { key: 'other', label: 'Other Expenses ($)', type: 'number', defaultValue: '2100', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const income = parseNumber(values.monthlyIncome);
+      const housing = parseNumber(values.housing);
+      const transportation = parseNumber(values.transportation);
+      const other = parseNumber(values.other);
+      const total = housing + transportation + other;
+      return { results: [
+        { key: 'housingPct', label: 'Housing %', value: income > 0 ? roundTo((housing / income) * 100) : 0, format: 'percent' },
+        { key: 'transportPct', label: 'Transportation %', value: income > 0 ? roundTo((transportation / income) * 100) : 0, format: 'percent' },
+        { key: 'totalPct', label: 'Total Expenses %', value: income > 0 ? roundTo((total / income) * 100) : 0, format: 'percent' },
+      ] };
+    },
+  },
+  {
+    slug: 'expense-ratio-calculator',
+    title: 'Expense Ratio Calculator',
+    description: 'Estimate annual fund expense cost from invested balance and expense ratio.',
+    category: 'savings',
+    icon: 'percent',
+    fields: [
+      { key: 'balance', label: 'Investment Balance ($)', type: 'number', defaultValue: '85000', min: '0', step: '0.01' },
+      { key: 'expenseRatio', label: 'Expense Ratio (%)', type: 'number', defaultValue: '0.45', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const balance = parseNumber(values.balance);
+      const ratio = parseNumber(values.expenseRatio);
+      const annualCost = balance * ratio / 100;
+      return { results: [
+        { key: 'annualCost', label: 'Estimated Annual Cost', value: roundTo(annualCost), format: 'currency' },
+        { key: 'monthlyCost', label: 'Estimated Monthly Cost', value: roundTo(annualCost / 12), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'compound-annual-growth-rate-calculator',
+    title: 'Compound Annual Growth Rate Calculator',
+    description: 'Calculate CAGR between beginning and ending values over time.',
+    category: 'savings',
+    icon: 'timeline',
+    fields: [
+      { key: 'startValue', label: 'Start Value', type: 'number', defaultValue: '12000', min: '0.01', step: '0.01' },
+      { key: 'endValue', label: 'End Value', type: 'number', defaultValue: '22000', min: '0.01', step: '0.01' },
+      { key: 'years', label: 'Years', type: 'number', defaultValue: '5', min: '0.01', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const start = parseNumber(values.startValue, 1);
+      const end = parseNumber(values.endValue, 1);
+      const years = parseNumber(values.years, 1);
+      const cagr = (end > 0 && start > 0 && years > 0) ? ((end / start) ** (1 / years) - 1) * 100 : 0;
+      return { results: [
+        { key: 'cagr', label: 'CAGR', value: roundTo(cagr), format: 'percent' },
+      ] };
+    },
+  },
+  {
+    slug: 'profit-calculator',
+    title: 'Profit Calculator',
+    description: 'Calculate total profit from revenue and costs.',
+    category: 'income',
+    icon: 'bar_chart',
+    fields: [
+      { key: 'revenue', label: 'Revenue ($)', type: 'number', defaultValue: '18000', min: '0', step: '0.01' },
+      { key: 'costs', label: 'Total Costs ($)', type: 'number', defaultValue: '11250', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const revenue = parseNumber(values.revenue);
+      const costs = parseNumber(values.costs);
+      const profit = revenue - costs;
+      const margin = revenue > 0 ? profit / revenue * 100 : 0;
+      return { results: [
+        { key: 'profit', label: 'Profit', value: roundTo(profit), format: 'currency' },
+        { key: 'margin', label: 'Profit Margin', value: roundTo(margin), format: 'percent' },
+      ] };
+    },
+  },
+  {
+    slug: 'unit-price-calculator',
+    title: 'Unit Price Calculator',
+    description: 'Calculate price per unit from total price and quantity.',
+    category: 'percentages',
+    icon: 'price_check',
+    fields: [
+      { key: 'totalPrice', label: 'Total Price ($)', type: 'number', defaultValue: '24.99', min: '0', step: '0.01' },
+      { key: 'quantity', label: 'Quantity', type: 'number', defaultValue: '18', min: '0.0001', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const total = parseNumber(values.totalPrice);
+      const qty = parseNumber(values.quantity, 1);
+      return { results: [
+        { key: 'unitPrice', label: 'Unit Price', value: roundTo(total / qty, 4), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'markup-percentage-calculator',
+    title: 'Markup Percentage Calculator',
+    description: 'Calculate markup percentage from cost and selling price.',
+    category: 'percentages',
+    icon: 'sell',
+    fields: [
+      { key: 'cost', label: 'Cost ($)', type: 'number', defaultValue: '80', min: '0', step: '0.01' },
+      { key: 'price', label: 'Selling Price ($)', type: 'number', defaultValue: '120', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const cost = parseNumber(values.cost);
+      const price = parseNumber(values.price);
+      const markup = cost > 0 ? ((price - cost) / cost) * 100 : 0;
+      return { results: [
+        { key: 'markup', label: 'Markup Percentage', value: roundTo(markup), format: 'percent' },
+        { key: 'profit', label: 'Profit', value: roundTo(price - cost), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'sales-commission-calculator',
+    title: 'Sales Commission Calculator',
+    description: 'Estimate commission earnings from sales volume and commission rate.',
+    category: 'income',
+    icon: 'paid',
+    fields: [
+      { key: 'salesVolume', label: 'Sales Volume ($)', type: 'number', defaultValue: '50000', min: '0', step: '0.01' },
+      { key: 'commissionRate', label: 'Commission Rate (%)', type: 'number', defaultValue: '5', min: '0', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const volume = parseNumber(values.salesVolume);
+      const rate = parseNumber(values.commissionRate);
+      return { results: [
+        { key: 'commission', label: 'Commission', value: roundTo(volume * rate / 100), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'business-loan-calculator',
+    title: 'Business Loan Calculator',
+    description: 'Estimate monthly payment and total loan cost for business financing.',
+    category: 'loans',
+    icon: 'storefront',
+    fields: [
+      { key: 'loanAmount', label: 'Loan Amount ($)', type: 'number', defaultValue: '85000', min: '0', step: '0.01' },
+      { key: 'apr', label: 'APR (%)', type: 'number', defaultValue: '9.5', min: '0', step: '0.01' },
+      { key: 'months', label: 'Term (months)', type: 'number', defaultValue: '84', min: '1', step: '1' },
+    ],
+    calculate: (values) => {
+      const amount = parseNumber(values.loanAmount);
+      const apr = parseNumber(values.apr);
+      const months = parseNumber(values.months, 60);
+      const payment = amortizedMonthlyPayment(amount, apr, months);
+      return { results: [
+        { key: 'payment', label: 'Monthly Payment', value: roundTo(payment), format: 'currency' },
+        { key: 'interest', label: 'Total Interest', value: roundTo(payment * months - amount), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'small-business-profit-calculator',
+    title: 'Small Business Profit Calculator',
+    description: 'Estimate net operating profit from revenue and operating expenses.',
+    category: 'income',
+    icon: 'store',
+    fields: [
+      { key: 'monthlyRevenue', label: 'Monthly Revenue ($)', type: 'number', defaultValue: '32000', min: '0', step: '0.01' },
+      { key: 'monthlyExpenses', label: 'Monthly Expenses ($)', type: 'number', defaultValue: '24600', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const revenue = parseNumber(values.monthlyRevenue);
+      const expenses = parseNumber(values.monthlyExpenses);
+      const profit = revenue - expenses;
+      return { results: [
+        { key: 'monthlyProfit', label: 'Monthly Profit', value: roundTo(profit), format: 'currency' },
+        { key: 'annualProfit', label: 'Annual Profit', value: roundTo(profit * 12), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'workdays-between-dates-calculator',
+    title: 'Workdays Between Dates Calculator',
+    description: 'Count weekdays between two dates (Monday through Friday).',
+    category: 'time',
+    icon: 'calendar_today',
+    fields: [
+      { key: 'startDate', label: 'Start Date', type: 'date', defaultValue: '2026-01-01' },
+      { key: 'endDate', label: 'End Date', type: 'date', defaultValue: '2026-03-31' },
+    ],
+    calculate: (values) => {
+      const start = new Date(values.startDate);
+      const end = new Date(values.endDate);
+      let count = 0;
+      const cursor = new Date(start);
+      while (cursor <= end) {
+        const day = cursor.getDay();
+        if (day !== 0 && day !== 6) count += 1;
+        cursor.setDate(cursor.getDate() + 1);
+      }
+      return { results: [
+        { key: 'workdays', label: 'Workdays Between Dates', value: Math.max(0, count), format: 'integer' },
+      ] };
+    },
+  },
+  {
+    slug: 'time-card-calculator',
+    title: 'Time Card Calculator',
+    description: 'Calculate total worked time from clock-in and clock-out values.',
+    category: 'time',
+    icon: 'schedule',
+    fields: [
+      { key: 'clockIn', label: 'Clock In', type: 'time', defaultValue: '09:00' },
+      { key: 'clockOut', label: 'Clock Out', type: 'time', defaultValue: '17:30' },
+      { key: 'breakMinutes', label: 'Break Minutes', type: 'number', defaultValue: '30', min: '0', step: '1' },
+    ],
+    calculate: (values) => {
+      const inMin = parseTimeToMinutes(values.clockIn);
+      const outMin = parseTimeToMinutes(values.clockOut);
+      const breakMinutes = parseNumber(values.breakMinutes);
+      const raw = outMin >= inMin ? outMin - inMin : outMin + 24 * 60 - inMin;
+      const worked = Math.max(0, raw - breakMinutes);
+      return { results: [
+        { key: 'worked', label: 'Hours Worked', value: formatDurationMinutes(worked), format: 'duration' },
+        { key: 'decimal', label: 'Hours Worked (decimal)', value: roundTo(worked / 60, 2), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'hours-worked-calculator',
+    title: 'Hours Worked Calculator',
+    description: 'Calculate total hours worked based on start/end times and break length.',
+    category: 'time',
+    icon: 'hourglass_top',
+    fields: [
+      { key: 'start', label: 'Start Time', type: 'time', defaultValue: '08:30' },
+      { key: 'end', label: 'End Time', type: 'time', defaultValue: '17:00' },
+      { key: 'breakMinutes', label: 'Break Minutes', type: 'number', defaultValue: '45', min: '0', step: '1' },
+    ],
+    calculate: (values) => {
+      const start = parseTimeToMinutes(values.start);
+      const end = parseTimeToMinutes(values.end);
+      const breakMinutes = parseNumber(values.breakMinutes);
+      const raw = end >= start ? end - start : end + 24 * 60 - start;
+      const worked = Math.max(0, raw - breakMinutes);
+      return { results: [
+        { key: 'workedDuration', label: 'Worked Time', value: formatDurationMinutes(worked), format: 'duration' },
+        { key: 'workedHours', label: 'Worked Hours (decimal)', value: roundTo(worked / 60, 2), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'sleep-calculator',
+    title: 'Sleep Calculator',
+    description: 'Estimate wake-up or bedtime using common 90-minute sleep cycles.',
+    category: 'health',
+    icon: 'bedtime',
+    fields: [
+      { key: 'bedtime', label: 'Bedtime', type: 'time', defaultValue: '22:30' },
+      { key: 'cycles', label: 'Sleep Cycles', type: 'number', defaultValue: '6', min: '1', max: '8', step: '1' },
+      { key: 'fallAsleepMinutes', label: 'Minutes to Fall Asleep', type: 'number', defaultValue: '15', min: '0', step: '1' },
+    ],
+    calculate: (values) => {
+      const bedtime = parseTimeToMinutes(values.bedtime);
+      const cycles = parseNumber(values.cycles, 6);
+      const latency = parseNumber(values.fallAsleepMinutes, 15);
+      const wakeMinutes = bedtime + latency + cycles * 90;
+      const normalized = ((wakeMinutes % (24 * 60)) + 24 * 60) % (24 * 60);
+      const wakeTime = `${String(Math.floor(normalized / 60)).padStart(2, '0')}:${String(normalized % 60).padStart(2, '0')}`;
+      return { results: [
+        { key: 'sleepDuration', label: 'Planned Sleep Duration', value: formatDurationMinutes(cycles * 90), format: 'duration' },
+        { key: 'wakeTime', label: 'Estimated Wake Time', value: wakeTime, format: 'text' },
+      ] };
+    },
+  },
+  {
+    slug: 'bmr-calculator',
+    title: 'BMR Calculator',
+    description: 'Estimate basal metabolic rate using Mifflin-St Jeor equation.',
+    category: 'health',
+    icon: 'local_fire_department',
+    fields: [
+      { key: 'sex', label: 'Sex', type: 'select', defaultValue: 'male', options: [{ value: 'male', label: 'Male' }, { value: 'female', label: 'Female' }] },
+      { key: 'age', label: 'Age', type: 'number', defaultValue: '34', min: '1', step: '1' },
+      { key: 'weightKg', label: 'Weight (kg)', type: 'number', defaultValue: '76', min: '1', step: '0.1' },
+      { key: 'heightCm', label: 'Height (cm)', type: 'number', defaultValue: '175', min: '1', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const sexAdj = values.sex === 'male' ? 5 : -161;
+      const age = parseNumber(values.age);
+      const weight = parseNumber(values.weightKg);
+      const height = parseNumber(values.heightCm);
+      const bmr = 10 * weight + 6.25 * height - 5 * age + sexAdj;
+      return { results: [
+        { key: 'bmr', label: 'Estimated BMR (kcal/day)', value: roundTo(bmr), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'heart-rate-zone-calculator',
+    title: 'Heart Rate Zone Calculator',
+    description: 'Estimate training heart-rate zones using max heart rate.',
+    category: 'health',
+    icon: 'favorite',
+    fields: [
+      { key: 'age', label: 'Age', type: 'number', defaultValue: '35', min: '1', step: '1' },
+      { key: 'restingHr', label: 'Resting HR (optional)', type: 'number', defaultValue: '60', min: '30', step: '1' },
+    ],
+    calculate: (values) => {
+      const age = parseNumber(values.age);
+      const maxHr = 220 - age;
+      const resting = parseNumber(values.restingHr);
+      const reserve = maxHr - resting;
+      return { results: [
+        { key: 'maxHr', label: 'Estimated Max HR', value: roundTo(maxHr), format: 'number' },
+        { key: 'zone2', label: 'Zone 2 (60–70%)', value: `${Math.round(resting + reserve * 0.6)}-${Math.round(resting + reserve * 0.7)} bpm`, format: 'text' },
+        { key: 'zone4', label: 'Zone 4 (80–90%)', value: `${Math.round(resting + reserve * 0.8)}-${Math.round(resting + reserve * 0.9)} bpm`, format: 'text' },
+      ] };
+    },
+  },
+  {
+    slug: 'steps-to-miles-calculator',
+    title: 'Steps to Miles Calculator',
+    description: 'Convert step count to approximate miles and kilometers.',
+    category: 'health',
+    icon: 'directions_walk',
+    fields: [
+      { key: 'steps', label: 'Steps', type: 'number', defaultValue: '10000', min: '0', step: '1' },
+      { key: 'stepsPerMile', label: 'Steps per Mile', type: 'number', defaultValue: '2000', min: '1', step: '1' },
+    ],
+    calculate: (values) => {
+      const steps = parseNumber(values.steps);
+      const stepsPerMile = parseNumber(values.stepsPerMile, 2000);
+      const miles = stepsPerMile > 0 ? steps / stepsPerMile : 0;
+      return { results: [
+        { key: 'miles', label: 'Distance (miles)', value: roundTo(miles, 2), format: 'number' },
+        { key: 'km', label: 'Distance (km)', value: roundTo(miles * 1.60934, 2), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'pace-converter',
+    title: 'Pace Converter',
+    description: 'Convert running pace between minutes per mile and minutes per kilometer.',
+    category: 'converters',
+    icon: 'directions_run',
+    fields: [
+      { key: 'minutesPerMile', label: 'Minutes per Mile', type: 'number', defaultValue: '8.5', min: '0.01', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const minMile = parseNumber(values.minutesPerMile, 8);
+      const minKm = minMile / 1.60934;
+      return { results: [
+        { key: 'mile', label: 'Pace per Mile', value: formatDurationMinutes(minMile), format: 'duration' },
+        { key: 'km', label: 'Pace per Kilometer', value: formatDurationMinutes(minKm), format: 'duration' },
+      ] };
+    },
+  },
+  {
+    slug: 'running-calories-burned-calculator',
+    title: 'Running Calories Burned Calculator',
+    description: 'Estimate calories burned while running from weight and duration.',
+    category: 'health',
+    icon: 'directions_run',
+    fields: [
+      { key: 'weightKg', label: 'Weight (kg)', type: 'number', defaultValue: '72', min: '1', step: '0.1' },
+      { key: 'minutes', label: 'Running Duration (minutes)', type: 'number', defaultValue: '45', min: '1', step: '1' },
+      { key: 'met', label: 'MET Value', type: 'number', defaultValue: '9.8', min: '1', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const w = parseNumber(values.weightKg);
+      const m = parseNumber(values.minutes);
+      const met = parseNumber(values.met, 9.8);
+      const calories = met * w * (m / 60);
+      return { results: [
+        { key: 'calories', label: 'Estimated Calories Burned', value: roundTo(calories), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'fuel-cost-calculator',
+    title: 'Fuel Cost Calculator',
+    description: 'Estimate trip fuel cost from distance, MPG, and fuel price.',
+    category: 'converters',
+    icon: 'local_gas_station',
+    fields: [
+      { key: 'distanceMiles', label: 'Trip Distance (miles)', type: 'number', defaultValue: '350', min: '0', step: '0.1' },
+      { key: 'mpg', label: 'Vehicle MPG', type: 'number', defaultValue: '28', min: '0.1', step: '0.1' },
+      { key: 'fuelPrice', label: 'Fuel Price ($/gallon)', type: 'number', defaultValue: '3.65', min: '0', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const dist = parseNumber(values.distanceMiles);
+      const mpg = parseNumber(values.mpg, 1);
+      const price = parseNumber(values.fuelPrice);
+      const gallons = mpg > 0 ? dist / mpg : 0;
+      return { results: [
+        { key: 'gallons', label: 'Estimated Gallons Used', value: roundTo(gallons, 2), format: 'number' },
+        { key: 'cost', label: 'Estimated Fuel Cost', value: roundTo(gallons * price), format: 'currency' },
+      ] };
+    },
+  },
+  {
+    slug: 'gas-mileage-calculator',
+    title: 'Gas Mileage Calculator',
+    description: 'Calculate gas mileage from distance traveled and fuel used.',
+    category: 'converters',
+    icon: 'speed',
+    fields: [
+      { key: 'distanceMiles', label: 'Distance (miles)', type: 'number', defaultValue: '420', min: '0', step: '0.1' },
+      { key: 'gallons', label: 'Fuel Used (gallons)', type: 'number', defaultValue: '14.5', min: '0.0001', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const miles = parseNumber(values.distanceMiles);
+      const gallons = parseNumber(values.gallons, 1);
+      const mpg = gallons > 0 ? miles / gallons : 0;
+      return { results: [
+        { key: 'mpg', label: 'Miles per Gallon', value: roundTo(mpg, 2), format: 'number' },
+        { key: 'lPer100km', label: 'L/100 km', value: mpg > 0 ? roundTo(235.214583 / mpg, 2) : 0, format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'cooking-time-converter',
+    title: 'Cooking Time Converter',
+    description: 'Convert cooking times between minutes and hours.',
+    category: 'converters',
+    icon: 'restaurant',
+    fields: [
+      { key: 'minutes', label: 'Minutes', type: 'number', defaultValue: '95', min: '0', step: '1' },
+    ],
+    calculate: (values) => {
+      const minutes = parseNumber(values.minutes);
+      return { results: [
+        { key: 'hours', label: 'Hours', value: roundTo(minutes / 60, 2), format: 'number' },
+        { key: 'duration', label: 'Hours and Minutes', value: formatDurationMinutes(minutes), format: 'duration' },
+      ] };
+    },
+  },
+  {
+    slug: 'temperature-feels-like-calculator',
+    title: 'Temperature Feels Like Calculator',
+    description: 'Estimate apparent temperature using heat index style approximation.',
+    category: 'converters',
+    icon: 'thermostat',
+    fields: [
+      { key: 'temperatureF', label: 'Air Temperature (°F)', type: 'number', defaultValue: '92', step: '0.1' },
+      { key: 'humidity', label: 'Relative Humidity (%)', type: 'number', defaultValue: '55', min: '0', max: '100', step: '0.1' },
+    ],
+    calculate: (values) => {
+      const t = parseNumber(values.temperatureF);
+      const rh = clamp(parseNumber(values.humidity), 0, 100);
+      const feelsLike = -42.379 + 2.04901523 * t + 10.14333127 * rh - 0.22475541 * t * rh
+        - 0.00683783 * t * t - 0.05481717 * rh * rh + 0.00122874 * t * t * rh
+        + 0.00085282 * t * rh * rh - 0.00000199 * t * t * rh * rh;
+      return { results: [
+        { key: 'feelsLikeF', label: 'Feels Like (°F)', value: roundTo(feelsLike), format: 'number' },
+        { key: 'feelsLikeC', label: 'Feels Like (°C)', value: roundTo((feelsLike - 32) * 5 / 9), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'voltage-converter',
+    title: 'Voltage Converter',
+    description: 'Convert voltage between volts, millivolts, and kilovolts.',
+    category: 'converters',
+    icon: 'bolt',
+    fields: [
+      { key: 'volts', label: 'Volts (V)', type: 'number', defaultValue: '120', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const volts = parseNumber(values.volts);
+      return { results: [
+        { key: 'millivolts', label: 'Millivolts (mV)', value: roundTo(volts * 1000), format: 'number' },
+        { key: 'kilovolts', label: 'Kilovolts (kV)', value: roundTo(volts / 1000, 6), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'density-calculator',
+    title: 'Density Calculator',
+    description: 'Calculate density from mass and volume.',
+    category: 'converters',
+    icon: 'science',
+    fields: [
+      { key: 'massKg', label: 'Mass (kg)', type: 'number', defaultValue: '12', min: '0', step: '0.01' },
+      { key: 'volumeM3', label: 'Volume (m³)', type: 'number', defaultValue: '0.008', min: '0.000001', step: '0.000001' },
+    ],
+    calculate: (values) => {
+      const mass = parseNumber(values.massKg);
+      const volume = parseNumber(values.volumeM3, 1);
+      const density = volume > 0 ? mass / volume : 0;
+      return { results: [
+        { key: 'density', label: 'Density (kg/m³)', value: roundTo(density, 3), format: 'number' },
+      ] };
+    },
+  },
+  {
+    slug: 'pressure-converter',
+    title: 'Pressure Converter',
+    description: 'Convert pressure between psi, bar, and kPa.',
+    category: 'converters',
+    icon: 'compress',
+    fields: [
+      { key: 'psi', label: 'Pressure (psi)', type: 'number', defaultValue: '32', step: '0.01' },
+    ],
+    calculate: (values) => {
+      const psi = parseNumber(values.psi);
+      return { results: [
+        { key: 'bar', label: 'Bar', value: roundTo(psi * 0.0689476, 4), format: 'number' },
+        { key: 'kpa', label: 'kPa', value: roundTo(psi * 6.89476, 3), format: 'number' },
+      ] };
+    },
+  },
+];
+
 const withContentAndRelated = (config: Omit<GeneratedCalculatorConfig, 'relatedTools' | 'howItWorks' | 'tip' | 'fact' | 'note' | 'faqs'>): GeneratedCalculatorConfig => {
   const defaultContent = makeStandardContent(config.title);
   const related = CATEGORY_RELATED[config.category];
@@ -2791,7 +3919,7 @@ const withContentAndRelated = (config: Omit<GeneratedCalculatorConfig, 'relatedT
   };
 };
 
-export const generatedCalculators: GeneratedCalculatorConfig[] = baseGeneratedCalculators.map(withContentAndRelated);
+export const generatedCalculators: GeneratedCalculatorConfig[] = [...baseGeneratedCalculators, ...additionalGeneratedCalculators].map(withContentAndRelated);
 
 export const generatedCalculatorBySlug: Record<string, GeneratedCalculatorConfig> = generatedCalculators.reduce<Record<string, GeneratedCalculatorConfig>>((acc, calculator) => {
   acc[calculator.slug] = calculator;
