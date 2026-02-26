@@ -1,4 +1,6 @@
 ---
+import { generatedCalculators } from '../react-pages/Generated/generatedCalculatorData';
+
 interface NavItem {
   path: string;
   label: string;
@@ -12,7 +14,27 @@ interface NavCategory {
 
 const currentPath = Astro.url.pathname;
 
-const navCategories: NavCategory[] = [
+const normalizeLabel = (title: string): string => title.replace(/\s+Calculator$/i, '').trim();
+
+const makeGeneratedItems = (categories: string[]): NavItem[] => {
+  return generatedCalculators
+    .filter((calculator) => categories.includes(calculator.category))
+    .map((calculator) => ({
+      path: `/${calculator.slug}`,
+      label: normalizeLabel(calculator.title),
+    }));
+};
+
+const uniqueItems = (items: NavItem[]): NavItem[] => {
+  return items.filter((item, index, arr) => arr.findIndex((other) => other.path === item.path) === index);
+};
+
+const generatedLoansItems = makeGeneratedItems(['loans', 'home']);
+const generatedBudgetingItems = makeGeneratedItems(['income']);
+const generatedHealthItems = makeGeneratedItems(['health', 'outdoors']);
+const generatedConvertersItems = makeGeneratedItems(['percentages', 'time']);
+
+const navCategoriesBase: NavCategory[] = [
   {
     label: 'Loans & Real Estate',
     path: '/loans',
@@ -145,6 +167,38 @@ const navCategories: NavCategory[] = [
     ],
   },
 ];
+
+const navCategories: NavCategory[] = navCategoriesBase.map((category) => {
+  if (category.path === '/loans') {
+    return {
+      ...category,
+      items: uniqueItems([...category.items, ...generatedLoansItems]),
+    };
+  }
+
+  if (category.path === '/budgeting') {
+    return {
+      ...category,
+      items: uniqueItems([...category.items, ...generatedBudgetingItems]),
+    };
+  }
+
+  if (category.path === '/health') {
+    return {
+      ...category,
+      items: uniqueItems([...category.items, ...generatedHealthItems]),
+    };
+  }
+
+  if (category.path === '/converters') {
+    return {
+      ...category,
+      items: uniqueItems([...category.items, ...generatedConvertersItems]),
+    };
+  }
+
+  return category;
+});
 
 const isActive = (path: string) => currentPath === path;
 const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(item.path));
