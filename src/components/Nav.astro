@@ -212,8 +212,7 @@ const isActive = (path: string) => currentPath === path;
 const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(item.path));
 
 const getDesktopDropdownColumns = (itemCount: number): number => {
-  if (itemCount <= 10) return 1;
-  return Math.max(1, Math.ceil(itemCount / 40));
+  return 3;
 };
 
 const getDesktopDropdownStyle = (itemCount: number): string => {
