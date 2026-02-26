@@ -210,6 +210,18 @@ const navCategories: NavCategory[] = navCategoriesBase.map((category) => {
 
 const isActive = (path: string) => currentPath === path;
 const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(item.path));
+
+const getDesktopDropdownColumns = (itemCount: number): number => {
+  if (itemCount <= 10) return 1;
+  return Math.max(1, Math.ceil(itemCount / 40));
+};
+
+const getDesktopDropdownStyle = (itemCount: number): string => {
+  const columns = getDesktopDropdownColumns(itemCount);
+  const columnWidth = 220;
+  const width = columns * columnWidth;
+  return `column-count: ${columns}; column-gap: 0.5rem; width: min(${width}px, calc(100vw - 2rem)); max-height: min(80vh, 700px);`;
+};
 ---
 
 <nav class="bg-white border-b border-slate-200 shadow-sm">
@@ -307,7 +319,10 @@ const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(ite
               <span class="material-symbols-outlined text-lg">expand_more</span>
             </a>
             {category.items.length > 10 ? (
-              <div class={`absolute ${index >= navCategories.length - 2 ? 'right-0' : 'left-0'} top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 p-2 w-96 columns-2 gap-2`}>
+              <div
+                class={`absolute ${index >= navCategories.length - 2 ? 'right-0' : 'left-0'} top-full hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg z-10 p-2 overflow-y-auto`}
+                style={getDesktopDropdownStyle(category.items.length)}
+              >
                 {category.items.map((item) => (
                   <a
                     href={item.path}
