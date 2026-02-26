@@ -15,13 +15,13 @@ export default function Select({
 }: SelectProps) {
   return (
     <div className="mb-4">
-      <label className="block text-sm font-medium text-slate-700 mb-1">
+      <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
         {label}
       </label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-10 px-3 py-2.5 border border-slate-300 rounded-md text-base font-medium bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer"
+        className="w-full h-10 px-3 py-2.5 border border-slate-300 dark:border-slate-700 rounded-md text-base font-medium bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer"
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -29,7 +29,7 @@ export default function Select({
           </option>
         ))}
       </select>
-      {helpText && <p className="text-xs text-slate-500 mt-1">{helpText}</p>}
+      {helpText && <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{helpText}</p>}
     </div>
   );
 }
