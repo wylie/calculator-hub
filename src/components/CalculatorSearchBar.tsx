@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 export default function CalculatorSearchBar() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -21,10 +20,10 @@ export default function CalculatorSearchBar() {
     }
   };
 
-  const handleSelect = (slug) => {
-    setQuery('');
-    setResults([]);
-    navigate(`/${slug}`);
+    const handleSelect = (slug: string) => {
+      setQuery('');
+      setResults([]);
+      window.location.href = `/${slug}`;
   };
 
   return (
