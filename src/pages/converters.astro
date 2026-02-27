@@ -7,5 +7,16 @@ import ConvertersPage from '../react-pages/Categories/ConvertersPage';
   title="Converters & Tools"
   description="Quick and accurate unit converters for temperature, weight, length, speed, volume, time, percentages, and more."
 >
+
   <ConvertersPage client:load />
+  <RelatedTools
+    tools={[
+      { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
+      { path: '/height-converter', title: 'Height Converter', icon: 'height' },
+      { path: '/length', title: 'Length Converter', icon: 'straighten' },
+      { path: '/speed', title: 'Speed Converter', icon: 'speed' },
+      { path: '/area', title: 'Area Converter', icon: 'crop_square' },
+      { path: '/file-size', title: 'File Size Converter', icon: 'storage' },
+    ]}
+  />
 </MainLayout>

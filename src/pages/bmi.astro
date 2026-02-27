@@ -39,5 +39,15 @@ const faqSchema = {
   description="Free BMI calculator. Calculate your Body Mass Index, find your health category, and see your healthy weight range using metric or imperial units."
   jsonLd={faqSchema}
 >
+
   <BMIPage client:load />
+  <RelatedTools
+    tools={[
+      { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
+      { path: '/height-converter', title: 'Height Converter', icon: 'height' },
+      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
+      { path: '/age', title: 'Age Calculator', icon: 'cake' },
+      { path: '/tdee', title: 'TDEE Calculator', icon: 'local_fire_department' },
+    ]}
+  />
 </MainLayout>

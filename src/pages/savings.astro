@@ -39,5 +39,16 @@ const faqSchema = {
   description="Free savings calculator. Find out how long it takes to reach your savings goal with regular contributions and compound interest."
   jsonLd={faqSchema}
 >
+
   <SavingsPage client:load />
+  <RelatedTools
+    tools={[
+      { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
+      { path: '/compound-interest', title: 'Compound Interest', icon: 'trending_up' },
+      { path: '/net-worth', title: 'Net Worth', icon: 'account_balance' },
+      { path: '/roi', title: 'ROI Calculator', icon: 'show_chart' },
+      { path: '/inflation', title: 'Inflation Calculator', icon: 'trending_up' },
+      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
+    ]}
+  />
 </MainLayout>

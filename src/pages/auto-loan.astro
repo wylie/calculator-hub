@@ -39,5 +39,16 @@ const faqSchema = {
   description="Estimate monthly car payment, total interest, and total loan cost with adjustable down payment type, term, and APR."
   jsonLd={faqSchema}
 >
+
   <AutoLoanPage client:load />
+  <RelatedTools
+    tools={[
+      { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
+      { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
+      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
+      { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
+      { path: '/weather', title: 'Weather Converter', icon: 'thermostat' },
+      { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
+    ]}
+  />
 </MainLayout>

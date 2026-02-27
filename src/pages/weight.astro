@@ -31,5 +31,15 @@ const faqSchema = {
   description="Convert weights between pounds and kilograms quickly with accurate formulas."
   jsonLd={faqSchema}
 >
+
   <WeightPage client:load />
+  <RelatedTools
+    tools={[
+      { path: '/height-converter', title: 'Height Converter', icon: 'height' },
+      { path: '/bmi', title: 'BMI Calculator', icon: 'favorite' },
+      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
+      { path: '/length', title: 'Length Converter', icon: 'straighten' },
+      { path: '/area', title: 'Area Converter', icon: 'crop_square' },
+    ]}
+  />
 </MainLayout>

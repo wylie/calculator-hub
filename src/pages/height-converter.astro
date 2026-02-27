@@ -39,5 +39,16 @@ const faqSchema = {
   description="Convert height between feet/inches and centimeters. Fast and accurate height unit conversions."
   jsonLd={faqSchema}
 >
+
   <HeightConverterPage client:load />
+  <RelatedTools
+    tools={[
+      { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
+      { path: '/length', title: 'Length Converter', icon: 'straighten' },
+      { path: '/bmi', title: 'BMI Calculator', icon: 'favorite' },
+      { path: '/age', title: 'Age Calculator', icon: 'cake' },
+      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
+      { path: '/weather', title: 'Weather Converter', icon: 'thermostat' },
+    ]}
+  />
 </MainLayout>

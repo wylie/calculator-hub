@@ -39,5 +39,16 @@ const faqSchema = {
   description="Estimate monthly mortgage payment, total interest, loan amount, and first-month breakdown with optional taxes, insurance, and PMI."
   jsonLd={faqSchema}
 >
+
   <MortgagePage client:load />
+  <RelatedTools
+    tools={[
+      { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
+      { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
+      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
+      { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
+      { path: '/weather', title: 'Weather Converter', icon: 'thermostat' },
+      { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
+    ]}
+  />
 </MainLayout>

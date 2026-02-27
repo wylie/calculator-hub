@@ -39,5 +39,15 @@ const faqSchema = {
   description="Free inflation calculator. See how inflation affects purchasing power. Calculate future value and real cost changes over any time period."
   jsonLd={faqSchema}
 >
+
   <InflationPage client:load />
+  <RelatedTools
+    tools={[
+      { path: '/savings', title: 'Savings Calculator', icon: 'savings' },
+      { path: '/compound-interest', title: 'Compound Interest', icon: 'trending_up' },
+      { path: '/roi', title: 'ROI Calculator', icon: 'show_chart' },
+      { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
+      { path: '/net-worth', title: 'Net Worth', icon: 'account_balance' },
+    ]}
+  />
 </MainLayout>
