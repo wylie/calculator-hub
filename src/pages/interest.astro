@@ -1,3 +1,4 @@
+import RelatedTools from '../components/RelatedTools.tsx';
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import InterestPage from '../react-pages/Interest/InterestPage';
@@ -7,6 +8,7 @@ import InterestPage from '../react-pages/Interest/InterestPage';
 
   <InterestPage client:load />
   <RelatedTools
+    client:load
     tools={[
       { path: '/compound-interest', title: 'Compound Interest Calculator', icon: 'trending_up' },
       { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },

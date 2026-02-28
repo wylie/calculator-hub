@@ -1,3 +1,4 @@
+import RelatedTools from '../components/RelatedTools.tsx';
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import WeatherPage from '../react-pages/Weather/WeatherPage';
@@ -34,6 +35,7 @@ const faqSchema = {
 
   <WeatherPage client:load />
   <RelatedTools
+    client:load
     tools={[
       { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
       { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },

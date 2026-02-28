@@ -1,3 +1,4 @@
+import RelatedTools from '../components/RelatedTools.tsx';
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import TirePressurePage from '../react-pages/TirePressure/TirePressurePage';
@@ -42,6 +43,7 @@ const faqSchema = {
 
   <TirePressurePage client:load />
   <RelatedTools
+    client:load
     tools={[
       { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
       { path: '/hiking-pace', title: 'Hiking Pace', icon: 'hiking' },

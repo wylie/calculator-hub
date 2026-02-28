@@ -1,3 +1,4 @@
+import RelatedTools from '../components/RelatedTools.tsx';
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import ConvertersPage from '../react-pages/Categories/ConvertersPage';
@@ -10,6 +11,7 @@ import ConvertersPage from '../react-pages/Categories/ConvertersPage';
 
   <ConvertersPage client:load />
   <RelatedTools
+    client:load
     tools={[
       { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
       { path: '/height-converter', title: 'Height Converter', icon: 'height' },

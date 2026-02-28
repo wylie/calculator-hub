@@ -1,3 +1,4 @@
+import RelatedTools from '../components/RelatedTools.tsx';
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import BikeGearPage from '../react-pages/BikeGear/BikeGearPage';
@@ -7,6 +8,7 @@ import BikeGearPage from '../react-pages/BikeGear/BikeGearPage';
 
   <BikeGearPage client:load />
   <RelatedTools
+    client:load
     tools={[
       { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
       { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },

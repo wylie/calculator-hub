@@ -1,3 +1,4 @@
+import RelatedTools from '../components/RelatedTools.tsx';
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import InflationPage from '../react-pages/Inflation/InflationPage';
@@ -42,6 +43,7 @@ const faqSchema = {
 
   <InflationPage client:load />
   <RelatedTools
+    client:load
     tools={[
       { path: '/savings', title: 'Savings Calculator', icon: 'savings' },
       { path: '/compound-interest', title: 'Compound Interest', icon: 'trending_up' },

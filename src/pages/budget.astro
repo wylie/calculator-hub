@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import BudgetPage from '../react-pages/Budget/BudgetPage';
+import RelatedTools from '../components/RelatedTools.tsx';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -42,6 +43,7 @@ const faqSchema = {
 
   <BudgetPage client:load />
   <RelatedTools
+    client:load
     tools={[
       { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
       { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },

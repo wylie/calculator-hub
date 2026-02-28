@@ -1,3 +1,4 @@
+import RelatedTools from '../components/RelatedTools.tsx';
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import WeightPage from '../react-pages/Weight/WeightPage';
@@ -34,6 +35,7 @@ const faqSchema = {
 
   <WeightPage client:load />
   <RelatedTools
+    client:load
     tools={[
       { path: '/height-converter', title: 'Height Converter', icon: 'height' },
       { path: '/bmi', title: 'BMI Calculator', icon: 'favorite' },
