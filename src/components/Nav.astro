@@ -287,16 +287,9 @@ const getDesktopDropdownStyle = (): string => {
           ))}
         </div>
         <script type="module">
-          // Accordion logic for mobile nav
           document.addEventListener('DOMContentLoaded', () => {
             const root = document.getElementById('mobile-nav-root');
-            const panel = document.getElementById('mobile-nav-panel');
-            if (!root || !panel) return;
-            // Slide in/out logic
-            const details = root.querySelector('details');
-            details.addEventListener('toggle', () => {
-              panel.setAttribute('data-open', details.open ? 'true' : 'false');
-            });
+            if (!root) return;
             // Accordion logic
             root.querySelectorAll('.mobile-nav-accordion').forEach((details, idx, all) => {
               const summary = details.querySelector('summary');
@@ -306,6 +299,12 @@ const getDesktopDropdownStyle = (): string => {
                   el.open = (i === idx) ? !details.open : false;
                 });
               });
+            });
+            // Escape key closes mobile nav
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && root.open) {
+                root.open = false;
+              }
             });
           });
         </script>
