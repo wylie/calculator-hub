@@ -231,16 +231,7 @@ const getDesktopDropdownStyle = (): string => {
       </a>
       
       <!-- Mobile Menu Button (Accordion, 90% height, scrollable) -->
-      <script type="module">
-        let openCategory = null;
-        window.toggleNavCategory = (idx) => {
-          openCategory = openCategory === idx ? null : idx;
-          document.querySelectorAll('.mobile-nav-accordion').forEach((el, i) => {
-            el.open = i === openCategory;
-          });
-        };
-      </script>
-      <details class="lg:hidden absolute right-0">
+      <details class="lg:hidden absolute right-0" id="mobile-nav-root">
         <summary class="list-none p-2 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
           <span class="material-symbols-outlined text-2xl align-middle">menu</span>
         </summary>
@@ -256,14 +247,14 @@ const getDesktopDropdownStyle = (): string => {
             Home
           </a>
           {navCategories.map((category, idx) => (
-            <details class="mt-2 mobile-nav-accordion">
+            <details class="mt-2 mobile-nav-accordion" data-idx={idx}>
               <summary
                 class={`list-none px-4 py-3 rounded-md text-base font-medium cursor-pointer flex items-center justify-between ${
                   isActive(category.path) || isCategoryActive(category.items)
                     ? 'bg-blue-100 text-blue-700'
                     : 'text-slate-700 hover:bg-slate-100'
                 }`}
-                onClick={() => window.toggleNavCategory(idx)}
+                tabindex="0"
               >
                 {category.label}
                 <span class="material-symbols-outlined text-lg">expand_more</span>
@@ -295,6 +286,22 @@ const getDesktopDropdownStyle = (): string => {
             </details>
           ))}
         </div>
+        <script type="module">
+          // Accordion logic for mobile nav
+          document.addEventListener('DOMContentLoaded', () => {
+            const root = document.getElementById('mobile-nav-root');
+            if (!root) return;
+            root.querySelectorAll('.mobile-nav-accordion').forEach((details, idx, all) => {
+              const summary = details.querySelector('summary');
+              summary.addEventListener('click', (e) => {
+                e.preventDefault();
+                all.forEach((el, i) => {
+                  el.open = (i === idx) ? !details.open : false;
+                });
+              });
+            });
+          });
+        </script>
       </details>
     </div>
 
