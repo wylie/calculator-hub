@@ -232,12 +232,21 @@ const getDesktopDropdownStyle = (itemCount: number): string => {
         Simple Calculators
       </a>
       
-      <!-- Mobile Menu Button -->
+      <!-- Mobile Menu Button (Accordion, 90% height, scrollable) -->
+      <script type="module">
+        let openCategory = null;
+        window.toggleNavCategory = (idx) => {
+          openCategory = openCategory === idx ? null : idx;
+          document.querySelectorAll('.mobile-nav-accordion').forEach((el, i) => {
+            el.open = i === openCategory;
+          });
+        };
+      </script>
       <details class="lg:hidden absolute right-0">
         <summary class="list-none p-2 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
           <span class="material-symbols-outlined text-2xl align-middle">menu</span>
         </summary>
-        <div class="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-3 z-20">
+        <div class="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-3 z-20 max-h-[90vh] overflow-y-auto">
           <a
             href="/"
             class={`block px-4 py-3 rounded-md text-base font-medium ${
@@ -248,8 +257,8 @@ const getDesktopDropdownStyle = (itemCount: number): string => {
           >
             Home
           </a>
-          {navCategories.map((category) => (
-            <details class="mt-2">
+          {navCategories.map((category, idx) => (
+            <details class="mt-2 mobile-nav-accordion" onClick={() => window.toggleNavCategory(idx)}>
               <summary
                 class={`list-none px-4 py-3 rounded-md text-base font-medium cursor-pointer flex items-center justify-between ${
                   isActive(category.path) || isCategoryActive(category.items)
