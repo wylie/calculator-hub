@@ -235,7 +235,7 @@ const getDesktopDropdownStyle = (): string => {
         <summary class="list-none p-2 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
           <span class="material-symbols-outlined text-2xl align-middle">menu</span>
         </summary>
-        <div class="absolute right-0 mt-2 w-full max-w-full md:w-80 md:max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-3 z-20 max-h-[90vh] overflow-y-auto transition-transform duration-300 ease-in-out transform translate-x-full data-[open=true]:translate-x-0" data-open="false" id="mobile-nav-panel">
+        <div class="fixed inset-0 md:absolute md:right-0 md:mt-2 w-full max-w-full md:w-80 md:max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-3 z-20 max-h-[90vh] overflow-y-auto transition-transform duration-300 ease-in-out transform translate-x-full data-[open=true]:translate-x-0" data-open="false" id="mobile-nav-panel">
           <a
             href="/"
             class={`block px-4 py-3 rounded-md text-base font-medium ${
