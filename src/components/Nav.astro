@@ -212,12 +212,10 @@ const navCategories: NavCategory[] = navCategoriesBase.map((category) => {
 const isActive = (path: string) => currentPath === path;
 const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(item.path));
 
-const getDesktopDropdownColumns = (itemCount: number): number => {
-  return 3;
-};
+const getDesktopDropdownColumns = (): number => 3;
 
-const getDesktopDropdownStyle = (itemCount: number): string => {
-  const columns = getDesktopDropdownColumns(itemCount);
+const getDesktopDropdownStyle = (): string => {
+  const columns = getDesktopDropdownColumns();
   const columnWidth = 220;
   const width = columns * columnWidth;
   return `display: grid; grid-template-columns: repeat(${columns}, ${columnWidth}px); gap: 0.5rem; width: min(${width}px, calc(100vw - 2rem)); max-width: calc(100vw - 2rem); max-height: min(80vh, 700px); overflow-y: auto; overflow-x: hidden;`;
@@ -258,13 +256,14 @@ const getDesktopDropdownStyle = (itemCount: number): string => {
             Home
           </a>
           {navCategories.map((category, idx) => (
-            <details class="mt-2 mobile-nav-accordion" onClick={() => window.toggleNavCategory(idx)}>
+            <details class="mt-2 mobile-nav-accordion">
               <summary
                 class={`list-none px-4 py-3 rounded-md text-base font-medium cursor-pointer flex items-center justify-between ${
                   isActive(category.path) || isCategoryActive(category.items)
                     ? 'bg-blue-100 text-blue-700'
                     : 'text-slate-700 hover:bg-slate-100'
                 }`}
+                onClick={() => window.toggleNavCategory(idx)}
               >
                 {category.label}
                 <span class="material-symbols-outlined text-lg">expand_more</span>
