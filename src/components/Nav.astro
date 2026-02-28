@@ -225,7 +225,7 @@ const getDesktopDropdownStyle = (): string => {
 <nav class="bg-white border-b border-slate-200 shadow-sm">
   <div class="max-w-7xl mx-auto px-6">
     <!-- Site Name Row -->
-    <div class="flex items-center justify-start lg:justify-center py-3 border-b border-slate-100 relative">
+    <div class="flex items-center justify-start md:justify-center py-3 border-b border-slate-100 relative">
       <a href="/" class="text-2xl font-bold text-slate-900 hover:text-blue-600" aria-label="Simple Calculators Home">
         Simple Calculators
       </a>
@@ -235,7 +235,7 @@ const getDesktopDropdownStyle = (): string => {
         <summary class="list-none p-2 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
           <span class="material-symbols-outlined text-2xl align-middle">menu</span>
         </summary>
-        <div class="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-3 z-20 max-h-[90vh] overflow-y-auto">
+        <div class="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-3 z-20 max-h-[90vh] overflow-y-auto transition-transform duration-300 ease-in-out transform translate-x-full data-[open=true]:translate-x-0" data-open="false" id="mobile-nav-panel">
           <a
             href="/"
             class={`block px-4 py-3 rounded-md text-base font-medium ${
@@ -247,7 +247,7 @@ const getDesktopDropdownStyle = (): string => {
             Home
           </a>
           {navCategories.map((category, idx) => (
-            <details class="mt-2 mobile-nav-accordion" data-idx={idx}>
+            <details class="mt-2 mobile-nav-accordion group" data-idx={idx}>
               <summary
                 class={`list-none px-4 py-3 rounded-md text-base font-medium cursor-pointer flex items-center justify-between ${
                   isActive(category.path) || isCategoryActive(category.items)
@@ -257,9 +257,9 @@ const getDesktopDropdownStyle = (): string => {
                 tabindex="0"
               >
                 {category.label}
-                <span class="material-symbols-outlined text-lg">expand_more</span>
+                <span class="material-symbols-outlined text-lg group-open:rotate-180 transition-transform duration-300">expand_more</span>
               </summary>
-              <div class="mt-2 ml-3 border-l-2 border-blue-200">
+              <div class="mt-2 ml-3 border-l-2 border-blue-200 transition-all duration-300 max-h-0 overflow-hidden group-open:max-h-[600px] group-open:mt-2">
                 <a
                   href={category.path}
                   class={`block px-4 py-2 text-base font-semibold ${
@@ -290,7 +290,14 @@ const getDesktopDropdownStyle = (): string => {
           // Accordion logic for mobile nav
           document.addEventListener('DOMContentLoaded', () => {
             const root = document.getElementById('mobile-nav-root');
-            if (!root) return;
+            const panel = document.getElementById('mobile-nav-panel');
+            if (!root || !panel) return;
+            // Slide in/out logic
+            const details = root.querySelector('details');
+            details.addEventListener('toggle', () => {
+              panel.setAttribute('data-open', details.open ? 'true' : 'false');
+            });
+            // Accordion logic
             root.querySelectorAll('.mobile-nav-accordion').forEach((details, idx, all) => {
               const summary = details.querySelector('summary');
               summary.addEventListener('click', (e) => {
