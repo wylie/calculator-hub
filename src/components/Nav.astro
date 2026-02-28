@@ -230,12 +230,12 @@ const getDesktopDropdownStyle = (): string => {
         Simple Calculators
       </a>
       
-      <!-- Mobile Menu Button (Accordion, 90% height, scrollable) -->
-      <details class="lg:hidden" id="mobile-nav-root">
-        <summary class="list-none p-2 rounded-md text-slate-600 hover:bg-slate-100 cursor-pointer">
-          <span class="material-symbols-outlined text-2xl align-middle">menu</span>
+      <!-- Mobile Menu Button (classic drawer, 90% height, scrollable) -->
+      <details id="mobile-nav" class="lg:hidden group z-50 absolute right-0 top-0" aria-label="Main navigation">
+        <summary class="flex items-center justify-end w-full p-4 cursor-pointer select-none focus:outline-none" aria-label="Open main menu" role="button" tabindex="0">
+          <span class="material-symbols-outlined text-3xl">menu</span>
         </summary>
-        <div class="fixed inset-0 w-full max-w-full md:absolute md:right-0 md:mt-2 md:w-80 md:max-w-[calc(100vw-2rem)] bg-white border border-slate-200 rounded-md shadow-lg p-3 z-20 max-h-[90vh] overflow-y-auto" id="mobile-nav-panel">
+        <div id="mobile-nav-panel" class="absolute top-full right-0 w-80 max-w-[calc(100vw-2rem)] bg-white shadow-2xl border-l border-gray-200 max-h-[90vh] overflow-y-auto transition-transform duration-200" aria-label="Mobile navigation panel">
           <a
             href="/"
             class={`block px-4 py-3 rounded-md text-base font-medium ${
@@ -288,7 +288,7 @@ const getDesktopDropdownStyle = (): string => {
         </div>
         <script type="module">
           document.addEventListener('DOMContentLoaded', () => {
-            const root = document.getElementById('mobile-nav-root');
+            const root = document.getElementById('mobile-nav');
             if (!root) return;
             // Accordion logic
             root.querySelectorAll('.mobile-nav-accordion').forEach((details, idx, all) => {
