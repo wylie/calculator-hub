@@ -1,4 +1,4 @@
-import RelatedTools from '../components/RelatedTools.tsx';
+---
 import MainLayout from '../layouts/MainLayout.astro';
 import BMIPage from '../react-pages/BMI/BMIPage';
 import RelatedTools from '../components/RelatedTools.tsx';
@@ -32,14 +32,12 @@ const faqSchema = {
     },
   ],
 };
----
 
 <MainLayout
   title="BMI Calculator - Calculate Your Body Mass Index"
   description="Free BMI calculator. Calculate your Body Mass Index, find your health category, and see your healthy weight range using metric or imperial units."
   jsonLd={faqSchema}
 >
-
   <BMIPage client:load />
   <RelatedTools
     client:load
