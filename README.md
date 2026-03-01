@@ -5,30 +5,6 @@ A clean, responsive multi-calculator web app featuring mortgage, budget, weather
 ## Features
 
 - **5 Calculators**: Mortgage, Budget, Weather Converter, Calorie Calculator, and Bike Gear Calculator
-- **Responsive Design**: Works great on mobile, tablet, and desktop
-- **Touch-Friendly**: Optimized controls for both keyboard and touch input
-- **Client-Side Only**: No backend required—all calculations run locally
-- **Accessible**: Semantic HTML, ARIA labels, keyboard navigation, good focus states
-- **Fast**: Lightweight, no heavy dependencies
-- **Monetization Ready**: AdSense placeholders and affiliate box components included
-
-## Tech Stack
-
-- **Framework**: Astro 5 + React islands + TypeScript
-- **Build Tool**: Astro (Vite under the hood)
-- **Styling**: Tailwind CSS
-- **Routing**: Astro file-based routing
-- **Testing**: Vitest
-- **Icons**: Google Material Symbols
-- **Font**: Inter (Google Fonts)
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 20+ and npm
-
-### Installation
 
 ```bash
 npm install

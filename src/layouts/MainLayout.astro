@@ -136,7 +136,9 @@ const allJsonLd = [...baseJsonLd, ...pageJsonLd];
     />
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1766867001144344" crossorigin="anonymous"></script>
+    {import.meta.env.PROD && (
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1766867001144344" crossorigin="anonymous"></script>
+    )}
     
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FY6764MTRQ"></script>
