@@ -81,7 +81,7 @@ export default function AdSlot({ slotId = '1569767653' }: AdSlotProps) {
   }
 
   return (
-    <div ref={wrapperRef} className="my-3 md:my-6">
+    <div ref={wrapperRef} className="my-3 md:my-6" style={{ display: 'none' }}>
       <ins
         ref={adRef}
         className="adsbygoogle"
