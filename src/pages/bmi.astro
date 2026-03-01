@@ -1,7 +1,6 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import BMIPage from '../react-pages/BMI/BMIPage';
-import RelatedTools from '../components/RelatedTools.tsx';
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -40,14 +39,4 @@ const faqSchema = {
   jsonLd={faqSchema}
 >
   <BMIPage client:load />
-  <RelatedTools
-    client:load
-    tools={[
-      { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
-      { path: '/height-converter', title: 'Height Converter', icon: 'height' },
-      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
-      { path: '/age', title: 'Age Calculator', icon: 'cake' },
-      { path: '/tdee', title: 'TDEE Calculator', icon: 'local_fire_department' },
-    ]}
-  />
 </MainLayout>

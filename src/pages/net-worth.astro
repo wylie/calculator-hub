@@ -1,5 +1,4 @@
 ---
-import RelatedTools from '../components/RelatedTools.tsx';
 import MainLayout from '../layouts/MainLayout.astro';
 import NetWorthPage from '../react-pages/NetWorth/NetWorthPage';
 const faqSchema = {
@@ -39,17 +38,5 @@ const faqSchema = {
   description="Track total assets and liabilities, then calculate your net worth to measure overall financial position."
   jsonLd={faqSchema}
 >
-
   <NetWorthPage client:load />
-  <RelatedTools
-    client:load
-    tools={[
-      { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
-      { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
-      { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
-      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
-      { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
-      { path: '/weather', title: 'Weather Converter', icon: 'thermostat' },
-    ]}
-  />
 </MainLayout>

@@ -1,5 +1,4 @@
 ---
-import RelatedTools from '../components/RelatedTools.tsx';
 import MainLayout from '../layouts/MainLayout.astro';
 import TirePressurePage from '../react-pages/TirePressure/TirePressurePage';
 const faqSchema = {
@@ -39,16 +38,5 @@ const faqSchema = {
   description="Calculate the ideal tire pressure for your bike based on weight, tire size, and riding style. Get optimal comfort and performance."
   jsonLd={faqSchema}
 >
-
   <TirePressurePage client:load />
-  <RelatedTools
-    client:load
-    tools={[
-      { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
-      { path: '/hiking-pace', title: 'Hiking Pace', icon: 'hiking' },
-      { path: '/fuel-efficiency', title: 'Fuel Efficiency', icon: 'local_gas_station' },
-      { path: '/speed', title: 'Speed Converter', icon: 'speed' },
-      { path: '/calories-cycling', title: 'Calories Cycling', icon: 'local_fire_department' },
-    ]}
-  />
 </MainLayout>

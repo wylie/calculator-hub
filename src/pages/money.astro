@@ -1,0 +1,11 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import MoneyPage from '../react-pages/Categories/MoneyPage';
+---
+
+<MainLayout
+  title="Money Calculators"
+  description="All-in-one money calculators for income, budgeting, debt, taxes, savings, investing, and retirement planning."
+>
+  <MoneyPage client:load />
+</MainLayout>

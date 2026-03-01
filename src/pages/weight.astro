@@ -1,5 +1,4 @@
 ---
-import RelatedTools from '../components/RelatedTools.tsx';
 import MainLayout from '../layouts/MainLayout.astro';
 import WeightPage from '../react-pages/Weight/WeightPage';
 const faqSchema = {
@@ -31,16 +30,5 @@ const faqSchema = {
   description="Convert weights between pounds and kilograms quickly with accurate formulas."
   jsonLd={faqSchema}
 >
-
   <WeightPage client:load />
-  <RelatedTools
-    client:load
-    tools={[
-      { path: '/height-converter', title: 'Height Converter', icon: 'height' },
-      { path: '/bmi', title: 'BMI Calculator', icon: 'favorite' },
-      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
-      { path: '/length', title: 'Length Converter', icon: 'straighten' },
-      { path: '/area', title: 'Area Converter', icon: 'crop_square' },
-    ]}
-  />
 </MainLayout>

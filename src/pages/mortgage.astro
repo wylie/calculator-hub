@@ -1,5 +1,4 @@
 ---
-import RelatedTools from '../components/RelatedTools.tsx';
 import MainLayout from '../layouts/MainLayout.astro';
 import MortgagePage from '../react-pages/Mortgage/MortgagePage';
 const faqSchema = {
@@ -39,17 +38,5 @@ const faqSchema = {
   description="Estimate monthly mortgage payment, total interest, loan amount, and first-month breakdown with optional taxes, insurance, and PMI."
   jsonLd={faqSchema}
 >
-
   <MortgagePage client:load />
-  <RelatedTools
-    client:load
-    tools={[
-      { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
-      { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
-      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
-      { path: '/bike-gear', title: 'Bike Gear Calculator', icon: 'two_wheeler' },
-      { path: '/weather', title: 'Weather Converter', icon: 'thermostat' },
-      { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
-    ]}
-  />
 </MainLayout>

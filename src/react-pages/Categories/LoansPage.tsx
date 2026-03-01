@@ -3,6 +3,53 @@ import Card from '../../components/Card';
 import analytics from '../../utils/analytics';
 import { generatedCalculators } from '../Generated/generatedCalculatorData';
 
+interface ToolItem {
+  path: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface ToolSubcategory {
+  label: string;
+  items: ToolItem[];
+}
+
+const uniqueByPath = (tools: ToolItem[]): ToolItem[] => {
+  return tools.filter((tool, index, allTools) => allTools.findIndex((item) => item.path === tool.path) === index);
+};
+
+const sortByTitle = (tools: ToolItem[]): ToolItem[] => {
+  return [...tools].sort((left, right) => left.title.localeCompare(right.title, undefined, { sensitivity: 'base' }));
+};
+
+const buildSubcategories = (
+  tools: ToolItem[],
+  definitions: Array<{ label: string; matcher: (tool: ToolItem) => boolean }>
+): ToolSubcategory[] => {
+  let remaining = sortByTitle(uniqueByPath(tools));
+
+  const sections = definitions.map((definition) => {
+    const matched = remaining.filter(definition.matcher);
+    const matchedPaths = new Set(matched.map((item) => item.path));
+    remaining = remaining.filter((item) => !matchedPaths.has(item.path));
+
+    return {
+      label: definition.label,
+      items: sortByTitle(uniqueByPath(matched)),
+    };
+  });
+
+  if (remaining.length > 0 && sections.length > 0) {
+    sections[sections.length - 1] = {
+      ...sections[sections.length - 1],
+      items: sortByTitle(uniqueByPath([...sections[sections.length - 1].items, ...remaining])),
+    };
+  }
+
+  return sections.filter((section) => section.items.length > 0);
+};
+
 export default function LoansPage() {
   useEffect(() => {
     analytics.trackCalculatorView('loans');
@@ -139,9 +186,38 @@ export default function LoansPage() {
       icon: calculator.icon,
     }));
 
-  const tools = [...baseTools, ...generatedTools].filter(
-    (tool, index, arr) => arr.findIndex((item) => item.path === tool.path) === index
-  );
+  const tools = sortByTitle(uniqueByPath([...baseTools, ...generatedTools]));
+
+  const subcategories = buildSubcategories(tools, [
+    {
+      label: 'Mortgage',
+      matcher: (tool) => /(mortgage|pmi|amortization|loan-payment-calculator|loan-term)/.test(tool.path),
+    },
+    {
+      label: 'Refinance',
+      matcher: (tool) => /(refinance)/.test(tool.path),
+    },
+    {
+      label: 'Personal / Auto / Student Loans',
+      matcher: (tool) => /(personal-loan|auto-loan|student-loan|business-loan|loan$)/.test(tool.path),
+    },
+    {
+      label: 'Affordability',
+      matcher: (tool) => /(affordability)/.test(tool.path),
+    },
+    {
+      label: 'Home Equity',
+      matcher: (tool) => /(heloc|home-equity|home-appreciation)/.test(tool.path),
+    },
+    {
+      label: 'Rent vs Buy',
+      matcher: (tool) => /(rent-vs-buy|rent-vs-invest|rent-increase|rental-yield|rental-cash-flow)/.test(tool.path),
+    },
+    {
+      label: 'Property Costs',
+      matcher: (tool) => /(property-tax|closing-cost|down-payment|property-value-estimator)/.test(tool.path),
+    },
+  ]);
 
   return (
     <div>
@@ -150,19 +226,26 @@ export default function LoansPage() {
         Make informed decisions about mortgages, auto loans, refinancing, and home buying with our comprehensive loan calculators.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map((tool) => (
-          <a key={tool.path} href={tool.path}>
-            <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
-              <div className="flex flex-col items-center text-center">
-                <span className="material-symbols-outlined text-3xl text-blue-600 mb-3">
-                  {tool.icon}
-                </span>
-                <h2 className="text-base font-semibold text-slate-900 mb-2">{tool.title}</h2>
-                <p className="text-xs text-slate-600">{tool.description}</p>
-              </div>
-            </Card>
-          </a>
+      <div className="space-y-10">
+        {subcategories.map((subcategory) => (
+          <section key={subcategory.label}>
+            <h2 className="text-xl font-semibold text-slate-900 mb-4">{subcategory.label}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {subcategory.items.map((tool) => (
+                <a key={tool.path} href={tool.path}>
+                  <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
+                    <div className="flex flex-col items-center text-center">
+                      <span className="material-symbols-outlined text-3xl text-blue-600 mb-3">
+                        {tool.icon}
+                      </span>
+                      <h3 className="text-base font-semibold text-slate-900 mb-2">{tool.title}</h3>
+                      <p className="text-xs text-slate-600">{tool.description}</p>
+                    </div>
+                  </Card>
+                </a>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
     </div>

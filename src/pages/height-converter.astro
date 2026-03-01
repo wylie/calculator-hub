@@ -1,5 +1,4 @@
 ---
-import RelatedTools from '../components/RelatedTools.tsx';
 import MainLayout from '../layouts/MainLayout.astro';
 import HeightConverterPage from '../react-pages/HeightConverter/HeightConverterPage';
 const faqSchema = {
@@ -39,17 +38,5 @@ const faqSchema = {
   description="Convert height between feet/inches and centimeters. Fast and accurate height unit conversions."
   jsonLd={faqSchema}
 >
-
   <HeightConverterPage client:load />
-  <RelatedTools
-    client:load
-    tools={[
-      { path: '/weight', title: 'Weight Converter', icon: 'fitness_center' },
-      { path: '/length', title: 'Length Converter', icon: 'straighten' },
-      { path: '/bmi', title: 'BMI Calculator', icon: 'favorite' },
-      { path: '/age', title: 'Age Calculator', icon: 'cake' },
-      { path: '/calories', title: 'Calorie Calculator', icon: 'nutrition' },
-      { path: '/weather', title: 'Weather Converter', icon: 'thermostat' },
-    ]}
-  />
 </MainLayout>

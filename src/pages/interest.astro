@@ -1,20 +1,8 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import InterestPage from '../react-pages/Interest/InterestPage';
-import RelatedTools from '../components/RelatedTools.tsx';
 ---
 
 <MainLayout title="Interest Calculator">
-
   <InterestPage client:load />
-  <RelatedTools
-    client:load
-    tools={[
-      { path: '/compound-interest', title: 'Compound Interest Calculator', icon: 'trending_up' },
-      { path: '/mortgage', title: 'Mortgage Calculator', icon: 'home' },
-      { path: '/auto-loan', title: 'Auto Loan Calculator', icon: 'directions_car' },
-      { path: '/budget', title: 'Budget Calculator', icon: 'wallet' },
-      { path: '/net-worth', title: 'Net Worth Calculator', icon: 'account_balance' },
-    ]}
-  />
 </MainLayout>

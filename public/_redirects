@@ -5,5 +5,58 @@ https://www.simplecalculators.io/* https://simplecalculators.io/:splat 301!
 http://simplecalculators.io/* https://simplecalculators.io/:splat 301!
 http://www.simplecalculators.io/* https://simplecalculators.io/:splat 301!
 
+# Redirect old top-level pages to new structure
+/budgeting /money 301
+/budgeting/ /money 301
+/budgeting-finance /money 301
+/budgeting-finance/ /money 301
+/budgeting-and-finance /money 301
+/budgeting-and-finance/ /money 301
+/finance /money 301
+/finance/ /money 301
+/personal-finance /money 301
+/personal-finance/ /money 301
+/money-calculators /money 301
+/money-calculators/ /money 301
+/savings-investment /money 301
+/savings-investment/ /money 301
+/savings-and-investment /money 301
+/savings-and-investment/ /money 301
+/savings-investment-calculators /money 301
+/savings-investment-calculators/ /money 301
+
+/loans-and-real-estate /loans 301
+/loans-and-real-estate/ /loans 301
+/loans-real-estate /loans 301
+/loans-real-estate/ /loans 301
+/loan-calculators /loans 301
+/loan-calculators/ /loans 301
+/real-estate-calculators /loans 301
+/real-estate-calculators/ /loans 301
+
+/health-and-lifestyle /health 301
+/health-and-lifestyle/ /health 301
+/health-lifestyle /health 301
+/health-lifestyle/ /health 301
+/health-and-fitness /health 301
+/health-and-fitness/ /health 301
+/health-fitness /health 301
+/health-fitness/ /health 301
+/fitness-calculators /health 301
+/fitness-calculators/ /health 301
+
+/converters-and-tools /converters 301
+/converters-and-tools/ /converters 301
+/converters-tools /converters 301
+/converters-tools/ /converters 301
+/conversion-tools /converters 301
+/conversion-tools/ /converters 301
+/conversion-calculators /converters 301
+/conversion-calculators/ /converters 301
+/tools-and-planning /tools-planning 301
+/tools-and-planning/ /tools-planning 301
+/planning-tools /tools-planning 301
+/planning-tools/ /tools-planning 301
+
 # Single Page App routing - serve index.html for all non-file requests
 /* /index.html 200

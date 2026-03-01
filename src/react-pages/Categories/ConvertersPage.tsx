@@ -3,6 +3,53 @@ import Card from '../../components/Card';
 import analytics from '../../utils/analytics';
 import { generatedCalculators } from '../Generated/generatedCalculatorData';
 
+interface ToolItem {
+  path: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface ToolSubcategory {
+  label: string;
+  items: ToolItem[];
+}
+
+const uniqueByPath = (tools: ToolItem[]): ToolItem[] => {
+  return tools.filter((tool, index, allTools) => allTools.findIndex((item) => item.path === tool.path) === index);
+};
+
+const sortByTitle = (tools: ToolItem[]): ToolItem[] => {
+  return [...tools].sort((left, right) => left.title.localeCompare(right.title, undefined, { sensitivity: 'base' }));
+};
+
+const buildSubcategories = (
+  tools: ToolItem[],
+  definitions: Array<{ label: string; matcher: (tool: ToolItem) => boolean }>
+): ToolSubcategory[] => {
+  let remaining = sortByTitle(uniqueByPath(tools));
+
+  const sections = definitions.map((definition) => {
+    const matched = remaining.filter(definition.matcher);
+    const matchedPaths = new Set(matched.map((item) => item.path));
+    remaining = remaining.filter((item) => !matchedPaths.has(item.path));
+
+    return {
+      label: definition.label,
+      items: sortByTitle(uniqueByPath(matched)),
+    };
+  });
+
+  if (remaining.length > 0 && sections.length > 0) {
+    sections[sections.length - 1] = {
+      ...sections[sections.length - 1],
+      items: sortByTitle(uniqueByPath([...sections[sections.length - 1].items, ...remaining])),
+    };
+  }
+
+  return sections.filter((section) => section.items.length > 0);
+};
+
 export default function ConvertersPage() {
   useEffect(() => {
     analytics.trackCalculatorView('converters');
@@ -199,30 +246,55 @@ export default function ConvertersPage() {
       icon: calculator.icon,
     }));
 
-  const tools = [...baseTools, ...generatedTools].filter(
-    (tool, index, arr) => arr.findIndex((item) => item.path === tool.path) === index
-  );
+  const tools = sortByTitle(uniqueByPath([...baseTools, ...generatedTools]));
+
+  const subcategories = buildSubcategories(tools, [
+    {
+      label: 'Unit Converters',
+      matcher: (tool) =>
+        /(weight|height|distance|length|speed|volume|area|power-converter|file-size|cooking-converter|voltage|density|pressure)/.test(tool.path),
+    },
+    {
+      label: 'Temperature',
+      matcher: (tool) => /(weather|temperature-feels-like)/.test(tool.path),
+    },
+    {
+      label: 'Time & Date',
+      matcher: (tool) => /(time|date|hours-to-days|months-between-dates|days-until)/.test(tool.path),
+    },
+    {
+      label: 'Percentage Conversions',
+      matcher: (tool) => /(percentage-of-a-number|what-percent-of-x-is-y|fraction-to-percent|percent-to-fraction|percentage$)/.test(tool.path),
+    },
+  ]);
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-slate-900 mb-4">Converters & Tools</h1>
+      <h1 className="text-3xl font-bold text-slate-900 mb-4">Converters</h1>
       <p className="text-slate-600 mb-8">
         Quick and accurate unit converters for measurements, percentages, time, and everyday calculations.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map((tool) => (
-          <a key={tool.path} href={tool.path}>
-            <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
-              <div className="flex flex-col items-center text-center">
-                <span className="material-symbols-outlined text-3xl text-blue-600 mb-3">
-                  {tool.icon}
-                </span>
-                <h2 className="text-base font-semibold text-slate-900 mb-2">{tool.title}</h2>
-                <p className="text-xs text-slate-600">{tool.description}</p>
-              </div>
-            </Card>
-          </a>
+      <div className="space-y-10">
+        {subcategories.map((subcategory) => (
+          <section key={subcategory.label}>
+            <h2 className="text-xl font-semibold text-slate-900 mb-4">{subcategory.label}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {subcategory.items.map((tool) => (
+                <a key={tool.path} href={tool.path}>
+                  <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
+                    <div className="flex flex-col items-center text-center">
+                      <span className="material-symbols-outlined text-3xl text-blue-600 mb-3">
+                        {tool.icon}
+                      </span>
+                      <h3 className="text-base font-semibold text-slate-900 mb-2">{tool.title}</h3>
+                      <p className="text-xs text-slate-600">{tool.description}</p>
+                    </div>
+                  </Card>
+                </a>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
     </div>

@@ -13,6 +13,17 @@ interface NavCategory {
   items: NavItem[];
 }
 
+interface NavSubcategory {
+  label: string;
+  items: NavItem[];
+}
+
+interface TopLevelNavCategory {
+  label: string;
+  path: string;
+  subcategories: NavSubcategory[];
+}
+
 const currentPath = Astro.url.pathname;
 
 const normalizeLabel = (title: string): string => title.replace(/\s+Calculator$/i, '').trim();
@@ -174,7 +185,7 @@ const navCategoriesBase: NavCategory[] = [
   },
 ];
 
-const navCategories: NavCategory[] = navCategoriesBase.map((category) => {
+const legacyNavCategories: NavCategory[] = navCategoriesBase.map((category) => {
   let generatedItems: NavItem[] = [];
 
   if (category.path === '/loans') {
@@ -195,16 +206,195 @@ const navCategories: NavCategory[] = navCategoriesBase.map((category) => {
   };
 });
 
+const legacyItemsByPath = new Map(legacyNavCategories.map((category) => [category.path, category.items]));
+
+const getLegacyItems = (path: string): NavItem[] => legacyItemsByPath.get(path) ?? [];
+
+const buildSubcategories = (
+  pool: NavItem[],
+  definitions: Array<{ label: string; matcher: (item: NavItem) => boolean }>
+): NavSubcategory[] => {
+  let remaining = sortItemsAlphabetically(uniqueItems(pool));
+
+  const subcategories = definitions.map((definition) => {
+    const matched = remaining.filter(definition.matcher);
+    const matchedPaths = new Set(matched.map((item) => item.path));
+    remaining = remaining.filter((item) => !matchedPaths.has(item.path));
+
+    return {
+      label: definition.label,
+      items: sortItemsAlphabetically(uniqueItems(matched)),
+    };
+  });
+
+  if (remaining.length > 0 && subcategories.length > 0) {
+    const lastIndex = subcategories.length - 1;
+    subcategories[lastIndex] = {
+      ...subcategories[lastIndex],
+      items: sortItemsAlphabetically(uniqueItems([...subcategories[lastIndex].items, ...remaining])),
+    };
+  }
+
+  return subcategories.filter((subcategory) => subcategory.items.length > 0);
+};
+
+const staticConvertersItems = navCategoriesBase.find((category) => category.path === '/converters')?.items ?? [];
+
+const conversionBaseItems = staticConvertersItems.filter((item) =>
+  /(weather|temperature|weight|height|distance|length|speed|volume|area|time|time-duration|cooking-converter|power-converter|file-size)/.test(item.path)
+);
+
+const conversionPool = uniqueItems([...conversionBaseItems, ...makeGeneratedItems(['converters'])]);
+
+const toolsPool = uniqueItems([
+  ...makeGeneratedItems(['percentages', 'time']),
+  ...staticConvertersItems.filter((item) =>
+    /(percent|percentage|date-difference|work-hours|business-days|countdown|week-number|time-zone|climbing-grade)/.test(item.path)
+  ),
+  ...getLegacyItems('/budgeting').filter((item) => /(cost-of-living|discount|budget|expense|profit|break-even)/.test(item.path)),
+  ...getLegacyItems('/savings-investment').filter((item) => /(emergency-fund)/.test(item.path)),
+]);
+
+const topLevelNav: TopLevelNavCategory[] = [
+  {
+    label: 'Money',
+    path: '/money',
+    subcategories: buildSubcategories(
+      uniqueItems([...getLegacyItems('/budgeting'), ...getLegacyItems('/savings-investment')]),
+      [
+        {
+          label: 'Income & Paychecks',
+          matcher: (item) =>
+            /(income|salary|hourly|pay|1099|w2|commission|bonus|severance|freelance)/.test(item.path),
+        },
+        {
+          label: 'Budgeting',
+          matcher: (item) => /(budget|cost-of-living|expense|net-worth|cash-flow|unit-price)/.test(item.path),
+        },
+        {
+          label: 'Debt & Credit',
+          matcher: (item) => /(debt|credit|utilization|consolidation|balance-transfer|payoff)/.test(item.path),
+        },
+        {
+          label: 'Taxes',
+          matcher: (item) => /(tax|after-tax|self-employment)/.test(item.path),
+        },
+        {
+          label: 'Retirement',
+          matcher: (item) => /(retirement|401k|ira|required-minimum-distribution|roth|traditional)/.test(item.path),
+        },
+        {
+          label: 'Savings & Investing',
+          matcher: (item) =>
+            /(savings|interest|investment|inflation|roi|return|portfolio|stock|dividend|cd|annuity|future-value|present-value|rule-of-72|capital-gains)/.test(item.path),
+        },
+      ]
+    ),
+  },
+  {
+    label: 'Loans & Home',
+    path: '/loans',
+    subcategories: buildSubcategories(getLegacyItems('/loans'), [
+      {
+        label: 'Mortgage',
+        matcher: (item) => /(mortgage|pmi|amortization|loan-payment-calculator|loan-term)/.test(item.path),
+      },
+      {
+        label: 'Refinance',
+        matcher: (item) => /(refinance)/.test(item.path),
+      },
+      {
+        label: 'Personal / Auto / Student Loans',
+        matcher: (item) => /(personal-loan|auto-loan|student-loan|business-loan|loan$)/.test(item.path),
+      },
+      {
+        label: 'Affordability',
+        matcher: (item) => /(affordability)/.test(item.path),
+      },
+      {
+        label: 'Home Equity',
+        matcher: (item) => /(heloc|home-equity|home-appreciation)/.test(item.path),
+      },
+      {
+        label: 'Rent vs Buy',
+        matcher: (item) => /(rent-vs-buy|rent-vs-invest|rent-increase|rental-yield|rental-cash-flow)/.test(item.path),
+      },
+      {
+        label: 'Property Costs',
+        matcher: (item) => /(property-tax|closing-cost|down-payment|property-value-estimator)/.test(item.path),
+      },
+    ]),
+  },
+  {
+    label: 'Health & Fitness',
+    path: '/health',
+    subcategories: buildSubcategories(getLegacyItems('/health'), [
+      {
+        label: 'Body Metrics',
+        matcher: (item) => /(bmi|body-fat|lean-body-mass|ideal-weight|bmr|vo2-max)/.test(item.path),
+      },
+      {
+        label: 'Nutrition',
+        matcher: (item) => /(calories|protein|water|tdee|macro|calorie-deficit|resting-metabolic-rate|tip)/.test(item.path),
+      },
+      {
+        label: 'Activity & Performance',
+        matcher: (item) =>
+          /(bike|cycling|hiking|pace|heart-rate|one-rep-max|steps-to-miles|tire-pressure|fuel-efficiency|sleep|running-calories-burned|trail-elevation-gain|gpa|age|pregnancy-due-date)/.test(item.path),
+      },
+    ]),
+  },
+  {
+    label: 'Conversions',
+    path: '/converters',
+    subcategories: buildSubcategories(conversionPool, [
+      {
+        label: 'Unit Converters',
+        matcher: (item) =>
+          /(weight|height|distance|length|speed|volume|area|power-converter|file-size|cooking-converter|voltage|density|pressure)/.test(item.path),
+      },
+      {
+        label: 'Temperature',
+        matcher: (item) => /(weather|temperature-feels-like)/.test(item.path),
+      },
+      {
+        label: 'Time & Date',
+        matcher: (item) => /(time|date|hours-to-days|months-between-dates|days-until)/.test(item.path),
+      },
+      {
+        label: 'Percentage Conversions',
+        matcher: (item) => /(percentage-of-a-number|what-percent-of-x-is-y|fraction-to-percent|percent-to-fraction|percentage$)/.test(item.path),
+      },
+    ]),
+  },
+  {
+    label: 'Tools & Planning',
+    path: '/tools-planning',
+    subcategories: buildSubcategories(toolsPool, [
+      {
+        label: 'Percentage & Change',
+        matcher: (item) => /(percent|percentage|margin|markup|discount|break-even|profit)/.test(item.path),
+      },
+      {
+        label: 'Work & Business Time',
+        matcher: (item) =>
+          /(work-hours|business-days|countdown|week-number|time-zone|workdays-between-dates|time-card|hours-worked|days-until|months-between-dates|hours-to-days)/.test(item.path),
+      },
+      {
+        label: 'Cost of Living & Planning',
+        matcher: (item) => /(cost-of-living|emergency-fund|budget|expense|cash-flow|climbing-grade)/.test(item.path),
+      },
+    ]),
+  },
+];
+
 const isActive = (path: string) => currentPath === path;
 const isCategoryActive = (items: NavItem[]) => items.some((item) => isActive(item.path));
-
-const getDesktopDropdownColumns = (): number => 3;
+const isTopLevelCategoryActive = (category: TopLevelNavCategory) =>
+  isActive(category.path) || category.subcategories.some((subcategory) => isCategoryActive(subcategory.items));
 
 const getDesktopDropdownStyle = (): string => {
-  const columns = getDesktopDropdownColumns();
-  const columnWidth = 220;
-  const width = columns * columnWidth;
-  return `display: grid; grid-template-columns: repeat(${columns}, ${columnWidth}px); gap: 0.5rem; width: min(${width}px, calc(100vw - 2rem)); max-width: calc(100vw - 2rem); max-height: min(80vh, 700px); overflow-y: auto; overflow-x: hidden;`;
+  return 'width: min(700px, calc(100vw - 2rem)); max-width: calc(100vw - 2rem); max-height: min(80vh, 700px); overflow-y: auto; overflow-x: hidden;';
 };
 ---
 
@@ -232,11 +422,11 @@ const getDesktopDropdownStyle = (): string => {
           >
             Home
           </a>
-          {navCategories.map((category, idx) => (
-            <details class="mt-2 mobile-nav-accordion group" data-idx={idx}>
+          {topLevelNav.map((category, idx) => (
+            <details class="mt-2 mobile-nav-accordion group" data-top-level-index={idx}>
               <summary
                 class={`list-none px-4 py-3 rounded-md text-base font-medium cursor-pointer flex items-center justify-between ${
-                  isActive(category.path) || isCategoryActive(category.items)
+                  isTopLevelCategoryActive(category)
                     ? 'bg-blue-100 text-blue-700'
                     : 'text-slate-700 hover:bg-slate-100'
                 }`}
@@ -248,7 +438,7 @@ const getDesktopDropdownStyle = (): string => {
               <div class="mt-2 ml-3 border-l-2 border-blue-200">
                 <a
                   href={category.path}
-                  class={`block px-4 py-2 text-base font-semibold ${
+                  class={`block px-4 py-2 text-base font-semibold mb-2 ${
                     isActive(category.path)
                       ? 'bg-blue-50 text-blue-700'
                       : 'text-blue-600 hover:bg-blue-50'
@@ -256,17 +446,27 @@ const getDesktopDropdownStyle = (): string => {
                 >
                   View All {category.label}
                 </a>
-                {category.items.map((item) => (
-                  <a
-                    href={item.path}
-                    class={`block min-h-10 px-4 py-2 text-base leading-snug ${
-                      isActive(item.path)
-                        ? 'bg-blue-50 text-blue-700 font-semibold'
-                        : 'text-slate-700 hover:bg-slate-100'
-                    }`}
-                  >
-                    {item.label}
-                  </a>
+                {category.subcategories.map((subcategory, subIndex) => (
+                  <details class="mobile-subcategory group mb-2" data-subcategory-index={subIndex}>
+                    <summary class="list-none px-4 py-2 rounded-md text-sm font-semibold text-slate-700 hover:bg-slate-100 cursor-pointer flex items-center justify-between">
+                      {subcategory.label}
+                      <span class="material-symbols-outlined text-base group-open:rotate-180 transition-transform duration-200">expand_more</span>
+                    </summary>
+                    <div class="mt-1 mb-2 pl-3 border-l border-slate-200">
+                      {subcategory.items.map((item) => (
+                        <a
+                          href={item.path}
+                          class={`block min-h-10 px-4 py-2 text-base leading-snug ${
+                            isActive(item.path)
+                              ? 'bg-blue-50 text-blue-700 font-semibold'
+                              : 'text-slate-700 hover:bg-slate-100'
+                          }`}
+                        >
+                          {item.label}
+                        </a>
+                      ))}
+                    </div>
+                  </details>
                 ))}
               </div>
             </details>
@@ -276,19 +476,73 @@ const getDesktopDropdownStyle = (): string => {
           document.addEventListener('DOMContentLoaded', () => {
             const root = document.getElementById('mobile-nav');
             if (!root) return;
-            // Accordion logic
-            root.querySelectorAll('.mobile-nav-accordion').forEach((details, idx, all) => {
+
+            const topLevelAccordions = Array.from(root.querySelectorAll('.mobile-nav-accordion'));
+
+            topLevelAccordions.forEach((details, idx) => {
               const summary = details.querySelector('summary');
-              summary.addEventListener('click', (e) => {
-                e.preventDefault();
-                all.forEach((el, i) => {
-                  el.open = (i === idx) ? !details.open : false;
+              if (!summary) return;
+
+              summary.addEventListener('click', (event) => {
+                event.preventDefault();
+                const shouldOpen = !details.open;
+                topLevelAccordions.forEach((accordion) => {
+                  accordion.open = false;
+                });
+                details.open = shouldOpen;
+              });
+
+              const subcategoryAccordions = Array.from(details.querySelectorAll('.mobile-subcategory'));
+
+              subcategoryAccordions.forEach((subcategoryDetails) => {
+                const subcategorySummary = subcategoryDetails.querySelector('summary');
+                if (!subcategorySummary) return;
+
+                subcategorySummary.addEventListener('click', (event) => {
+                  event.preventDefault();
+                  const shouldOpen = !subcategoryDetails.open;
+                  subcategoryAccordions.forEach((accordion) => {
+                    accordion.open = false;
+                  });
+                  subcategoryDetails.open = shouldOpen;
                 });
               });
             });
-            // Escape key closes mobile nav
-            document.addEventListener('keydown', (e) => {
-              if (e.key === 'Escape' && root.open) {
+
+            document.querySelectorAll('[data-desktop-group]').forEach((groupElement) => {
+              const tabs = Array.from(groupElement.querySelectorAll('.desktop-subcategory-tab'));
+              const panels = Array.from(groupElement.querySelectorAll('.desktop-subcategory-panel'));
+
+              const setActiveTab = (activeIndex) => {
+                tabs.forEach((tab) => {
+                  const tabIndex = Number(tab.getAttribute('data-sub-index'));
+                  const isActive = tabIndex === activeIndex;
+                  tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                  tab.classList.toggle('bg-blue-100', isActive);
+                  tab.classList.toggle('text-blue-700', isActive);
+                  tab.classList.toggle('bg-slate-100', !isActive);
+                  tab.classList.toggle('text-slate-700', !isActive);
+                  tab.classList.toggle('hover:bg-slate-200', !isActive);
+                });
+
+                panels.forEach((panel) => {
+                  const panelIndex = Number(panel.getAttribute('data-sub-panel-index'));
+                  panel.classList.toggle('hidden', panelIndex !== activeIndex);
+                });
+              };
+
+              tabs.forEach((tab) => {
+                tab.addEventListener('click', () => {
+                  const tabIndex = Number(tab.getAttribute('data-sub-index'));
+                  setActiveTab(tabIndex);
+                });
+              });
+
+              setActiveTab(0);
+            });
+
+            document.addEventListener('keydown', (event) => {
+              if (event.key === 'Escape' && root.open) {
                 root.open = false;
               }
             });
@@ -313,12 +567,12 @@ const getDesktopDropdownStyle = (): string => {
           </a>
         </li>
         
-        {navCategories.map((category, index) => (
-          <li class="relative group">
+        {topLevelNav.map((category, index) => (
+          <li class="relative group" data-desktop-group>
             <a
               href={category.path}
               class={`px-4 py-2 h-10 rounded-md font-medium text-sm transition-colors flex items-center gap-1 whitespace-nowrap ${
-                isActive(category.path) || isCategoryActive(category.items)
+                isTopLevelCategoryActive(category)
                   ? 'bg-blue-100 text-blue-700'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
@@ -337,17 +591,54 @@ const getDesktopDropdownStyle = (): string => {
               }`}
               style={getDesktopDropdownStyle()}
             >
-              {category.items.map((item) => (
-                <a
-                  href={item.path}
-                  class={`block min-h-10 px-4 py-2 text-sm leading-snug transition-colors rounded-md break-inside-avoid mb-1 ${
-                    isActive(item.path)
-                      ? 'bg-blue-50 text-blue-700 font-semibold'
-                      : 'text-slate-700 hover:bg-slate-50'
-                  }`}
-                >
-                  {item.label}
+              <div class="flex items-center justify-between gap-3 mb-3">
+                <div class="flex flex-wrap gap-2" role="tablist" aria-label={`${category.label} subcategories`}>
+                  {category.subcategories.map((subcategory, subIndex) => (
+                    <button
+                      type="button"
+                      class={`desktop-subcategory-tab px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
+                        subIndex === 0
+                          ? 'bg-blue-100 text-blue-700'
+                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      }`}
+                      role="tab"
+                      aria-selected={subIndex === 0 ? 'true' : 'false'}
+                      aria-controls={`desktop-subcategory-panel-${index}-${subIndex}`}
+                      id={`desktop-subcategory-tab-${index}-${subIndex}`}
+                      data-sub-index={subIndex}
+                    >
+                      {subcategory.label}
+                    </button>
+                  ))}
+                </div>
+                <a href={category.path} class="text-xs font-semibold text-blue-700 hover:text-blue-800 whitespace-nowrap">
+                  View All
                 </a>
+              </div>
+
+              {category.subcategories.map((subcategory, subIndex) => (
+                <div
+                  id={`desktop-subcategory-panel-${index}-${subIndex}`}
+                  class={`desktop-subcategory-panel columns-1 md:columns-2 lg:columns-3 [column-gap:0.5rem] ${
+                    subIndex === 0 ? '' : 'hidden'
+                  }`}
+                  role="tabpanel"
+                  aria-labelledby={`desktop-subcategory-tab-${index}-${subIndex}`}
+                  data-sub-panel-index={subIndex}
+                >
+                  {subcategory.items.map((item) => (
+                    <a
+                      href={item.path}
+                      class={`block min-h-10 px-4 py-2 text-sm leading-snug transition-colors rounded-md break-inside-avoid mb-1 ${
+                        isActive(item.path)
+                          ? 'bg-blue-50 text-blue-700 font-semibold'
+                          : 'text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
               ))}
             </div>
           </li>
