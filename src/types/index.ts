@@ -498,17 +498,24 @@ export interface DistanceConvertOutput {
 }
 
 // Cooking Converter
+export type CookingUnit = 'cups' | 'tbsp' | 'tsp' | 'ml' | 'flOz' | 'grams' | 'oz' | 'lb';
+
 export interface CookingConvertInput {
   value: number;
-  fromUnit: 'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp';
+  fromUnit: CookingUnit;
+  toUnit?: CookingUnit;
   ingredient: string;
 }
 
 export interface CookingConvertOutput {
+  converted: number;
+  toUnit: CookingUnit;
   cups: number;
   grams: number;
   ml: number;
   oz: number;
+  lb: number;
+  flOz: number;
   tbsp: number;
   tsp: number;
 }

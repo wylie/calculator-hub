@@ -975,24 +975,74 @@ export function convertDistance(input: DistanceConvertInput): DistanceConvertOut
 
 // Cooking Converter
 export function convertCooking(input: CookingConvertInput): CookingConvertOutput {
-  const fromUnitToCups = {
-    cups: (value: number) => value,
-    grams: (value: number) => value / 236.6,
-    ml: (value: number) => value / 236.6,
-    oz: (value: number) => value / 8,
-    tbsp: (value: number) => value / 16,
-    tsp: (value: number) => value / 48,
+  const densityByIngredientGramsPerMl: Record<string, number> = {
+    'all-purpose flour': 120 / 236.6,
+    sugar: 200 / 236.6,
+    butter: 227 / 236.6,
+    milk: 245 / 236.6,
+    water: 1,
+    honey: 340 / 236.6,
+    oil: 218 / 236.6,
   };
 
-  const baseCups = fromUnitToCups[input.fromUnit](input.value);
+  const gramsPerMl = densityByIngredientGramsPerMl[input.ingredient] ?? 1;
+
+  const volumeFromUnitToMl: Record<'cups' | 'tbsp' | 'tsp' | 'ml' | 'flOz', (value: number) => number> = {
+    cups: (value) => value * 236.588,
+    tbsp: (value) => value * 14.7868,
+    tsp: (value) => value * 4.92892,
+    ml: (value) => value,
+    flOz: (value) => value * 29.5735,
+  };
+
+  const weightFromUnitToGrams: Record<'grams' | 'oz' | 'lb', (value: number) => number> = {
+    grams: (value) => value,
+    oz: (value) => value * 28.3495,
+    lb: (value) => value * 453.592,
+  };
+
+  const isVolumeUnit = (unit: string): unit is 'cups' | 'tbsp' | 'tsp' | 'ml' | 'flOz' =>
+    unit === 'cups' || unit === 'tbsp' || unit === 'tsp' || unit === 'ml' || unit === 'flOz';
+
+  const isWeightUnit = (unit: string): unit is 'grams' | 'oz' | 'lb' =>
+    unit === 'grams' || unit === 'oz' || unit === 'lb';
+
+  let totalMl = 0;
+  let totalGrams = 0;
+
+  if (isVolumeUnit(input.fromUnit)) {
+    totalMl = volumeFromUnitToMl[input.fromUnit](input.value);
+    totalGrams = totalMl * gramsPerMl;
+  } else if (isWeightUnit(input.fromUnit)) {
+    totalGrams = weightFromUnitToGrams[input.fromUnit](input.value);
+    totalMl = gramsPerMl > 0 ? totalGrams / gramsPerMl : 0;
+  }
+
+  const outputsByUnit = {
+    cups: totalMl / 236.588,
+    tbsp: totalMl / 14.7868,
+    tsp: totalMl / 4.92892,
+    ml: totalMl,
+    flOz: totalMl / 29.5735,
+    grams: totalGrams,
+    oz: totalGrams / 28.3495,
+    lb: totalGrams / 453.592,
+  };
+
+  const toUnit = input.toUnit ?? 'grams';
+  const converted = outputsByUnit[toUnit] ?? 0;
 
   return {
-    cups: Math.round(baseCups * 1000) / 1000,
-    grams: Math.round(baseCups * 236.6 * 1000) / 1000,
-    ml: Math.round(baseCups * 236.6 * 1000) / 1000,
-    oz: Math.round(baseCups * 8 * 1000) / 1000,
-    tbsp: Math.round(baseCups * 16 * 1000) / 1000,
-    tsp: Math.round(baseCups * 48 * 1000) / 1000,
+    converted: Math.round(converted * 1000) / 1000,
+    toUnit,
+    cups: Math.round(outputsByUnit.cups * 1000) / 1000,
+    grams: Math.round(outputsByUnit.grams * 1000) / 1000,
+    ml: Math.round(outputsByUnit.ml * 1000) / 1000,
+    oz: Math.round(outputsByUnit.oz * 1000) / 1000,
+    lb: Math.round(outputsByUnit.lb * 1000) / 1000,
+    flOz: Math.round(outputsByUnit.flOz * 1000) / 1000,
+    tbsp: Math.round(outputsByUnit.tbsp * 1000) / 1000,
+    tsp: Math.round(outputsByUnit.tsp * 1000) / 1000,
   };
 }
 

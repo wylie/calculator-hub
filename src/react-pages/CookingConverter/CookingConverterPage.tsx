@@ -58,7 +58,8 @@ export default function CookingConverterPage() {
     analytics.trackCalculatorView('cooking-converter');
   }, []);
   const [value, setValue] = useStickyState('cookingConverter-value', '1');
-  const [fromUnit, setFromUnit] = useStickyState<'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp'>('cookingConverter-unit', 'cups');
+  const [fromUnit, setFromUnit] = useStickyState<'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp' | 'flOz' | 'lb'>('cookingConverter-unit', 'cups');
+  const [toUnit, setToUnit] = useStickyState<'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp' | 'flOz' | 'lb'>('cookingConverter-toUnit', 'grams');
   const [ingredient, setIngredient] = useStickyState('cookingConverter-ingredient', 'all-purpose flour');
 
   const parsedValue = parseAmount(value);
@@ -67,14 +68,26 @@ export default function CookingConverterPage() {
   const result = convertCooking({
     value: Number.isFinite(parsedValue) ? parsedValue : 0,
     fromUnit,
+    toUnit,
     ingredient,
   });
+
+  const unitLabels: Record<string, string> = {
+    cups: 'cups',
+    tbsp: 'tbsp',
+    tsp: 'tsp',
+    ml: 'ml',
+    flOz: 'fl oz',
+    grams: 'g',
+    oz: 'oz',
+    lb: 'lb',
+  };
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Cooking Converter</h1>
-        <p className="text-gray-600">Convert cooking measurements across cups, grams, milliliters, and ounces</p>
+        <p className="text-gray-600">Convert between common cooking volume and weight units with ingredient-aware results</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -93,14 +106,31 @@ export default function CookingConverterPage() {
             <Select
               label="From Unit"
               value={fromUnit}
-              onChange={(val) => setFromUnit(val as 'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp')}
+              onChange={(val) => setFromUnit(val as 'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp' | 'flOz' | 'lb')}
               options={[
                 { value: 'cups', label: 'Cups' },
                 { value: 'tbsp', label: 'Tablespoons (tbsp)' },
                 { value: 'tsp', label: 'Teaspoons (tsp)' },
                 { value: 'grams', label: 'Grams (g)' },
                 { value: 'ml', label: 'Milliliters (ml)' },
+                { value: 'flOz', label: 'Fluid Ounces (fl oz)' },
                 { value: 'oz', label: 'Ounces (oz)' },
+                { value: 'lb', label: 'Pounds (lb)' },
+              ]}
+            />
+            <Select
+              label="To Unit"
+              value={toUnit}
+              onChange={(val) => setToUnit(val as 'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp' | 'flOz' | 'lb')}
+              options={[
+                { value: 'cups', label: 'Cups' },
+                { value: 'tbsp', label: 'Tablespoons (tbsp)' },
+                { value: 'tsp', label: 'Teaspoons (tsp)' },
+                { value: 'grams', label: 'Grams (g)' },
+                { value: 'ml', label: 'Milliliters (ml)' },
+                { value: 'flOz', label: 'Fluid Ounces (fl oz)' },
+                { value: 'oz', label: 'Ounces (oz)' },
+                { value: 'lb', label: 'Pounds (lb)' },
               ]}
             />
             <Select
@@ -124,6 +154,10 @@ export default function CookingConverterPage() {
           <Card className="bg-blue-50">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Results</h3>
             <div className="space-y-3">
+              <div className="bg-white p-4 rounded border border-blue-300">
+                <p className="text-sm text-gray-600">Converted ({toUnit})</p>
+                <p className="text-xl font-bold text-blue-700">{result.converted.toFixed(3)} {unitLabels[toUnit]}</p>
+              </div>
               <div className="bg-white p-4 rounded border border-blue-200">
                 <p className="text-sm text-gray-600">Cups</p>
                 <p className="text-lg font-semibold text-blue-600">{result.cups.toFixed(2)} cups</p>
@@ -137,8 +171,16 @@ export default function CookingConverterPage() {
                 <p className="text-lg font-semibold text-blue-600">{result.ml.toFixed(1)} ml</p>
               </div>
               <div className="bg-white p-4 rounded border border-blue-200">
+                <p className="text-sm text-gray-600">Fluid Ounces</p>
+                <p className="text-lg font-semibold text-blue-600">{result.flOz.toFixed(2)} fl oz</p>
+              </div>
+              <div className="bg-white p-4 rounded border border-blue-200">
                 <p className="text-sm text-gray-600">Ounces</p>
                 <p className="text-lg font-semibold text-blue-600">{result.oz.toFixed(2)} oz</p>
+              </div>
+              <div className="bg-white p-4 rounded border border-blue-200">
+                <p className="text-sm text-gray-600">Pounds</p>
+                <p className="text-lg font-semibold text-blue-600">{result.lb.toFixed(3)} lb</p>
               </div>
               <div className="bg-white p-4 rounded border border-blue-200">
                 <p className="text-sm text-gray-600">Tablespoons</p>

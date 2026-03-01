@@ -118,20 +118,47 @@ describe('convertCooking', () => {
     const result = convertCooking({
       value: 0.25,
       fromUnit: 'cups',
+      toUnit: 'tbsp',
       ingredient: 'all-purpose flour',
     });
 
     expect(result.tbsp).toBeCloseTo(4, 3);
     expect(result.tsp).toBeCloseTo(12, 3);
+    expect(result.converted).toBeCloseTo(4, 3);
   });
 
   it('converts tablespoons to cups correctly', () => {
     const result = convertCooking({
       value: 8,
       fromUnit: 'tbsp',
+      toUnit: 'cups',
       ingredient: 'water',
     });
 
     expect(result.cups).toBeCloseTo(0.5, 3);
+    expect(result.converted).toBeCloseTo(0.5, 3);
+  });
+
+  it('converts volume to weight based on ingredient density', () => {
+    const result = convertCooking({
+      value: 1,
+      fromUnit: 'cups',
+      toUnit: 'grams',
+      ingredient: 'sugar',
+    });
+
+    expect(result.converted).toBeGreaterThan(190);
+    expect(result.converted).toBeLessThan(210);
+  });
+
+  it('converts weight to volume based on ingredient density', () => {
+    const result = convertCooking({
+      value: 120,
+      fromUnit: 'grams',
+      toUnit: 'cups',
+      ingredient: 'all-purpose flour',
+    });
+
+    expect(result.converted).toBeCloseTo(1, 1);
   });
 });
