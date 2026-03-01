@@ -22,7 +22,7 @@ export default function AffiliateBox({
   description,
   buttonText,
   href,
-  iconName = 'shopping_cart',
+  iconName = 'editor_choice',
 }: AffiliateBoxProps) {
   const resolvedPageUrl = normalizePath(pageUrl ?? (typeof window !== 'undefined' ? window.location.pathname : ''));
 
@@ -38,7 +38,7 @@ export default function AffiliateBox({
   const resolvedDescription = lookup?.description ?? description;
   const resolvedButtonText = lookup?.buttonText ?? buttonText;
   const resolvedHref = lookup?.href ?? href;
-  const resolvedIconName = lookup?.iconName ?? iconName;
+  const resolvedIconName = iconName;
 
   if (!resolvedTitle || !resolvedDescription || !resolvedButtonText || !resolvedHref) {
     return null;
