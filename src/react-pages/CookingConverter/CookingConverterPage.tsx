@@ -8,16 +8,64 @@ import RelatedTools from '../../components/RelatedTools';
 import { convertCooking } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
 
+const FRACTION_CHAR_MAP: Record<string, string> = {
+  '¼': '1/4',
+  '½': '1/2',
+  '¾': '3/4',
+  '⅓': '1/3',
+  '⅔': '2/3',
+  '⅛': '1/8',
+  '⅜': '3/8',
+  '⅝': '5/8',
+  '⅞': '7/8',
+};
+
+const parseAmount = (rawValue: string): number => {
+  const normalized = rawValue
+    .trim()
+    .replace(/[¼½¾⅓⅔⅛⅜⅝⅞]/g, (fractionChar) => FRACTION_CHAR_MAP[fractionChar] ?? fractionChar)
+    .replace(/\s+/g, ' ');
+
+  if (!normalized) return 0;
+
+  if (/^\d*\.?\d+$/.test(normalized)) {
+    const numeric = Number.parseFloat(normalized);
+    return Number.isFinite(numeric) ? numeric : Number.NaN;
+  }
+
+  const mixedMatch = normalized.match(/^(\d+)\s+(\d+)\/(\d+)$/);
+  if (mixedMatch) {
+    const whole = Number.parseFloat(mixedMatch[1]);
+    const numerator = Number.parseFloat(mixedMatch[2]);
+    const denominator = Number.parseFloat(mixedMatch[3]);
+    if (denominator === 0) return Number.NaN;
+    return whole + numerator / denominator;
+  }
+
+  const fractionMatch = normalized.match(/^(\d+)\/(\d+)$/);
+  if (fractionMatch) {
+    const numerator = Number.parseFloat(fractionMatch[1]);
+    const denominator = Number.parseFloat(fractionMatch[2]);
+    if (denominator === 0) return Number.NaN;
+    return numerator / denominator;
+  }
+
+  return Number.NaN;
+};
+
 export default function CookingConverterPage() {
   useEffect(() => {
     analytics.trackCalculatorView('cooking-converter');
   }, []);
   const [value, setValue] = useStickyState('cookingConverter-value', '1');
-  const [fromUnit, setFromUnit] = useStickyState<'cups' | 'grams' | 'ml' | 'oz'>('cookingConverter-unit', 'cups');
+  const [fromUnit, setFromUnit] = useStickyState<'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp'>('cookingConverter-unit', 'cups');
   const [ingredient, setIngredient] = useStickyState('cookingConverter-ingredient', 'all-purpose flour');
 
+  const parsedValue = parseAmount(value);
+  const hasValueError = value.trim().length > 0 && Number.isNaN(parsedValue);
+
   const result = convertCooking({
-    value: parseFloat(value) || 0,
+    value: Number.isFinite(parsedValue) ? parsedValue : 0,
     fromUnit,
     ingredient,
   });
@@ -37,15 +85,19 @@ export default function CookingConverterPage() {
               label="Amount"
               value={value}
               onChange={setValue}
-              type="number"
-              step="0.1"
+              type="text"
+              placeholder="e.g. 1/4, 0.5, 2"
+              helpText="Supports decimals and fractions (example: 1/4 or 1 1/2)"
+              error={hasValueError ? 'Enter a valid number or fraction (for example: 1/4)' : ''}
             />
             <Select
               label="From Unit"
               value={fromUnit}
-              onChange={(val) => setFromUnit(val as 'cups' | 'grams' | 'ml' | 'oz')}
+              onChange={(val) => setFromUnit(val as 'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp')}
               options={[
                 { value: 'cups', label: 'Cups' },
+                { value: 'tbsp', label: 'Tablespoons (tbsp)' },
+                { value: 'tsp', label: 'Teaspoons (tsp)' },
                 { value: 'grams', label: 'Grams (g)' },
                 { value: 'ml', label: 'Milliliters (ml)' },
                 { value: 'oz', label: 'Ounces (oz)' },
@@ -88,6 +140,14 @@ export default function CookingConverterPage() {
                 <p className="text-sm text-gray-600">Ounces</p>
                 <p className="text-lg font-semibold text-blue-600">{result.oz.toFixed(2)} oz</p>
               </div>
+              <div className="bg-white p-4 rounded border border-blue-200">
+                <p className="text-sm text-gray-600">Tablespoons</p>
+                <p className="text-lg font-semibold text-blue-600">{result.tbsp.toFixed(2)} tbsp</p>
+              </div>
+              <div className="bg-white p-4 rounded border border-blue-200">
+                <p className="text-sm text-gray-600">Teaspoons</p>
+                <p className="text-lg font-semibold text-blue-600">{result.tsp.toFixed(2)} tsp</p>
+              </div>
             </div>
           </Card>
 
@@ -105,7 +165,7 @@ export default function CookingConverterPage() {
         <Card>
           <h3 className="font-semibold mb-2 text-sm">Quick Facts</h3>
           <p className="text-sm text-gray-600">
-            1 cup = 237 ml = 8 fl oz. Different ingredients have different densities
+            1 cup = 16 tbsp = 48 tsp = 237 ml ≈ 8 fl oz. Different ingredients have different densities
           </p>
         </Card>
         <Card>

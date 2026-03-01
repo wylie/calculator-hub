@@ -4,6 +4,7 @@ import {
   convertTemperature,
   calculateCalories,
   calculateBikeGear,
+  convertCooking,
 } from './calculators';
 
 describe('calculateMortgage', () => {
@@ -109,5 +110,28 @@ describe('calculateBikeGear', () => {
     });
 
     expect(result.speedMph).toBeGreaterThan(0);
+  });
+});
+
+describe('convertCooking', () => {
+  it('converts 1/4 cup equivalent to tablespoons and teaspoons', () => {
+    const result = convertCooking({
+      value: 0.25,
+      fromUnit: 'cups',
+      ingredient: 'all-purpose flour',
+    });
+
+    expect(result.tbsp).toBeCloseTo(4, 3);
+    expect(result.tsp).toBeCloseTo(12, 3);
+  });
+
+  it('converts tablespoons to cups correctly', () => {
+    const result = convertCooking({
+      value: 8,
+      fromUnit: 'tbsp',
+      ingredient: 'water',
+    });
+
+    expect(result.cups).toBeCloseTo(0.5, 3);
   });
 });

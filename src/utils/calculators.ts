@@ -975,29 +975,24 @@ export function convertDistance(input: DistanceConvertInput): DistanceConvertOut
 
 // Cooking Converter
 export function convertCooking(input: CookingConvertInput): CookingConvertOutput {
-  // Rough conversions - can vary by ingredient
-  const conversions: Record<string, Record<string, number>> = {
-    cups: { grams: 236.6, ml: 236.6, oz: 8 },
-    grams: { cups: 0.004227, ml: 1, oz: 0.03527 },
-    ml: { cups: 0.004227, grams: 1, oz: 0.03527 },
-    oz: { cups: 0.125, grams: 28.35, ml: 28.35 },
+  const fromUnitToCups = {
+    cups: (value: number) => value,
+    grams: (value: number) => value / 236.6,
+    ml: (value: number) => value / 236.6,
+    oz: (value: number) => value / 8,
+    tbsp: (value: number) => value / 16,
+    tsp: (value: number) => value / 48,
   };
 
-  const baseCups = ['cups', 'grams', 'ml', 'oz'].reduce((acc, unit) => {
-    if (unit === input.fromUnit) {
-      if (input.fromUnit === 'cups') return input.value;
-      if (input.fromUnit === 'grams') return input.value / 236.6;
-      if (input.fromUnit === 'ml') return input.value / 236.6;
-      if (input.fromUnit === 'oz') return input.value / 8;
-    }
-    return acc;
-  }, 0);
+  const baseCups = fromUnitToCups[input.fromUnit](input.value);
 
   return {
     cups: Math.round(baseCups * 1000) / 1000,
     grams: Math.round(baseCups * 236.6 * 1000) / 1000,
     ml: Math.round(baseCups * 236.6 * 1000) / 1000,
     oz: Math.round(baseCups * 8 * 1000) / 1000,
+    tbsp: Math.round(baseCups * 16 * 1000) / 1000,
+    tsp: Math.round(baseCups * 48 * 1000) / 1000,
   };
 }
 

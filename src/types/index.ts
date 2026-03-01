@@ -500,7 +500,7 @@ export interface DistanceConvertOutput {
 // Cooking Converter
 export interface CookingConvertInput {
   value: number;
-  fromUnit: 'cups' | 'grams' | 'ml' | 'oz';
+  fromUnit: 'cups' | 'grams' | 'ml' | 'oz' | 'tbsp' | 'tsp';
   ingredient: string;
 }
 
@@ -509,6 +509,8 @@ export interface CookingConvertOutput {
   grams: number;
   ml: number;
   oz: number;
+  tbsp: number;
+  tsp: number;
 }
 
 // Power Converter
