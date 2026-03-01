@@ -4,7 +4,6 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
-import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateCalories } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -241,14 +240,6 @@ export default function CaloriesPage() {
           <AdSlot />
         </div>
       </div>
-
-      <AffiliateBox
-        title="Digital Kitchen Scale"
-        description="Accurately track your food portions with a reliable digital kitchen scale."
-        buttonText="Shop Now"
-        href="https://amzn.to/3Ms4K2Q"
-        iconName="scale"
-      />
 
       <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this calorie calculator works</h3>

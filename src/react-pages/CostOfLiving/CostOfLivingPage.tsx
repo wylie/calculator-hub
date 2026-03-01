@@ -3,7 +3,6 @@ import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
-import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateCostOfLiving } from '../../utils/calculators';
 import { formatCurrency, formatPercentage } from '../../utils/formatting';
@@ -187,14 +186,6 @@ export default function CostOfLivingPage() {
           </p>
         </Card>
       </div>
-
-      <AffiliateBox
-        title="Financial Planning Guide"
-        description="Learn how to manage your cost of living and build long-term financial stability."
-        buttonText="View Guide"
-        href="https://www.amazon.com/Total-Money-Makeover-Classic-Financial/dp/159555078X?crid=3K5L8M2N4O6P&keywords=financial+planning+books&qid=1706567890&sprefix=financial+planning%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl"
-        iconName="wallet"
-      />
 
       <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this cost of living calculator works</h3>

@@ -3,7 +3,6 @@ import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
-import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateDiscount } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -118,14 +117,6 @@ export default function DiscountPage() {
           </p>
         </Card>
       </div>
-
-      <AffiliateBox
-        title="Smart Shopping Guide"
-        description="Learn strategies to find the best deals and save money on purchases."
-        buttonText="View Guide"
-        href="https://www.amazon.com/Your-Money-or-Your-Life/dp/0143115766?crid=2K4L7M9N3O5P&keywords=smart+shopping+books&qid=1706567890&sprefix=smart+shopping%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl"
-        iconName="local_offer"
-      />
 
       <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this discount calculator works</h3>

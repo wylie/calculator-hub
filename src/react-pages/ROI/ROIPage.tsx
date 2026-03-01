@@ -3,7 +3,6 @@ import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
-import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateROI } from '../../utils/calculators';
 import { formatCurrency, formatPercentage } from '../../utils/formatting';
@@ -113,14 +112,6 @@ export default function ROIPage() {
           </p>
         </Card>
       </div>
-
-      <AffiliateBox
-        title="Investment Strategy Guide"
-        description="Learn how to build a diversified portfolio and maximize your ROI."
-        buttonText="View Guide"
-        href="https://www.amazon.com/Intelligent-Investor-Definitive-Investing-Practical/dp/0062691337?crid=5U9P3KL4YQJ0&keywords=investment+books&qid=1706567890&sprefix=investment+books%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl"
-        iconName="trending_up"
-      />
 
       <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this ROI calculator works</h3>

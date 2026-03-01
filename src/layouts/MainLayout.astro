@@ -2,6 +2,7 @@
 import '../index.css';
 import Nav from '../components/Nav.astro';
 import ConsentBanner from '../components/ConsentBanner.astro';
+import AffiliateBox from '../components/AffiliateBox';
 
 interface Props {
   title: string;
@@ -164,6 +165,7 @@ const allJsonLd = [...baseJsonLd, ...pageJsonLd];
       </header>
       <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8">
         <slot />
+        <AffiliateBox pageUrl={Astro.url.pathname} client:load />
       </main>
       <ConsentBanner />
       <footer class="border-t border-slate-200 bg-white py-6 mt-12">

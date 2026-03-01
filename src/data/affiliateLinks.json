@@ -1,0 +1,65 @@
+{
+  "/mortgage": {
+    "title": "Mortgage Reference Guide",
+    "description": "Learn about mortgage programs, terminology, and best practices.",
+    "buttonText": "View Book",
+    "href": "https://www.amazon.com/Mortgage-Encyclopedia-Authoritative-Programs-Practices/dp/0071739580?crid=3ANA7CMIUQ9UO&dib=eyJ2IjoiMSJ9.uhGlj2DRediHhbZQm-nDUX4oakeWyysKfpV76RoqUdyIyqN3cM0VoBFy9DNwAHa86ZefeYTJvNvDzWBZSlvnlRfwUjnrBMnrBcXV0BeEG_F8UhujZ52rFZv8vp_pgyxf2kmbkK9_tcy64Cj7m4Co4vyy4avPtGNg-XYCj-IoGxzapufM2weGmd8KT8c9xGN0CO7odTu38YvWhEOCq218g3qQdj0WyYDmc0hExhvApc8.d8Pibtgntm32ytdcIWItPRzH1Aa0J3eVQuxvFHZMSA0&dib_tag=se&keywords=mortgage+books&qid=1771211090&sprefix=mortgage+books%2Caps%2C293&sr=8-3&linkCode=ll2&tag=simplecalcula-20&linkId=ae487e4a199e4d85e168aa648cbd2951&language=en_US&ref_=as_li_ss_tl",
+    "iconName": "compare_arrows"
+  },
+  "/budget": {
+    "title": "Budget Planner",
+    "description": "Get a simple planner to track spending and build better habits.",
+    "buttonText": "View Planner",
+    "href": "https://amzn.to/3OiZG1h",
+    "iconName": "calculate"
+  },
+  "/calories": {
+    "title": "Digital Kitchen Scale",
+    "description": "Accurately track your food portions with a reliable digital kitchen scale.",
+    "buttonText": "Shop Now",
+    "href": "https://amzn.to/3Ms4K2Q",
+    "iconName": "scale"
+  },
+  "/discount": {
+    "title": "Smart Shopping Guide",
+    "description": "Learn strategies to find the best deals and save money on purchases.",
+    "buttonText": "View Guide",
+    "href": "https://www.amazon.com/Your-Money-or-Your-Life/dp/0143115766?crid=2K4L7M9N3O5P&keywords=smart+shopping+books&qid=1706567890&sprefix=smart+shopping%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl",
+    "iconName": "local_offer"
+  },
+  "/bike-gear": {
+    "title": "Bike Tools & Accessories",
+    "description": "Professional-grade tools to maintain and service your bikes like a pro.",
+    "buttonText": "Browse Tools",
+    "href": "https://amzn.to/4cCjN4m",
+    "iconName": "tools"
+  },
+  "/cost-of-living-calculator": {
+    "title": "Financial Planning Guide",
+    "description": "Learn how to manage your cost of living and build long-term financial stability.",
+    "buttonText": "View Guide",
+    "href": "https://www.amazon.com/Total-Money-Makeover-Classic-Financial/dp/159555078X?crid=3K5L8M2N4O6P&keywords=financial+planning+books&qid=1706567890&sprefix=financial+planning%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl",
+    "iconName": "wallet"
+  },
+  "/gpa": {
+    "title": "Academic Success Guide",
+    "description": "Learn study strategies and habits to improve your GPA and academic performance.",
+    "buttonText": "View Guide",
+    "href": "https://www.amazon.com/Peak-Performance-Elevate-Thinking-Habits/dp/0062412930?crid=1K5L8M2N3O4P&keywords=study+skills+books&qid=1706567890&sprefix=study+skills%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl",
+    "iconName": "school"
+  },
+  "/fuel-efficiency": {
+    "title": "Fuel Efficiency Guide",
+    "description": "Learn how to optimize your vehicle's performance and reduce fuel consumption.",
+    "buttonText": "View Guide",
+    "href": "https://www.amazon.com/Fuel-Management-Efficient-Driving-Increase/dp/B00YQCYVOU?crid=3I2L9K6M5N1O&keywords=fuel+efficiency+guide&qid=1706567890&sprefix=fuel+efficiency%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl",
+    "iconName": "local_gas_station"
+  },
+  "/roi": {
+    "title": "Investment Strategy Guide",
+    "description": "Learn how to build a diversified portfolio and maximize your ROI.",
+    "buttonText": "View Guide",
+    "href": "https://www.amazon.com/Intelligent-Investor-Definitive-Investing-Practical/dp/0062691337?crid=5U9P3KL4YQJ0&keywords=investment+books&qid=1706567890&sprefix=investment+books%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl",
+    "iconName": "trending_up"
+  }
+}

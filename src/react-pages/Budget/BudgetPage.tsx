@@ -3,7 +3,6 @@ import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
-import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { formatCurrency, formatPercentage } from '../../utils/formatting';
 import analytics from '../../utils/analytics';
@@ -198,14 +197,6 @@ export default function BudgetPage() {
           </p>
         </Card>
       </div>
-
-      <AffiliateBox
-        title="Budget Planner"
-        description="Get a simple planner to track spending and build better habits."
-        buttonText="View Planner"
-        href="https://amzn.to/3OiZG1h"
-        iconName="calculate"
-      />
 
       <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this budget calculator works</h3>

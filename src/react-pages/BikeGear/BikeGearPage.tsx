@@ -4,7 +4,6 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
-import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateBikeGear, calculateBikeGearCombos } from '../../utils/calculators';
 import analytics from '../../utils/analytics';
@@ -156,14 +155,6 @@ export default function BikeGearPage() {
           <AdSlot />
         </div>
       </div>
-
-      <AffiliateBox
-        title="Bike Tools & Accessories"
-        description="Professional-grade tools to maintain and service your bikes like a pro."
-        buttonText="Browse Tools"
-        href="https://amzn.to/4cCjN4m"
-        iconName="tools"
-      />
 
       <RelatedTools
         tools={[

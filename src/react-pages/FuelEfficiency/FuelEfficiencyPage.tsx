@@ -4,7 +4,6 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import AdSlot from '../../components/AdSlot';
-import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateFuelEfficiency } from '../../utils/calculators';
 import { formatCurrency } from '../../utils/formatting';
@@ -146,14 +145,6 @@ export default function FuelEfficiencyPage() {
           </p>
         </Card>
       </div>
-
-      <AffiliateBox
-        title="Fuel Efficiency Guide"
-        description="Learn how to optimize your vehicle's performance and reduce fuel consumption."
-        buttonText="View Guide"
-        href="https://www.amazon.com/Fuel-Management-Efficient-Driving-Increase/dp/B00YQCYVOU?crid=3I2L9K6M5N1O&keywords=fuel+efficiency+guide&qid=1706567890&sprefix=fuel+efficiency%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl"
-        iconName="local_gas_station"
-      />
 
       <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this fuel efficiency calculator works</h3>

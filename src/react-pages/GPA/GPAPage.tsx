@@ -3,7 +3,6 @@ import useStickyState from '../../utils/useStickyState';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import AdSlot from '../../components/AdSlot';
-import AffiliateBox from '../../components/AffiliateBox';
 import RelatedTools from '../../components/RelatedTools';
 import { calculateGPA } from '../../utils/calculators';
 import type { GradeItem } from '../../types';
@@ -182,14 +181,6 @@ export default function GPAPage() {
           </p>
         </Card>
       </div>
-
-      <AffiliateBox
-        title="Academic Success Guide"
-        description="Learn study strategies and habits to improve your GPA and academic performance."
-        buttonText="View Guide"
-        href="https://www.amazon.com/Peak-Performance-Elevate-Thinking-Habits/dp/0062412930?crid=1K5L8M2N3O4P&keywords=study+skills+books&qid=1706567890&sprefix=study+skills%2Caps%2C182&sr=8-1&linkCode=ll1&tag=simplecalcula-20&linkId=d5c4d5c5c5c5c5c5c5c5c5c5&language=en_US&ref_=as_li_ss_tl"
-        iconName="school"
-      />
 
       <Card className="mt-6">
         <h3 className="text-lg font-semibold text-slate-900 mb-3">How this GPA calculator works</h3>
