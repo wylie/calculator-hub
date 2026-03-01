@@ -30,6 +30,10 @@ const uniqueItems = (items: NavItem[]): NavItem[] => {
   return items.filter((item, index, arr) => arr.findIndex((other) => other.path === item.path) === index);
 };
 
+const sortItemsAlphabetically = (items: NavItem[]): NavItem[] => {
+  return [...items].sort((left, right) => left.label.localeCompare(right.label, undefined, { sensitivity: 'base' }));
+};
+
 const generatedLoansItems = makeGeneratedItems(['loans', 'home']);
 const generatedBudgetingItems = makeGeneratedItems(['income']);
 const generatedHealthItems = makeGeneratedItems(['health', 'outdoors']);
@@ -171,42 +175,24 @@ const navCategoriesBase: NavCategory[] = [
 ];
 
 const navCategories: NavCategory[] = navCategoriesBase.map((category) => {
+  let generatedItems: NavItem[] = [];
+
   if (category.path === '/loans') {
-    return {
-      ...category,
-      items: uniqueItems([...category.items, ...generatedLoansItems]),
-    };
+    generatedItems = generatedLoansItems;
+  } else if (category.path === '/budgeting') {
+    generatedItems = generatedBudgetingItems;
+  } else if (category.path === '/health') {
+    generatedItems = generatedHealthItems;
+  } else if (category.path === '/savings-investment') {
+    generatedItems = generatedSavingsItems;
+  } else if (category.path === '/converters') {
+    generatedItems = generatedConvertersItems;
   }
 
-  if (category.path === '/budgeting') {
-    return {
-      ...category,
-      items: uniqueItems([...category.items, ...generatedBudgetingItems]),
-    };
-  }
-
-  if (category.path === '/health') {
-    return {
-      ...category,
-      items: uniqueItems([...category.items, ...generatedHealthItems]),
-    };
-  }
-
-  if (category.path === '/savings-investment') {
-    return {
-      ...category,
-      items: uniqueItems([...category.items, ...generatedSavingsItems]),
-    };
-  }
-
-  if (category.path === '/converters') {
-    return {
-      ...category,
-      items: uniqueItems([...category.items, ...generatedConvertersItems]),
-    };
-  }
-
-  return category;
+  return {
+    ...category,
+    items: sortItemsAlphabetically(uniqueItems([...category.items, ...generatedItems])),
+  };
 });
 
 const isActive = (path: string) => currentPath === path;
